@@ -1,13 +1,10 @@
 package com.ninemova.ui
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import com.ninemova.R
+import com.ninemova.databinding.ActivityLoginBinding
+import com.ninemova.ui.base.BaseActivity
 
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login) {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
-    }
+    override fun init() {}
 }
