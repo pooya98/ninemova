@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/black"
-        android:padding="10dp"
+        android:padding="5dp"
         tools:context=".ui.community.CommunityFragment">
 
         <TextView
@@ -30,6 +30,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="15dp"
+            tools:listitem="@layout/item_comment"
             app:layoutManager="com.google.android.flexbox.FlexboxLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
