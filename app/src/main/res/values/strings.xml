@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">ninemova</string>
+    <string name="bottom_menu_home">홈</string>
+    <string name="bottom_menu_search">영화 검색</string>
+    <string name="bottom_menu_recommend">영화 추천</string>
+    <string name="bottom_menu_community">커뮤니티</string>
+    <string name="bottom_menu_my_page">마이페이지</string>
 </resources>
