@@ -1,18 +1,10 @@
 package com.ninemova.ui
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import com.ninemova.R
+import com.ninemova.databinding.FragmentMyPageBinding
+import com.ninemova.ui.base.BaseFragment
 
-class MyPageFragment : Fragment() {
+class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_page) {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_my_page, container, false)
-    }
+    override fun initView() {}
 }

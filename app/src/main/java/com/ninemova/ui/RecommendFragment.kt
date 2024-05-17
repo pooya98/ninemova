@@ -1,18 +1,10 @@
 package com.ninemova.ui
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import com.ninemova.R
+import com.ninemova.databinding.FragmentRecommendBinding
+import com.ninemova.ui.base.BaseFragment
 
-class RecommendFragment : Fragment() {
+class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragment_recommend) {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_recommend, container, false)
-    }
+    override fun initView() {}
 }
