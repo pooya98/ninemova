@@ -12,7 +12,6 @@
         tools:context=".ui.LoginActivity"
         android:background="@color/black">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
         <ImageView
             android:id="@+id/iv_logo"
             android:layout_width="match_parent"
