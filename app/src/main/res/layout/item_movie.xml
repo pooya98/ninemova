@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="imageUrl"
+            type="String" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -20,6 +23,6 @@
             android:layout_height="match_parent"
             android:scaleType="fitCenter"
             tools:src="@drawable/test_thumbnail"
-            />
+            app:imageUri="@{imageUrl}" />
     </com.google.android.material.card.MaterialCardView>
 </layout>

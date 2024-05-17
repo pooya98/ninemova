@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="com.ninemova.ui.search.SearchViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -33,6 +36,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/pretendard_bold"
                 android:hint="@string/search_text_hint"
+                android:onTextChanged="@{viewModel.onTextChanged}"
                 android:paddingStart="40dp"
                 android:textColor="@color/white" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -47,6 +51,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_input_layout_search"
+            app:movies="@{viewModel.uiState.movies}"
             app:spanCount="3"
             tools:listitem="@layout/item_movie" />
 
