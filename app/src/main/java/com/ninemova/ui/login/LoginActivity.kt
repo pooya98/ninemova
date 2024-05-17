@@ -1,11 +1,9 @@
-package com.ninemova.ui
+package com.ninemova.ui.login
 
 import android.content.Intent
-import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import com.ninemova.databinding.ActivityLoginBinding
 import com.ninemova.R
+import com.ninemova.ui.MainActivity
 import com.ninemova.ui.base.BaseActivity
 
 class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login) {
