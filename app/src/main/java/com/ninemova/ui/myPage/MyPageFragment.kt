@@ -1,4 +1,4 @@
-package com.ninemova.ui
+package com.ninemova.ui.myPage
 
 import com.ninemova.R
 import com.ninemova.databinding.FragmentMyPageBinding
