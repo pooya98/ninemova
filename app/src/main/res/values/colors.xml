@@ -4,4 +4,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="navigationBar_activateColor">#FFFFFF</color>
     <color name="navigationBar_inactivateColor">#9C9A9A</color>
+    <color name="gray">#E7C1C1</color>
 </resources>
