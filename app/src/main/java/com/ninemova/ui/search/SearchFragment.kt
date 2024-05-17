@@ -9,6 +9,7 @@ import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.ninemova.R
 import com.ninemova.databinding.FragmentSearchBinding
+import com.ninemova.ui.adapter.MovieListAdapter
 import com.ninemova.ui.base.BaseFragment
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
