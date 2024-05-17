@@ -19,14 +19,14 @@ class DetailViewModel : ViewModel() {
     fun setMovie(item: Movie) {
         _uiState.update { state ->
             state.copy(
-                movie = item
+                movie = item,
             )
         }
         viewModelScope.launch {
-            genreRepository.getGenres().collectLatest { genres ->
+            genreRepository.getGenres(item.genreIds ?: listOf()).collectLatest { genres ->
                 _uiState.update { state ->
                     state.copy(
-                        genres = genres
+                        genres = genres,
                     )
                 }
             }

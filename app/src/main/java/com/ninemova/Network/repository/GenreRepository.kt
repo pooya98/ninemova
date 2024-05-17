@@ -4,5 +4,5 @@ import com.ninemova.domain.data.Genre
 import kotlinx.coroutines.flow.Flow
 
 interface GenreRepository {
-    suspend fun getGenres(): Flow<List<Genre>>
+    suspend fun getGenres(genres: List<Int>): Flow<List<Genre>>
 }

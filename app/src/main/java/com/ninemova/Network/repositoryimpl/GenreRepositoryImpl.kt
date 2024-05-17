@@ -10,16 +10,19 @@ class GenreRepositoryImpl : GenreRepository {
 
     private val api = RetrofitUtils.genreApi
 
-    override suspend fun getGenres(): Flow<List<Genre>> = flow {
+    override suspend fun getGenres(genres: List<Int>): Flow<List<Genre>> = flow {
         runCatching {
             api.getGenres()
         }.onSuccess { response ->
             response.body()?.let { body ->
-                emit(body.genres.map { genreResponse ->
+                val filteredGenres = body.genres.filter { genreResponse ->
+                    genreResponse.id in genres
+                }.map { genreResponse ->
                     Genre(
-                        name = genreResponse.name
+                        name = genreResponse.name,
                     )
-                })
+                }
+                emit(filteredGenres)
             } ?: run {
                 emit(emptyList())
             }
