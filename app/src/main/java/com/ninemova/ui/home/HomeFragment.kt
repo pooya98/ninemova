@@ -1,22 +1,16 @@
 package com.ninemova.ui.home
 
-import android.util.Log
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.flexbox.FlexDirection
-import com.google.android.flexbox.FlexWrap
-import com.google.android.flexbox.FlexboxLayoutManager
 import com.ninemova.R
 import com.ninemova.databinding.FragmentHomeBinding
-import com.ninemova.domain.data.Comment
 import com.ninemova.domain.data.Movie
+import com.ninemova.ui.adapter.MovieListAdapter
+import com.ninemova.ui.adapter.TopMovieListAdapter
 import com.ninemova.ui.base.BaseFragment
-import com.ninemova.ui.community.CommentListAdapter
 
-private const val TAG = "HomeFragment_싸피"
 class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
     private lateinit var topMovieListAdapter: TopMovieListAdapter
-    private val popularMovieListAdapter = PopularMovieListAdapter()
+    private val popularMovieListAdapter = MovieListAdapter()
     override fun initView() {
         topMovieListAdapter = TopMovieListAdapter(topMovieItems)
         binding.viewpagerTopMovieList.adapter = topMovieListAdapter
@@ -24,8 +18,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
         with(binding.recyclerviewPopularMovieList) {
             popularMovieListAdapter.submitList(popularMovieItems.toMutableList())
-            Log.d(TAG, "initView: $popularMovieItems")
-            //layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
             adapter = popularMovieListAdapter
         }
     }
@@ -40,11 +32,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         )
 
         val popularMovieItems = listOf(
-            Movie(1, "위플래쉬"),
-            Movie(2, "위플래쉬"),
-            Movie(3, "위플래쉬"),
-            Movie(4, "위플래쉬"),
-            Movie(3, "위플래쉬"),
+            Movie(1, "위플래쉬", posterPath = "https://media.themoviedb.org/t/p/w300_and_h450_bestv2/vlHJfLsduZiILN8eYdN57kHZTcQ.jpg"),
+            Movie(2, "위플래쉬", posterPath = "https://media.themoviedb.org/t/p/w300_and_h450_bestv2/vlHJfLsduZiILN8eYdN57kHZTcQ.jpg"),
+            Movie(3, "위플래쉬", posterPath = "https://media.themoviedb.org/t/p/w300_and_h450_bestv2/vlHJfLsduZiILN8eYdN57kHZTcQ.jpg"),
+            Movie(4, "위플래쉬", posterPath = "https://media.themoviedb.org/t/p/w300_and_h450_bestv2/vlHJfLsduZiILN8eYdN57kHZTcQ.jpg"),
+            Movie(3, "위플래쉬", posterPath = "https://media.themoviedb.org/t/p/w300_and_h450_bestv2/vlHJfLsduZiILN8eYdN57kHZTcQ.jpg"),
         )
     }
 }

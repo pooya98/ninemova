@@ -5,7 +5,7 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.ninemova.domain.data.Movie
-import com.ninemova.ui.search.MovieListAdapter
+import com.ninemova.ui.adapter.MovieListAdapter
 
 @BindingAdapter("app:imageUri")
 fun ImageView.bindImageUrl(imageUri: String?) {

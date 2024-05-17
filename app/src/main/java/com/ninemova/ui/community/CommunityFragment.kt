@@ -6,6 +6,7 @@ import com.google.android.flexbox.FlexboxLayoutManager
 import com.ninemova.R
 import com.ninemova.databinding.FragmentCommunityBinding
 import com.ninemova.domain.data.Comment
+import com.ninemova.ui.adapter.CommentListAdapter
 import com.ninemova.ui.base.BaseFragment
 
 class CommunityFragment : BaseFragment<FragmentCommunityBinding>(R.layout.fragment_community) {

@@ -1,4 +1,4 @@
-package com.ninemova.ui.community
+package com.ninemova.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
