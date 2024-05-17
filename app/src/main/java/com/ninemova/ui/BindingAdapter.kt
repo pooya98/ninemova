@@ -11,9 +11,9 @@ import com.ninemova.domain.data.Genre
 import com.ninemova.domain.data.Movie
 import com.ninemova.ui.adapter.MovieListAdapter
 
-@BindingAdapter(value = ["app:imageUri", "app:imageWidth"], requireAll = false)
-fun ImageView.bindImageUrl(imageUri: String?, imageWidth: Int = 154) {
-    val url = "https://image.tmdb.org/t/p/w$imageWidth$imageUri"
+@BindingAdapter("app:imageUri")
+fun ImageView.bindImageUrl(imageUri: String?) {
+    val url = "https://image.tmdb.org/t/p/original$imageUri"
     imageUri?.let { uri ->
         Glide.with(this)
             .load(url)

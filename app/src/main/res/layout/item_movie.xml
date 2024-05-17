@@ -24,7 +24,6 @@
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
             app:imageUri="@{imageUrl}"
-            app:imageWidth="@{154}"
             tools:src="@drawable/test_thumbnail" />
     </com.google.android.material.card.MaterialCardView>
 </layout>
