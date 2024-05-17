@@ -35,7 +35,7 @@
     </fragment>
     <fragment
         android:id="@+id/myPageFragment"
-        android:name="com.ninemova.ui.MyPageFragment"
+        android:name="com.ninemova.ui.myPage.MyPageFragment"
         android:label="fragment_my_page"
         tools:layout="@layout/fragment_my_page" />
 
