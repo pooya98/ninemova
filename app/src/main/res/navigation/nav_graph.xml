@@ -17,7 +17,11 @@
         tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_home_to_detail"
-            app:destination="@id/detailFragment" />
+            app:destination="@id/detailFragment">
+            <argument
+                android:name="movie"
+                app:argType="com.ninemova.domain.data.Movie" />
+        </action>
     </fragment>
     <fragment
         android:id="@+id/recommendFragment"
@@ -31,11 +35,15 @@
         tools:layout="@layout/fragment_search">
         <action
             android:id="@+id/action_search_to_detail"
-            app:destination="@id/detailFragment" />
+            app:destination="@id/detailFragment">
+            <argument
+                android:name="movie"
+                app:argType="com.ninemova.domain.data.Movie" />
+        </action>
     </fragment>
     <fragment
         android:id="@+id/myPageFragment"
-        android:name="com.ninemova.ui.MyPageFragment"
+        android:name="com.ninemova.ui.myPage.MyPageFragment"
         android:label="fragment_my_page"
         tools:layout="@layout/fragment_my_page" />
 
@@ -43,5 +51,9 @@
         android:id="@+id/detailFragment"
         android:name="com.ninemova.ui.detail.DetailFragment"
         android:label="fragment_detail"
-        tools:layout="@layout/fragment_detail" />
+        tools:layout="@layout/fragment_detail">
+        <argument
+            android:name="movie"
+            app:argType="com.ninemova.domain.data.Movie" />
+    </fragment>
 </navigation>

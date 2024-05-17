@@ -9,10 +9,17 @@ import com.ninemova.databinding.ItemMovieBinding
 import com.ninemova.domain.data.Movie
 
 class MovieListAdapter : ListAdapter<Movie, MovieViewHolder>(diffUtil) {
+
+    private var movieClickListener: MovieClickListener? = null
+
+    fun setMovieClickListener(listener: MovieClickListener) {
+        movieClickListener = listener
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val binding =
             ItemMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return MovieViewHolder(binding)
+        return MovieViewHolder(binding, movieClickListener)
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
@@ -38,9 +45,20 @@ class MovieListAdapter : ListAdapter<Movie, MovieViewHolder>(diffUtil) {
     }
 }
 
-class MovieViewHolder(private val binding: ItemMovieBinding) :
+class MovieViewHolder(
+    private val binding: ItemMovieBinding,
+    private val movieClickListener: MovieClickListener?
+) :
     RecyclerView.ViewHolder(binding.root) {
     fun bind(item: Movie) {
         binding.imageUrl = item.posterPath
+        itemView.setOnClickListener {
+            movieClickListener?.onClick(item)
+        }
+
     }
+}
+
+interface MovieClickListener {
+    fun onClick(item: Movie)
 }
