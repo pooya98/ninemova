@@ -21,7 +21,7 @@
     </fragment>
     <fragment
         android:id="@+id/recommendFragment"
-        android:name="com.ninemova.ui.RecommendFragment"
+        android:name="com.ninemova.ui.recommend.RecommendFragment"
         android:label="fragment_recommend"
         tools:layout="@layout/fragment_recommend" />
     <fragment
