@@ -78,4 +78,9 @@ dependencies {
 
     // FlowLayout
     implementation("com.google.android.flexbox:flexbox:3.0.0")
+
+    // viewpager dot indicator
+    implementation ("androidx.viewpager2:viewpager2:1.0.0")
+    implementation("com.tbuonomo:dotsindicator:5.0")
+
 }
