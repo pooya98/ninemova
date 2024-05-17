@@ -7,7 +7,7 @@
 
         <variable
             name="comment"
-            type="com.ninemova.domain.data.CommentData" />
+            type="com.ninemova.domain.data.Comment" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
