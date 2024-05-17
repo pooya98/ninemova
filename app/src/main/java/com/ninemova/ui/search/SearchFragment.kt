@@ -4,11 +4,14 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.ninemova.R
 import com.ninemova.databinding.FragmentSearchBinding
+import com.ninemova.domain.data.Movie
+import com.ninemova.ui.adapter.MovieClickListener
 import com.ninemova.ui.adapter.MovieListAdapter
 import com.ninemova.ui.base.BaseFragment
 import kotlinx.coroutines.flow.collectLatest
@@ -31,6 +34,13 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
 
     private fun setRecyclerView() {
         with(binding.recyclerViewMovie) {
+            movieListAdapter.setMovieClickListener(object : MovieClickListener {
+                override fun onClick(item: Movie) {
+                    findNavController().navigate(
+                        SearchFragmentDirections.actionSearchToDetail(item)
+                    )
+                }
+            })
             adapter = movieListAdapter
             layoutManager = FlexboxLayoutManager(context).apply {
                 flexWrap = FlexWrap.WRAP
