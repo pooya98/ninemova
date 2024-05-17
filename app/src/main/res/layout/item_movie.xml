@@ -13,17 +13,18 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="wrap_content"
         android:layout_height="135dp"
-        android:layout_marginEnd="15dp"
         android:layout_marginVertical="10dp"
+        android:layout_marginEnd="15dp"
         app:cardCornerRadius="5dp">
 
         <ImageView
             android:id="@+id/iv_movie_thumbnail"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:scaleType="fitCenter"
             android:adjustViewBounds="true"
-            tools:src="@drawable/test_thumbnail"
-            app:imageUri="@{imageUrl}" />
+            android:scaleType="fitCenter"
+            app:imageUri="@{imageUrl}"
+            app:imageWidth="@{154}"
+            tools:src="@drawable/test_thumbnail" />
     </com.google.android.material.card.MaterialCardView>
 </layout>
