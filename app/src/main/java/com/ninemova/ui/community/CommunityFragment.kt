@@ -5,7 +5,7 @@ import com.google.android.flexbox.FlexWrap
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.ninemova.R
 import com.ninemova.databinding.FragmentCommunityBinding
-import com.ninemova.domain.data.CommentData
+import com.ninemova.domain.data.Comment
 import com.ninemova.ui.base.BaseFragment
 
 class CommunityFragment : BaseFragment<FragmentCommunityBinding>(R.layout.fragment_community) {
@@ -18,7 +18,7 @@ class CommunityFragment : BaseFragment<FragmentCommunityBinding>(R.layout.fragme
     private fun setRecyclerView() {
         with(binding.recyclerViewComment) {
             adapter = commentListAdapter
-            commentListAdapter.submitList(CommentData.commentList.toMutableList())
+            commentListAdapter.submitList(Comment.commentList.toMutableList())
             layoutManager = FlexboxLayoutManager(context).apply {
                 flexWrap = FlexWrap.WRAP
                 flexDirection = FlexDirection.ROW
