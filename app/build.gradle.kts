@@ -84,4 +84,8 @@ dependencies {
     implementation ("androidx.viewpager2:viewpager2:1.0.0")
     implementation("com.tbuonomo:dotsindicator:5.0")
 
+    // pie chart
+    implementation ("com.github.blackfizz:eazegraph:1.2.5l@aar")
+    implementation ("com.nineoldandroids:library:2.4.0")
+
 }
