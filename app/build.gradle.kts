@@ -1,7 +1,9 @@
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    id ("org.jetbrains.kotlin.kapt")
+    id("org.jetbrains.kotlin.kapt")
     id("androidx.navigation.safeargs.kotlin")
 }
 
@@ -9,13 +11,32 @@ android {
     namespace = "com.ninemova"
     compileSdk = 34
 
+    val properties = Properties()
+    properties.load(project.rootProject.file("local.properties").inputStream())
+    val authorizationName = properties["AUTHORIZATION_NAME"] ?: ""
+    val authorizationValue = properties["AUTHORIZATION_VALUE"] ?: ""
+    val contentTypeName = properties["CONTENT_TYPE_NAME"] ?: ""
+    val contentTypeValue = properties["CONTENT_TYPE_VALUE"] ?: ""
+    val tmdbBaseUrl = properties["TMDB_BASE_URL"] ?: ""
+    val tmdbAccessToken = properties["TMDB_ACCESS_TOKEN"]
+    val youtubeApiKey = properties["YOUTUBE_API_KEY"] ?: ""
+    val youtubeBaseUrl = properties["YOUTUBE_BASE_URL"]
+
     defaultConfig {
         applicationId = "com.ninemova"
         minSdk = 26
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
-
+        buildConfigField("String", "AUTHORIZATION_NAME", "$authorizationName")
+        buildConfigField("String", "AUTHORIZATION_VALUE", "$authorizationValue")
+        buildConfigField("String", "CONTENT_TYPE_NAME", "$contentTypeName")
+        buildConfigField("String", "CONTENT_TYPE_VALUE", "$contentTypeValue")
+        buildConfigField("String", "TMDB_BASE_URL", "$tmdbBaseUrl")
+        buildConfigField("String", "TMDB_ACCESS_TOKEN", "$tmdbAccessToken")
+        buildConfigField("String", "YOUTUBE_API_KEY", "$youtubeApiKey")
+        buildConfigField("String", "YOUTUBE_BASE_URL", "$youtubeBaseUrl")
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -24,7 +45,7 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
     }
@@ -35,11 +56,10 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-    viewBinding {
-        enable = true
-    }
-    dataBinding {
-        enable = true
+    buildFeatures {
+        viewBinding = true
+        dataBinding = true
+        buildConfig = true
     }
 }
 
@@ -61,7 +81,7 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 
-    //okHttpClient
+    // okHttpClient
     implementation("com.squareup.okhttp3:okhttp:4.9.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.9.0")
 
@@ -81,11 +101,14 @@ dependencies {
     implementation("com.google.android.flexbox:flexbox:3.0.0")
 
     // viewpager dot indicator
-    implementation ("androidx.viewpager2:viewpager2:1.0.0")
+    implementation("androidx.viewpager2:viewpager2:1.0.0")
     implementation("com.tbuonomo:dotsindicator:5.0")
 
     // pie chart
     implementation ("com.github.blackfizz:eazegraph:1.2.5l@aar")
     implementation ("com.nineoldandroids:library:2.4.0")
 
+    // Youtube Api
+    implementation("com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.0")
+    implementation("com.pierfrancescosoffritti.androidyoutubeplayer:chromecast-sender:0.28")
 }
