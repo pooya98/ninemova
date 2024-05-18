@@ -6,4 +6,5 @@ import com.ninemova.domain.data.Movie
 data class DetailUiState(
     val movie: Movie? = null,
     val genres: List<Genre> = listOf(),
+    val videoId: String? = null,
 )
