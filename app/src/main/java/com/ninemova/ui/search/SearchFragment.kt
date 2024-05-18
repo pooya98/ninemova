@@ -37,7 +37,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
             movieListAdapter.setMovieClickListener(object : MovieClickListener {
                 override fun onClick(item: Movie) {
                     findNavController().navigate(
-                        SearchFragmentDirections.actionSearchToDetail(item)
+                        SearchFragmentDirections.actionSearchToDetail(item),
                     )
                 }
             })
