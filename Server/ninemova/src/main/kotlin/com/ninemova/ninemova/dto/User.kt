@@ -5,9 +5,8 @@ import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.Id
 
-
 @Entity
-class User(
+data class User(
     @Id @GeneratedValue var id: Int? = null,
     @Column(nullable = false, unique = false)
     val userName: String,
