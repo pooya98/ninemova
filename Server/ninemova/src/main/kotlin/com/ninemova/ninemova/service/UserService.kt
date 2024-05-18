@@ -4,7 +4,7 @@ import com.ninemova.ninemova.dto.User
 
 interface UserService {
 
-    fun createUser(user: User)
+    fun createUser(user: User) : User
 
     fun findByUserName(userName: String): User?
 }
