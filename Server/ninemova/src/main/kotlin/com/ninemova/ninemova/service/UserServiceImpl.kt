@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service
 @AllArgsConstructor
 class UserServiceImpl(val userRepository: UserRepository) : UserService {
 
-    override fun createUser(user: User) {
-        userRepository.save(user)
+    override fun createUser(user: User) : User {
+        return userRepository.save(user)
     }
 
     override fun findByUserName(userName: String): User? {
