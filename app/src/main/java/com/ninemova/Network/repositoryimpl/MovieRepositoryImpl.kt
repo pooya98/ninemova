@@ -31,7 +31,8 @@ class MovieRepositoryImpl : MovieRepository {
                                 adult = movieResponse.adult,
                                 overView = movieResponse.overView,
                                 posterPath = movieResponse.posterPath ?: movieResponse.backdropPath,
-                                backdropPath = movieResponse.backdropPath ?: movieResponse.posterPath,
+                                backdropPath = movieResponse.backdropPath
+                                    ?: movieResponse.posterPath,
                                 releaseDate = movieResponse.releaseDate,
                             )
                         },
