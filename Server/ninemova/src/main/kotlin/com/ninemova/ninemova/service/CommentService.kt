@@ -9,4 +9,6 @@ interface CommentService {
     fun getComments(): List<Comment>
 
     fun updateComment(id: Int, comment: Comment): Comment?
+
+    fun deleteComment(id: Int): Boolean
 }

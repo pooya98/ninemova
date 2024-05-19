@@ -31,4 +31,12 @@ class CommentServiceImpl(private val commentRepository: CommentRepository) : Com
             )
         )
     }
+
+    override fun deleteComment(id: Int): Boolean {
+        if (commentRepository.existsById(id).not()) {
+            return false
+        }
+        commentRepository.deleteById(id)
+        return true
+    }
 }
