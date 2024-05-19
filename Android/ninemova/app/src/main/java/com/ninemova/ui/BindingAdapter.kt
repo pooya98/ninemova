@@ -1,11 +1,15 @@
 package com.ninemova.ui
 
+import android.content.res.ColorStateList
+import android.widget.Button
 import android.widget.ImageView
+import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
+import com.google.android.material.textfield.TextInputLayout
 import com.ninemova.R
 import com.ninemova.domain.data.Genre
 import com.ninemova.domain.data.Movie
@@ -39,5 +43,27 @@ fun ChipGroup.bindChips(items: List<Genre>) {
             chipStrokeWidth = 5f
             addView(this)
         }
+    }
+}
+
+@BindingAdapter("app:enabledColor")
+fun Button.bindEnabledColor(enabled: Boolean) {
+    val colorResId = if (enabled.not()) {
+        R.color.gray
+    } else {
+        R.color.main_color_1
+    }
+    val color = ContextCompat.getColor(context, colorResId)
+    setBackgroundColor(color)
+}
+
+@BindingAdapter("app:password", "app:repassword")
+fun TextInputLayout.bindValidation(password: String, rePassword: String) {
+    if (password != rePassword && rePassword.isNotEmpty() && password.isNotEmpty()) {
+        error = ContextCompat.getString(context, R.string.invalid_password_message)
+        val color = ContextCompat.getColor(context, R.color.red)
+        setErrorTextColor(ColorStateList.valueOf(color))
+    } else {
+        error = null
     }
 }

@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="com.ninemova.ui.login.signup.SignUpViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -12,7 +15,7 @@
         android:layout_height="match_parent"
         android:background="@color/black"
         android:padding="15dp"
-        tools:context=".ui.login.SignUpFragment">
+        tools:context=".ui.login.signup.SignUpFragment">
 
         <ImageView
             android:id="@+id/iv_logo"
@@ -38,7 +41,9 @@
                 android:id="@+id/et_id"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/signup_id_hint" />
+                android:hint="@string/signup_id_hint"
+                android:inputType="text"
+                android:onTextChanged="@{(s, start, before, count) -> viewModel.onTextChanged(`id`, s, start, before, count)}" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -56,7 +61,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/signup_pw_hint"
-                android:inputType="textPassword" />
+                android:inputType="textPassword"
+                android:onTextChanged="@{(s, start, before, count) -> viewModel.onTextChanged(`password`, s, start, before, count)}" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -67,14 +73,17 @@
             app:boxBackgroundColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_input_layout_pw">
+            app:layout_constraintTop_toBottomOf="@id/text_input_layout_pw"
+            app:password="@{viewModel.uiState.password}"
+            app:repassword="@{viewModel.uiState.rePassword}">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_pw_valid"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/signup_pw_valid_hint"
-                android:inputType="textPassword" />
+                android:inputType="textPassword"
+                android:onTextChanged="@{(s, start, before, count) -> viewModel.onTextChanged(`repassword`, s, start, before, count)}" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -93,7 +102,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/signup_nickname_hint"
-                android:inputType="textPassword" />
+                android:inputType="text"
+                android:onTextChanged="@{(s, start, before, count) -> viewModel.onTextChanged(`nickname`, s, start, before, count)}" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
@@ -103,8 +113,11 @@
             android:layout_marginHorizontal="30dp"
             android:layout_marginTop="16dp"
             android:backgroundTint="@color/main_color_1"
+            android:enabled="@{viewModel.uiState.isValidated}"
             android:fontFamily="@font/pretendard_bold"
             android:text="@string/signup_buttom_message"
+            android:textColor="@color/white"
+            app:enabledColor="@{viewModel.uiState.isValidated}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_input_layout_nickname" />
