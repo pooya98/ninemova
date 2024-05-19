@@ -7,4 +7,12 @@
     <string name="bottom_menu_my_page">마이페이지</string>
     <string name="search_text_hint">제목을 입력해주세요</string>
     <string name="btn_register_comment">한줄평 작성하기</string>
+    <string name="login_button_message">로그인</string>
+    <string name="login_no_account_message">계정이 없으신가요?</string>
+    <string name="login_signup_message">회원가입하기</string>
+    <string name="signup_id_hint">ID</string>
+    <string name="signup_pw_hint">PassWord</string>
+    <string name="signup_pw_valid_hint">PassWord 확인</string>
+    <string name="signup_nickname_hint">닉네임</string>
+    <string name="signup_buttom_message">회원가입</string>
 </resources>
