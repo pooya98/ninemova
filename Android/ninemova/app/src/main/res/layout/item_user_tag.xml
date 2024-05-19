@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="userTagItem"
+            type="com.ninemova.domain.data.UserTag" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="5dp"
+            android:layout_marginVertical="5dp"
+            android:background="@drawable/background_tv_item"
+            android:fontFamily="@font/pretendard_thin"
+            android:gravity="center"
+            android:paddingHorizontal="50dp"
+            android:paddingVertical="10dp"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:setUserTagItemText="@{userTagItem.name}" />
+
+    </LinearLayout>
+</layout>

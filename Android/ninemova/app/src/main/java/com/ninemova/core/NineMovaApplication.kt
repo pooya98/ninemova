@@ -28,6 +28,12 @@ class NineMovaApplication : Application() {
             .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
             .build()
 
+        val openAiOkHttpClient = OkHttpClient.Builder()
+            .readTimeout(5000, TimeUnit.MILLISECONDS)
+            .connectTimeout(5000, TimeUnit.MILLISECONDS)
+            .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+            .build()
+
         val serverOkHttpClient = OkHttpClient.Builder()
             .readTimeout(5000, TimeUnit.MILLISECONDS)
             .connectTimeout(5000, TimeUnit.MILLISECONDS)
@@ -45,6 +51,12 @@ class NineMovaApplication : Application() {
             .addConverterFactory(GsonConverterFactory.create(gson))
             .client(youtubeOkHttpClient)
             .build()
+
+        openAiRetrofit = Retrofit.Builder()
+            .baseUrl(BuildConfig.OPENAI_BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(openAiOkHttpClient)
+
         val apiKey = "http://192.168.0.115:8080/"
         serverRetrofit = Retrofit.Builder()
             .baseUrl(apiKey)
@@ -56,6 +68,7 @@ class NineMovaApplication : Application() {
     companion object {
         lateinit var retrofit: Retrofit
         lateinit var youtubeRetrofit: Retrofit
+        lateinit var openAiRetrofit: Retrofit
         lateinit var serverRetrofit: Retrofit
         private val gson: Gson = GsonBuilder()
             .setLenient()

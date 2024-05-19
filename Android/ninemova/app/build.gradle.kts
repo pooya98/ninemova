@@ -21,6 +21,8 @@ android {
     val tmdbAccessToken = properties["TMDB_ACCESS_TOKEN"]
     val youtubeApiKey = properties["YOUTUBE_API_KEY"] ?: ""
     val youtubeBaseUrl = properties["YOUTUBE_BASE_URL"]
+    val openAIApiKey = properties["OPENAI_API_KEY"] ?: ""
+    val openAIBaseUrl = properties["OPENAI_BASE_URL"] ?: ""
 
     defaultConfig {
         applicationId = "com.ninemova"
@@ -36,6 +38,8 @@ android {
         buildConfigField("String", "TMDB_ACCESS_TOKEN", "$tmdbAccessToken")
         buildConfigField("String", "YOUTUBE_API_KEY", "$youtubeApiKey")
         buildConfigField("String", "YOUTUBE_BASE_URL", "$youtubeBaseUrl")
+        buildConfigField("String", "OPENAI_API_KEY", "$openAIApiKey")
+        buildConfigField("String", "OPENAI_BASE_URL", "$openAIBaseUrl")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
