@@ -1,18 +1,20 @@
 package com.ninemova.ui.login
 
-import android.content.Intent
-import com.ninemova.databinding.ActivityLoginBinding
+import androidx.navigation.fragment.NavHostFragment
 import com.ninemova.R
-import com.ninemova.ui.MainActivity
+import com.ninemova.databinding.ActivityLoginBinding
 import com.ninemova.ui.base.BaseActivity
 
 class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login) {
 
+    private lateinit var navHostFragment: NavHostFragment
+
     override fun init() {
-      binding.btnLogin.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java);
-            startActivity(intent);
-            finish()
-        }
+        initNavigation()
+    }
+
+    private fun initNavigation() {
+        navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_login) as NavHostFragment
     }
 }

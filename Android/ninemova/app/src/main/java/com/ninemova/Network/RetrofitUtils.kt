@@ -3,6 +3,7 @@ package com.ninemova.Network
 import com.ninemova.Network.api.GenreApi
 import com.ninemova.Network.api.OpenAiApi
 import com.ninemova.Network.api.SearchApi
+import com.ninemova.Network.api.UserApi
 import com.ninemova.Network.api.YoutubeApi
 import com.ninemova.core.NineMovaApplication
 import retrofit2.create
@@ -14,5 +15,6 @@ class RetrofitUtils {
         val genreApi: GenreApi = NineMovaApplication.retrofit.create()
         val youtubeApi: YoutubeApi = NineMovaApplication.youtubeRetrofit.create()
         val openAiAPI: OpenAiApi = NineMovaApplication.openAiRetrofit.create()
+        val userApi: UserApi = NineMovaApplication.serverRetrofit.create()
     }
 }
