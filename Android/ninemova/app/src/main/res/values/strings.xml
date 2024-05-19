@@ -15,4 +15,5 @@
     <string name="signup_pw_valid_hint">PassWord 확인</string>
     <string name="signup_nickname_hint">닉네임</string>
     <string name="signup_buttom_message">회원가입</string>
+    <string name="invalid_password_message">비밀번호가 일치하지 않습니다.</string>
 </resources>
