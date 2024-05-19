@@ -56,6 +56,7 @@ class NineMovaApplication : Application() {
             .baseUrl(BuildConfig.OPENAI_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(openAiOkHttpClient)
+            .build()
 
         val apiKey = "http://192.168.0.115:8080/"
         serverRetrofit = Retrofit.Builder()

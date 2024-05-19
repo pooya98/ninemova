@@ -108,6 +108,8 @@ fun setUserTagItems(listView: ListView, userTagItems: LiveData<List<UserTag>>) {
 fun setUserTagItemText(textView: TextView, userTagText: String) {
     if (userTagText != null) {
         textView.setText("\"${userTagText}\"")
+    }
+}
 
 @BindingAdapter("app:enabledColor")
 fun Button.bindEnabledColor(enabled: Boolean) {
