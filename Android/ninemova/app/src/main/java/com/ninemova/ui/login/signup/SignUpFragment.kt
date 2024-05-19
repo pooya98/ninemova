@@ -1,4 +1,4 @@
-package com.ninemova.ui.login
+package com.ninemova.ui.login.signup
 
 import com.ninemova.R
 import com.ninemova.databinding.FragmentSignUpBinding
