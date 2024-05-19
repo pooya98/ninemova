@@ -5,6 +5,7 @@ import com.ninemova.ninemova.repository.CommentRepository
 import lombok.AllArgsConstructor
 import lombok.RequiredArgsConstructor
 import org.springframework.stereotype.Service
+import kotlin.jvm.optionals.getOrElse
 
 @Service
 @RequiredArgsConstructor
@@ -17,5 +18,17 @@ class CommentServiceImpl(private val commentRepository: CommentRepository) : Com
 
     override fun getComments(): List<Comment> {
         return commentRepository.findAllBy()
+    }
+
+    override fun updateComment(id: Int, comment: Comment): Comment? {
+        val result = commentRepository.findById(id).getOrElse {
+            return null
+        }
+        return commentRepository.save(
+            result.copy(
+                score = comment.score,
+                content = comment.content
+            )
+        )
     }
 }

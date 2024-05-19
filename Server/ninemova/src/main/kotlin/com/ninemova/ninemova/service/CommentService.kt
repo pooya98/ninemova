@@ -7,4 +7,6 @@ interface CommentService {
     fun createComment(comment: Comment): Comment
 
     fun getComments(): List<Comment>
+
+    fun updateComment(id: Int, comment: Comment): Comment?
 }
