@@ -25,4 +25,9 @@ class CommentController(private val commentService: CommentService) {
     fun signUp(@RequestBody comment: Comment): ResponseEntity<Comment> {
         return ResponseEntity.ok(commentService.createComment(comment))
     }
+
+    @GetMapping("/list")
+    fun getComments(): ResponseEntity<List<Comment>> {
+        return ResponseEntity.ok(commentService.getComments())
+    }
 }

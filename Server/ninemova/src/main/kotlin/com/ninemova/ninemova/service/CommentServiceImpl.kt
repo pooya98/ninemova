@@ -14,4 +14,8 @@ class CommentServiceImpl(private val commentRepository: CommentRepository) : Com
     override fun createComment(comment: Comment): Comment {
         return commentRepository.save(comment)
     }
+
+    override fun getComments(): List<Comment> {
+        return commentRepository.findAllBy()
+    }
 }
