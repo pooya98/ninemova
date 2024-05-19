@@ -1,7 +1,12 @@
 package com.ninemova.ui
 
+import android.graphics.Color
+import android.view.View
 import android.widget.ImageView
+import android.widget.ListView
+import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.chip.Chip
@@ -9,7 +14,13 @@ import com.google.android.material.chip.ChipGroup
 import com.ninemova.R
 import com.ninemova.domain.data.Genre
 import com.ninemova.domain.data.Movie
+import com.ninemova.domain.data.PieChartItem
+import com.ninemova.domain.data.UserTag
 import com.ninemova.ui.adapter.MovieListAdapter
+import com.ninemova.ui.adapter.PieChartLabelListAdapter
+import com.ninemova.ui.adapter.UserTagListAdapter
+import org.eazegraph.lib.charts.PieChart
+import org.eazegraph.lib.models.PieModel
 
 @BindingAdapter("app:imageUri")
 fun ImageView.bindImageUrl(imageUri: String?) {
@@ -39,5 +50,59 @@ fun ChipGroup.bindChips(items: List<Genre>) {
             chipStrokeWidth = 5f
             addView(this)
         }
+    }
+}
+
+@BindingAdapter("app:setPieChartItems")
+fun setPieChartItems(pieChart: PieChart, pieChartItems: LiveData<List<PieChartItem>>) {
+    pieChartItems.value?.let {
+        pieChart.clearChart()
+        it.forEachIndexed { index, pieChartItem ->
+            pieChart.addPieSlice(
+                PieModel(
+                    pieChartItem.name,
+                    pieChartItem.rate,
+                    Color.parseColor(pieChartItem.color)
+                )
+            )
+        }
+        pieChart.startAnimation()
+    }
+}
+
+@BindingAdapter("app:setPieChartLabels")
+fun setPieChartLabels(listView: ListView, pieChartItems: LiveData<List<PieChartItem>>) {
+    if (pieChartItems.value != null) {
+        val adapter = PieChartLabelListAdapter(listView.context, pieChartItems.value!!)
+        listView.adapter = adapter
+    }
+}
+
+@BindingAdapter("app:setPieChartLabelText")
+fun setPieChartLabelText(textView: TextView, pieChartItem: PieChartItem) {
+    if (pieChartItem != null) {
+        textView.setText("${pieChartItem.name} (${pieChartItem.rate}%)")
+    }
+}
+
+@BindingAdapter("app:setPieChartLabelColor")
+fun setPieChartLabelColor(view: View, pieChartItem: PieChartItem) {
+    if (pieChartItem != null) {
+        view.setBackgroundColor(Color.parseColor(pieChartItem.color))
+    }
+}
+
+@BindingAdapter("app:setUserTagItems")
+fun setUserTagItems(listView: ListView, userTagItems: LiveData<List<UserTag>>) {
+    if (userTagItems.value != null) {
+        val adapter = UserTagListAdapter(listView.context, userTagItems.value!!)
+        listView.adapter = adapter
+    }
+}
+
+@BindingAdapter("app:setUserTagItemText")
+fun setUserTagItemText(textView: TextView, userTagText: String) {
+    if (userTagText != null) {
+        textView.setText("\"${userTagText}\"")
     }
 }
