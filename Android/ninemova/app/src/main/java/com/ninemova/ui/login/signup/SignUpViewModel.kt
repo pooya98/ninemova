@@ -43,12 +43,12 @@ class SignUpViewModel : ViewModel() {
     private fun validation() {
         val isValidation = with(uiState.value) {
             (
-                    id.isNullOrEmpty() ||
-                            password.isNullOrEmpty() ||
-                            rePassword.isNullOrEmpty() ||
-                            nickName.isNullOrEmpty() ||
-                            password != rePassword
-                    ).not()
+                id.isNullOrEmpty() ||
+                    password.isNullOrEmpty() ||
+                    rePassword.isNullOrEmpty() ||
+                    nickName.isNullOrEmpty() ||
+                    password != rePassword
+                ).not()
         }
         _uiState.update { uiState ->
             uiState.copy(
@@ -69,7 +69,7 @@ class SignUpViewModel : ViewModel() {
                 if (user != null) {
                     localDataStoreRepository.saveUser(user)
                     _uiEvent.emit(
-                        LoginViewEvent.NavigateToMain
+                        LoginViewEvent.NavigateToMain,
                     )
                 } else {
                     _uiEvent.emit(

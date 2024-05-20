@@ -18,6 +18,7 @@ class UserRepositoryImpl : UserRepository {
             response.body()?.let { response ->
                 emit(
                     User(
+                        id = response.id,
                         userName = response.userName,
                         nickName = response.nickName,
                         profileImageUrl = response.profileImageUrl,
