@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -11,11 +10,12 @@
     </data>
 
     <com.google.android.material.card.MaterialCardView
-        android:layout_width="160dp"
-        android:layout_height="150dp"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
         android:layout_marginHorizontal="5dp"
         android:layout_marginVertical="10dp"
-        app:cardCornerRadius="15dp">
+        app:cardCornerRadius="15dp"
+        app:strokeWidth="0dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -25,9 +25,10 @@
                 android:id="@+id/iv_movie_thumbnail"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:alpha="0.7"
+                android:foreground="#80000000"
                 android:scaleType="centerCrop"
                 android:src="@drawable/test_thumbnail"
+                app:imageUri="@{comment.posterPath}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -37,11 +38,11 @@
                 android:id="@+id/tv_writer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/pretendard_semibold"
+                android:fontFamily="@font/pretendard_medium"
                 android:paddingHorizontal="5dp"
-                android:text="방구석 평론가"
-                android:textColor="@color/black"
-                android:textSize="15dp"
+                android:text="@{comment.writer}"
+                android:textColor="@color/white"
+                android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
@@ -49,17 +50,16 @@
                 android:id="@+id/tv_movie_comment"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:fontFamily="@font/pretendard_semibold"
-
+                android:fontFamily="@font/pretendard_medium"
+                android:gravity="center_vertical"
                 android:paddingHorizontal="5dp"
-                android:text="SF 명작물"
-                android:textAlignment="textStart"
-                android:textColor="@color/black"
+                android:text="@{comment.commentContent}"
+                android:textColor="@color/white"
                 android:textSize="15sp"
                 app:layout_constraintBottom_toTopOf="@id/tv_writer"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/chip_movie_name" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/iv_star"
@@ -73,25 +73,13 @@
                 android:id="@+id/tv_movie_score"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/pretendard_bold"
+                android:fontFamily="@font/pretendard_medium"
                 android:paddingHorizontal="5dp"
-                android:text="5.0"
-                android:textColor="@color/black"
+                android:text="@{String.valueOf(comment.commentScore)}"
+                android:textColor="@color/white"
+                android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
-
-
-            <TextView
-                android:id="@+id/chip_movie_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/pretendard_black"
-                android:paddingHorizontal="5dp"
-                android:text="혹성탈출"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
