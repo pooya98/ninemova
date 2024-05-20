@@ -7,9 +7,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.launch
 
-class SplashViewModel :
-    ViewModel() {
-
+class SplashViewModel : ViewModel() {
 
     private val _uiEvent = MutableSharedFlow<LoginViewEvent>()
     val uiEvent: SharedFlow<LoginViewEvent> = _uiEvent

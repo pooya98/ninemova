@@ -14,7 +14,6 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "ninemova")
 
 class NineMovaApplication : Application() {
@@ -22,7 +21,7 @@ class NineMovaApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        val okHttpClient = OkHttpClient.Builder()
+        val tmdbOkHttpClient = OkHttpClient.Builder()
             .readTimeout(500, TimeUnit.MILLISECONDS)
             .connectTimeout(500, TimeUnit.MILLISECONDS)
             .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
@@ -50,7 +49,7 @@ class NineMovaApplication : Application() {
         retrofit = Retrofit.Builder()
             .baseUrl(BuildConfig.TMDB_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create(gson))
-            .client(okHttpClient)
+            .client(tmdbOkHttpClient)
             .build()
 
         youtubeRetrofit = Retrofit.Builder()

@@ -1,6 +1,6 @@
 package com.ninemova.Network.response
 
-data class SignUpResponse(
+data class UserResponse(
     val id: Int? = 0,
     val userName: String? = "",
     val password: String? = "",
