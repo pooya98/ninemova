@@ -109,13 +109,16 @@ dependencies {
     implementation("com.tbuonomo:dotsindicator:5.0")
 
     // pie chart
-    implementation ("com.github.blackfizz:eazegraph:1.2.5l@aar")
-    implementation ("com.nineoldandroids:library:2.4.0")
+    implementation("com.github.blackfizz:eazegraph:1.2.5l@aar")
+    implementation("com.nineoldandroids:library:2.4.0")
 
     // Youtube Api
     implementation("com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.0")
     implementation("com.pierfrancescosoffritti.androidyoutubeplayer:chromecast-sender:0.28")
 
     // Splash Screen
-    implementation ("androidx.core:core-splashscreen:1.0.1")
+    implementation("androidx.core:core-splashscreen:1.0.1")
+
+    // rating bar
+    implementation("com.github.ome450901:SimpleRatingBar:1.5.1")
 }
