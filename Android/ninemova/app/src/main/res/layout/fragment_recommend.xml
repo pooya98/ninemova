@@ -4,24 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="viewModel"
+            type="com.ninemova.ui.recommend.RecommendViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.recommend.RecommendFragment"
-        android:background="@color/black">
+        android:background="@color/black"
+        tools:context=".ui.recommend.RecommendFragment">
 
         <TextView
             android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="15dp"
             android:fontFamily="@font/pretendard_bold"
             android:text="추천 컨텐츠"
             android:textColor="@color/white"
             android:textSize="30sp"
-            android:layout_margin="15dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -38,7 +40,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView2">
 
             <RadioButton
-                android:id="@+id/radioButton"
+                android:id="@+id/btn_ai_recommend"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_marginHorizontal="3dp"
@@ -47,12 +49,12 @@
                 android:button="@null"
                 android:checked="true"
                 android:fontFamily="@font/pretendard_semibold"
-                android:text="AI 추천"
+                android:text="취향 저격"
                 android:textAlignment="center"
                 android:textColor="@drawable/selector_radio_text" />
 
             <RadioButton
-                android:id="@+id/radioButton2"
+                android:id="@+id/btn_new_world_recommend"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_marginHorizontal="3dp"
@@ -60,62 +62,98 @@
                 android:background="@drawable/selector_radio_button"
                 android:button="@null"
                 android:fontFamily="@font/pretendard_semibold"
-                android:text="TMDB 추천"
-                android:textAlignment="center"
-                android:textColor="@drawable/selector_radio_text" />
-
-            <RadioButton
-                android:id="@+id/radioButton3"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_marginHorizontal="3dp"
-                android:layout_weight="1"
-                android:background="@drawable/selector_radio_button"
-                android:button="@null"
-                android:fontFamily="@font/pretendard_semibold"
-                android:text="취향 추천"
+                android:text="새로운 시도"
                 android:textAlignment="center"
                 android:textColor="@drawable/selector_radio_text" />
         </RadioGroup>
 
-        <TextView
-            android:id="@+id/tv_recommendation_notice"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/pretendard_semibold"
-            android:layout_marginTop="30dp"
-            android:gravity="center"
-            android:text="ChatGPT AI 추천작!"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
-
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/viewPager_recommend_movie_list"
-            android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginBottom="50dp"
+            android:layout_marginVertical="20dp"
+            android:background="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_recommendation_notice" />
+            app:layout_constraintTop_toBottomOf="@+id/radioGroup">
 
-        <com.tbuonomo.viewpagerdotsindicator.SpringDotsIndicator
-            android:id="@+id/indicator_viewpager_recommend_movie_list"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="40dp"
-            app:dampingRatio="0.5"
-            app:dotsColor="#80FFFFFF"
-            app:dotsCornerRadius="8dp"
-            app:dotsSize="8dp"
-            app:dotsSpacing="2dp"
-            app:dotsStrokeColor="#80FFFFFF"
-            app:dotsStrokeWidth="1dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:stiffness="300" />
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardview_recommend_movie_thumnail"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginHorizontal="50dp"
+                android:layout_marginVertical="15dp"
+                app:cardCornerRadius="10dp"
+                app:layout_constraintBottom_toTopOf="@+id/tv_movie_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:backgroundTint="@color/black"
+                app:strokeColor="@color/black">
 
+                <ImageView
+                    android:id="@+id/iv_recommend_movie_thumnail"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:adjustViewBounds="true"
+                    app:imageUri="@{viewModel.uiState.selectedMovie.posterPath}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:src="@drawable/test_thumbnail" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:id="@+id/tv_movie_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#4D000000"
+                android:fontFamily="@font/pretendard_bold"
+                android:gravity="center"
+                android:paddingHorizontal="10dp"
+                android:text="@{viewModel.uiState.selectedMovie.title}"
+                android:textColor="@color/white"
+                android:textSize="22dp"
+                app:layout_constraintBottom_toTopOf="@+id/tv_movie_release_year"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="영화제목" />
+
+            <TextView
+                android:id="@+id/tv_movie_release_year"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#4D000000"
+                android:fontFamily="@font/pretendard_medium"
+                android:gravity="center"
+                android:paddingHorizontal="10dp"
+                android:textColor="@color/white"
+                android:textSize="14dp"
+                android:text="@{viewModel.uiState.selectedMovie.releaseDate}"
+                app:layout_constraintBottom_toTopOf="@+id/scroll_view_chip_group"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="(2024)" />
+
+            <LinearLayout
+                android:id="@+id/scroll_view_chip_group"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chip_group_genres"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:maxWidth="0dp"
+                    app:chips="@{viewModel.uiState.genres}"
+                    app:singleLine="true" />
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

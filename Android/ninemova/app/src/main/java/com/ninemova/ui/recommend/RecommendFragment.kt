@@ -1,27 +1,30 @@
 package com.ninemova.ui.recommend
 
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.ninemova.R
 import com.ninemova.databinding.FragmentRecommendBinding
-import com.ninemova.domain.data.Movie
-import com.ninemova.ui.adapter.RecommendMovieListAdapter
 import com.ninemova.ui.base.BaseFragment
 
 class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragment_recommend) {
 
-    private lateinit var recommendMovieListAdapter: RecommendMovieListAdapter
+    private val recommendVieModel: RecommendViewModel by viewModels()
     override fun initView() {
-        recommendMovieListAdapter = RecommendMovieListAdapter(recommendMovieItems)
-        binding.viewPagerRecommendMovieList.adapter = recommendMovieListAdapter
-        binding.indicatorViewpagerRecommendMovieList.attachTo(binding.viewPagerRecommendMovieList)
-    }
-
-    companion object {
-        val recommendMovieItems = listOf(
-            Movie(1, "혹성탈출: 종의 전쟁", posterPath = "https://media.themoviedb.org/t/p/w300_and_h450_bestv2/vlHJfLsduZiILN8eYdN57kHZTcQ.jpg"),
-            Movie(2, "혹성탈출: 종의 전쟁", posterPath = "https://media.themoviedb.org/t/p/w300_and_h450_bestv2/vlHJfLsduZiILN8eYdN57kHZTcQ.jpg"),
-            Movie(3, "혹성탈출: 종의 전쟁", posterPath = "https://media.themoviedb.org/t/p/w300_and_h450_bestv2/vlHJfLsduZiILN8eYdN57kHZTcQ.jpg"),
-            Movie(4, "혹성탈출: 종의 전쟁", posterPath = "https://media.themoviedb.org/t/p/w300_and_h450_bestv2/vlHJfLsduZiILN8eYdN57kHZTcQ.jpg"),
-            Movie(3, "혹성탈출: 종의 전쟁", posterPath = "https://media.themoviedb.org/t/p/w300_and_h450_bestv2/vlHJfLsduZiILN8eYdN57kHZTcQ.jpg"),
-        )
+        with(binding) {
+            viewModel = recommendVieModel
+            btnAiRecommend.setOnClickListener {
+                recommendVieModel.fetchAiRecommendMovie()
+            }
+            binding.btnNewWorldRecommend.setOnClickListener {
+                recommendVieModel.fetchNewWorldRecommendMovie()
+            }
+            binding.ivRecommendMovieThumnail.setOnClickListener {
+                recommendVieModel.uiState.value.selectedMovie?.let {
+                    findNavController().navigate(
+                        RecommendFragmentDirections.actionRecommendToDetail(recommendVieModel.uiState.value.selectedMovie!!)
+                    )
+                }
+            }
+        }
     }
 }
