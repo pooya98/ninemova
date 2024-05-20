@@ -14,6 +14,9 @@
     <string name="signup_pw_hint">PassWord</string>
     <string name="signup_pw_valid_hint">PassWord 확인</string>
     <string name="signup_nickname_hint">닉네임</string>
-    <string name="signup_buttom_message">회원가입</string>
+    <string name="signup_button_message">회원가입</string>
     <string name="invalid_password_message">비밀번호가 일치하지 않습니다.</string>
+    <string name="insert_comment_dialog_cancel">취소</string>
+    <string name="insert_comment_dialog_register">등록</string>
+    <string name="insert_comment_dialog_hint">한줄평을 입력하세요.</string>
 </resources>
