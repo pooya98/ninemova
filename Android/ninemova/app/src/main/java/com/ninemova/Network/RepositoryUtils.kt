@@ -1,11 +1,13 @@
 package com.ninemova.Network
 
+import com.ninemova.Network.repository.CommentRepository
 import com.ninemova.Network.repository.GenreRepository
 import com.ninemova.Network.repository.LocalDataStoreRepository
 import com.ninemova.Network.repository.MovieRepository
 import com.ninemova.Network.repository.OpenAiRepository
 import com.ninemova.Network.repository.UserRepository
 import com.ninemova.Network.repository.YoutubeRepository
+import com.ninemova.Network.repositoryimpl.CommunityRepositoryImpl
 import com.ninemova.Network.repositoryimpl.GenreRepositoryImpl
 import com.ninemova.Network.repositoryimpl.MovieRepositoryImpl
 import com.ninemova.Network.repositoryimpl.OpenAiRepositoryImpl
@@ -21,5 +23,6 @@ class RepositoryUtils {
         val openAiRepository: OpenAiRepository = OpenAiRepositoryImpl()
         val userRepository: UserRepository = UserRepositoryImpl()
         lateinit var localDataStoreRepository: LocalDataStoreRepository
+        val commentRepository: CommentRepository = CommunityRepositoryImpl()
     }
 }
