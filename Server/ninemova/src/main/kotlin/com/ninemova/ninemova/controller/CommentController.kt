@@ -23,7 +23,7 @@ class CommentController(private val commentService: CommentService) {
 
 
     @PostMapping("/register")
-    fun signUp(@RequestBody comment: Comment): ResponseEntity<Comment> {
+    fun createComment(@RequestBody comment: Comment): ResponseEntity<Comment> {
         return ResponseEntity.ok(commentService.createComment(comment))
     }
 

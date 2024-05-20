@@ -7,5 +7,6 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface CommentRepository : CrudRepository<Comment, Int> {
+
     fun findAllBy(): List<Comment>
 }
