@@ -6,5 +6,6 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface FavoriteMovieRepository : CrudRepository<FavoriteMovie, Int> {
+
     fun findAllByUserId(userId: Int): List<FavoriteMovie>
 }
