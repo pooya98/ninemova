@@ -27,7 +27,7 @@ class MovieRepositoryImpl : MovieRepository {
                             Movie(
                                 id = movieResponse.id,
                                 title = movieResponse.title,
-                                genreIds = movieResponse.genreIds,
+                                genreIds = movieResponse.genreIds ?: listOf(),
                                 adult = movieResponse.adult,
                                 overView = movieResponse.overView,
                                 posterPath = movieResponse.posterPath ?: movieResponse.backdropPath,

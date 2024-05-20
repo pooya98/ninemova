@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="com.ninemova.ui.community.CommunityViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -30,12 +33,14 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="15dp"
-            tools:listitem="@layout/item_comment"
-            app:layoutManager="com.google.android.flexbox.FlexboxLayoutManager"
+            app:comments="@{viewModel.uiState.comments}"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_community_info" />
+            app:layout_constraintTop_toBottomOf="@id/tv_community_info"
+            app:spanCount="2"
+            tools:listitem="@layout/item_comment" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

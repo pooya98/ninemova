@@ -1,12 +1,12 @@
 package com.ninemova.ui
 
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.view.View
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.ListView
 import android.widget.TextView
-import android.content.res.ColorStateList
-import android.widget.Button
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LiveData
@@ -16,10 +16,12 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.textfield.TextInputLayout
 import com.ninemova.R
+import com.ninemova.domain.data.Comment
 import com.ninemova.domain.data.Genre
 import com.ninemova.domain.data.Movie
 import com.ninemova.domain.data.PieChartItem
 import com.ninemova.domain.data.UserTag
+import com.ninemova.ui.adapter.CommentListAdapter
 import com.ninemova.ui.adapter.MovieListAdapter
 import com.ninemova.ui.adapter.PieChartLabelListAdapter
 import com.ninemova.ui.adapter.UserTagListAdapter
@@ -66,8 +68,8 @@ fun setPieChartItems(pieChart: PieChart, pieChartItems: LiveData<List<PieChartIt
                 PieModel(
                     pieChartItem.name,
                     pieChartItem.rate,
-                    Color.parseColor(pieChartItem.color)
-                )
+                    Color.parseColor(pieChartItem.color),
+                ),
             )
         }
         pieChart.startAnimation()
@@ -130,5 +132,12 @@ fun TextInputLayout.bindValidation(password: String, rePassword: String) {
         setErrorTextColor(ColorStateList.valueOf(color))
     } else {
         error = null
+    }
+}
+
+@BindingAdapter("app:comments")
+fun RecyclerView.bindComments(items: List<Comment>) {
+    if (this.adapter != null) {
+        (this.adapter as CommentListAdapter).submitList(items.toMutableList())
     }
 }

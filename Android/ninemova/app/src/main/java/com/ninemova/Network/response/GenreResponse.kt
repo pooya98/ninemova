@@ -1,10 +1,10 @@
 package com.ninemova.Network.response
 
-data class GenresResponse(
+data class GenreResponse(
     val id: Int? = null,
     val name: String? = null,
 )
 
 data class GetGenresResponse(
-    val genres: List<GenresResponse> = listOf(),
+    val genres: List<GenreResponse> = listOf(),
 )

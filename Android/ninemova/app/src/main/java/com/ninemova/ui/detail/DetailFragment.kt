@@ -5,6 +5,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.ninemova.R
 import com.ninemova.databinding.FragmentDetailBinding
@@ -28,6 +29,13 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
         with(binding) {
             viewModel = detailViewModel
             lifecycle.addObserver(videoTrailer)
+            btnRegisterComment.setOnClickListener {
+                detailViewModel.uiState.value.movie?.let { movie ->
+                    findNavController().navigate(
+                        DetailFragmentDirections.actionDetailToInsertComment(movie),
+                    )
+                }
+            }
         }
         collectFlow()
     }
