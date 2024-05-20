@@ -9,6 +9,7 @@ import com.ninemova.R
 import com.ninemova.databinding.FragmentSignUpBinding
 import com.ninemova.ui.MainActivity
 import com.ninemova.ui.base.BaseFragment
+import com.ninemova.ui.login.LoginViewEvent
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -30,11 +31,11 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>(R.layout.fragment_sig
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 signUpViewModel.uiEvent.collectLatest { event ->
                     when (event) {
-                        is SignUpViewEvent.Error -> {
+                        is LoginViewEvent.Error -> {
                             showMessage(event.errorMessage)
                         }
 
-                        is SignUpViewEvent.Success -> {
+                        is LoginViewEvent.NavigateToMain -> {
                             startActivity(Intent(requireActivity(), MainActivity::class.java))
                             requireActivity().finish()
                         }

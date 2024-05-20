@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ninemova.Network.RepositoryUtils
 import com.ninemova.Network.request.SignUpRequest
+import com.ninemova.ui.login.LoginViewEvent
 import com.ninemova.ui.util.ErrorMessage
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,9 +18,10 @@ class SignUpViewModel : ViewModel() {
 
     private val _uiState = MutableStateFlow(SignUpUiState())
     val uiState: StateFlow<SignUpUiState> = _uiState
-    private val _uiEvent = MutableSharedFlow<SignUpViewEvent>()
-    val uiEvent: SharedFlow<SignUpViewEvent> = _uiEvent
+    private val _uiEvent = MutableSharedFlow<LoginViewEvent>()
+    val uiEvent: SharedFlow<LoginViewEvent> = _uiEvent
     private val userRepository = RepositoryUtils.userRepository
+    private val localDataStoreRepository = RepositoryUtils.localDataStoreRepository
 
     fun onTextChanged(inputType: String, s: CharSequence, start: Int, before: Int, count: Int) {
         _uiState.update { uiState ->
@@ -41,12 +43,12 @@ class SignUpViewModel : ViewModel() {
     private fun validation() {
         val isValidation = with(uiState.value) {
             (
-                id.isNullOrEmpty() ||
-                    password.isNullOrEmpty() ||
-                    rePassword.isNullOrEmpty() ||
-                    nickName.isNullOrEmpty() ||
-                    password != rePassword
-                ).not()
+                    id.isNullOrEmpty() ||
+                            password.isNullOrEmpty() ||
+                            rePassword.isNullOrEmpty() ||
+                            nickName.isNullOrEmpty() ||
+                            password != rePassword
+                    ).not()
         }
         _uiState.update { uiState ->
             uiState.copy(
@@ -65,12 +67,13 @@ class SignUpViewModel : ViewModel() {
                 ),
             ).collectLatest { user ->
                 if (user != null) {
+                    localDataStoreRepository.saveUser(user)
                     _uiEvent.emit(
-                        SignUpViewEvent.Success,
+                        LoginViewEvent.NavigateToMain
                     )
                 } else {
                     _uiEvent.emit(
-                        SignUpViewEvent.Error(errorMessage = ErrorMessage.SIGN_UP_ERROR_MESSAGE),
+                        LoginViewEvent.Error(errorMessage = ErrorMessage.SIGN_UP_ERROR_MESSAGE),
                     )
                 }
             }
