@@ -1,6 +1,7 @@
 package com.ninemova.ninemova.controller
 
 import com.ninemova.ninemova.dto.Comment
+import com.ninemova.ninemova.response.CommentResponse
 import com.ninemova.ninemova.service.CommentService
 import lombok.RequiredArgsConstructor
 import lombok.extern.slf4j.Slf4j
@@ -28,7 +29,7 @@ class CommentController(private val commentService: CommentService) {
     }
 
     @GetMapping("/list")
-    fun getComments(): ResponseEntity<List<Comment>> {
+    fun getComments(): ResponseEntity<List<CommentResponse>> {
         return ResponseEntity.ok(commentService.getComments())
     }
 
