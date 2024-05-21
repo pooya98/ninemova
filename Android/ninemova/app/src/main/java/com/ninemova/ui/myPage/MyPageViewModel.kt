@@ -30,7 +30,14 @@ class MyPageViewModel : ViewModel() {
     private val _genres = MutableLiveData<List<PieChartItem>>()
     val genres: LiveData<List<PieChartItem>> get() = _genres
 
-    fun fetchUserTagResponse() {
+    init {
+        fetchUserTagResponse()
+        fetchKeywordResponse()
+        fetchGenreResponse()
+        fetchActorResponse()
+    }
+
+    private fun fetchUserTagResponse() {
         viewModelScope.launch {
             try {
                 val result = repository.getChatResponse(prompt_userTag, BuildConfig.OPENAI_API_KEY)
@@ -50,7 +57,7 @@ class MyPageViewModel : ViewModel() {
         }
     }
 
-    fun fetchKeywordResponse() {
+    private fun fetchKeywordResponse() {
         viewModelScope.launch {
             try {
                 val result = repository.getChatResponse(prompt_keyword, BuildConfig.OPENAI_API_KEY)
@@ -76,7 +83,7 @@ class MyPageViewModel : ViewModel() {
         }
     }
 
-    fun fetchActorResponse() {
+    private fun fetchActorResponse() {
         viewModelScope.launch {
             try {
                 val result = repository.getChatResponse(prompt_actor, BuildConfig.OPENAI_API_KEY)
@@ -102,7 +109,7 @@ class MyPageViewModel : ViewModel() {
         }
     }
 
-    fun fetchGenreResponse() {
+    private fun fetchGenreResponse() {
         viewModelScope.launch {
             try {
                 val result = repository.getChatResponse(prompt_genre, BuildConfig.OPENAI_API_KEY)
