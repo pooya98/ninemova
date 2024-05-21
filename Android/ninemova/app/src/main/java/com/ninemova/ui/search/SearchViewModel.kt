@@ -4,6 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ninemova.Network.RepositoryUtils
 import com.ninemova.Network.request.SearchMovieRequest
+import com.ninemova.Network.request.SearchNowPlayingMoviesRequest
+import com.ninemova.Network.request.SearchPopularMoviesRequest
 import com.ninemova.ui.util.ErrorMessage
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -21,12 +23,34 @@ class SearchViewModel : ViewModel() {
     val uiState: StateFlow<SearchUiState> = _uiState
 
     private val movieRepository = RepositoryUtils.movieRepository
+
+    init{
+        getInitMovies()
+    }
     fun searchMovies() {
         viewModelScope.launch {
             movieRepository.searchMovies(
                 request = SearchMovieRequest(
                     query = uiState.value.query,
                 ),
+            ).collectLatest { response ->
+                if (response.isEmpty()) {
+                    _uiEvent.emit(SearchViewEvent.Error(errorMessage = ErrorMessage.NO_SEARCH_RESULT_ERROR_MESSAGE))
+                } else {
+                    _uiState.update { state ->
+                        state.copy(
+                            movies = response,
+                        )
+                    }
+                }
+            }
+        }
+    }
+
+    private fun getInitMovies(){
+        viewModelScope.launch {
+            movieRepository.searchPopularMovies(
+                request = SearchPopularMoviesRequest(),
             ).collectLatest { response ->
                 if (response.isEmpty()) {
                     _uiEvent.emit(SearchViewEvent.Error(errorMessage = ErrorMessage.NO_SEARCH_RESULT_ERROR_MESSAGE))
