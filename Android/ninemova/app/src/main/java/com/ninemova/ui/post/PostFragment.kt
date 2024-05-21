@@ -11,6 +11,9 @@ class PostFragment : BaseFragment<FragmentPostBinding>(R.layout.fragment_post) {
     private val args: PostFragmentArgs by navArgs()
 
     override fun initView() {
+        with(binding) {
+            comment = args.comment
+        }
     }
 
 }
