@@ -9,4 +9,6 @@ import org.springframework.stereotype.Repository
 interface CommentRepository : CrudRepository<Comment, Int> {
 
     fun findAllBy(): List<Comment>
+
+    fun findTop5ByOrderByIdDesc(): List<Comment>
 }
