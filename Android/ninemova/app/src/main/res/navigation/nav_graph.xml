@@ -30,6 +30,13 @@
                 android:name="movie"
                 app:argType="com.ninemova.domain.data.Movie" />
         </action>
+        <action
+            android:id="@+id/action_home_to_post"
+            app:destination="@id/postFragment">
+            <argument
+                android:name="comment"
+                app:argType="com.ninemova.domain.data.Comment" />
+        </action>
     </fragment>
     <fragment
         android:id="@+id/recommendFragment"

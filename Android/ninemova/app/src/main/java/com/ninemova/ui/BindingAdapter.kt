@@ -23,6 +23,7 @@ import com.ninemova.domain.data.Movie
 import com.ninemova.domain.data.PieChartItem
 import com.ninemova.domain.data.UserTag
 import com.ninemova.ui.adapter.CommentListAdapter
+import com.ninemova.ui.adapter.HomeCommentListAdapter
 import com.ninemova.ui.adapter.MovieListAdapter
 import com.ninemova.ui.adapter.PieChartLabelListAdapter
 import com.ninemova.ui.adapter.TopMovieListAdapter
@@ -148,5 +149,26 @@ fun TextInputLayout.bindValidation(password: String, rePassword: String) {
 fun RecyclerView.bindComments(items: List<Comment>) {
     if (this.adapter != null) {
         (this.adapter as CommentListAdapter).submitList(items.toMutableList())
+    }
+}
+
+@BindingAdapter("app:homeComments")
+fun RecyclerView.bindHomeComments(items: List<Comment>) {
+    if (this.adapter != null) {
+        (this.adapter as HomeCommentListAdapter).submitList(items.toMutableList())
+    }
+}
+
+@BindingAdapter("app:setReleaseYear")
+fun setReleaseYear(textView: TextView, releaseDate: String) {
+    if (releaseDate != null) {
+        textView.setText("(${releaseDate.substring(0, 4)})")
+    }
+}
+
+@BindingAdapter("app:setCommentText")
+fun setCommentText(textView: TextView, userTagText: String) {
+    if (userTagText != null) {
+        textView.setText("\"${userTagText}\"")
     }
 }

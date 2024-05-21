@@ -3,9 +3,9 @@ package com.ninemova.ui.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ninemova.Network.RepositoryUtils
-import com.ninemova.Network.request.SearchMovieRequest
 import com.ninemova.Network.request.SearchNowPlayingMoviesRequest
 import com.ninemova.Network.request.SearchPopularMoviesRequest
+import com.ninemova.domain.data.Comment
 import com.ninemova.ui.util.ErrorMessage
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,10 +22,12 @@ class HomeViewModel : ViewModel() {
     val uiState: StateFlow<HomeUiState> = _uiState
 
     private val movieRepository = RepositoryUtils.movieRepository
+    private val commentRepository = RepositoryUtils.commentRepository
 
     init {
         searchNowPlayingMovies()
         searchPopularMovies()
+        searchRecentComments()
     }
 
     private fun searchNowPlayingMovies() {
@@ -61,6 +63,19 @@ class HomeViewModel : ViewModel() {
                     }
                 }
             }
+        }
+    }
+
+    private fun searchRecentComments() {
+        val comments = listOf(
+            Comment(1, "영화1", "/j3Z3XktmWB1VhsS8iXNcrR86PXi.jpg", null, 4.0, "갓성탈출임! 강추!!", 1, "코리안캉"),
+            Comment(2, "영화2", "/j3Z3XktmWB1VhsS8iXNcrR86PXi.jpg", null, 4.0, "내용2", 2, "사용자2"),
+            Comment(3, "영화3", "/j3Z3XktmWB1VhsS8iXNcrR86PXi.jpg", null, 4.0, "내용3", 3, "사용자3"),
+        )
+        _uiState.update { state ->
+            state.copy(
+                recentComments = comments
+            )
         }
     }
 }

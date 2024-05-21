@@ -67,7 +67,7 @@ class MovieRepositoryImpl : MovieRepository {
                                     ?: movieResponse.posterPath,
                                 releaseDate = movieResponse.releaseDate,
                             )
-                        }.subList(0, 5),
+                        }.subList(4, 9),
                     )
                 }
             }.onFailure {
