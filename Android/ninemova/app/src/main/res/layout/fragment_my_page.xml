@@ -47,7 +47,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/pretendard_semibold"
-                android:text="username"
+                android:text="@{ViewModel.userInfo.nickName}"
                 android:textColor="@color/white"
                 android:textSize="26sp"
                 app:layout_constraintStart_toEndOf="@+id/cardView"
@@ -100,18 +100,35 @@
                     android:textSize="14sp" />
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/label_user_tag"
+            <LinearLayout
+                android:id="@+id/linearLayout2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="15dp"
                 android:layout_marginTop="15dp"
-                android:fontFamily="@font/pretendard_semibold"
-                android:text="사용자님의 영화태그"
-                android:textColor="@color/white"
-                android:textSize="26dp"
+                android:orientation="horizontal"
                 app:layout_constraintTop_toBottomOf="@+id/layout_btn_group"
-                tools:layout_editor_absoluteX="10dp" />
+                tools:layout_editor_absoluteX="15dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/pretendard_semibold"
+                    android:text="@{ViewModel.userInfo.nickName}"
+                    android:textColor="@color/white"
+                    android:textSize="26dp"
+                    tools:text="username" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/pretendard_semibold"
+                    android:text=" 님의 영화태그"
+                    android:textColor="@color/white"
+                    android:textSize="26dp" />
+
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/layout_user_tag_group"
@@ -121,7 +138,8 @@
                 android:layout_marginVertical="10dp"
                 android:gravity="center"
                 android:orientation="vertical"
-                app:layout_constraintTop_toBottomOf="@+id/label_user_tag">
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+                tools:layout_editor_absoluteX="15dp">
 
                 <ListView
                     android:layout_width="match_parent"
@@ -131,19 +149,33 @@
 
             </LinearLayout>
 
-            <TextView
+            <LinearLayout
                 android:id="@+id/label_user_interest"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="15dp"
                 android:layout_marginVertical="15dp"
                 android:layout_marginTop="20dp"
-                android:fontFamily="@font/pretendard_semibold"
-                android:text="사용자님의 선호 분석"
-                android:textColor="@color/white"
-                android:textSize="26dp"
-                app:layout_constraintTop_toBottomOf="@+id/layout_user_tag_group"
-                tools:layout_editor_absoluteX="9dp" />
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@+id/layout_user_tag_group">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/pretendard_semibold"
+                    android:text="@{ViewModel.userInfo.nickName}"
+                    android:textColor="@color/white"
+                    android:textSize="26dp"
+                    tools:text="username" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/pretendard_semibold"
+                    android:text=" 님의 선호 분석"
+                    android:textColor="@color/white"
+                    android:textSize="26dp" />
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/linearLayout"

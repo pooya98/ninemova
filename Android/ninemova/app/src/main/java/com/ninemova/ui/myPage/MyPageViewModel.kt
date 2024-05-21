@@ -9,11 +9,13 @@ import com.ninemova.BuildConfig
 import com.ninemova.Network.RepositoryUtils
 import com.ninemova.Network.response.openai.AnalysisResult
 import com.ninemova.domain.data.PieChartItem
+import com.ninemova.domain.data.User
 import com.ninemova.domain.data.UserTag
 import kotlinx.coroutines.launch
 
 class MyPageViewModel : ViewModel() {
     private val repository = RepositoryUtils.openAiRepository
+    private val localRepository = RepositoryUtils.localDataStoreRepository
 
     private val _response = MutableLiveData<String>()
     val response: LiveData<String> get() = _response
@@ -30,7 +32,11 @@ class MyPageViewModel : ViewModel() {
     private val _genres = MutableLiveData<List<PieChartItem>>()
     val genres: LiveData<List<PieChartItem>> get() = _genres
 
+    private val _userInfo = MutableLiveData<User>()
+    val userInfo: LiveData<User> get() = _userInfo
+
     init {
+        fetchUserInfo()
         fetchUserTagResponse()
         fetchKeywordResponse()
         fetchGenreResponse()
@@ -132,6 +138,17 @@ class MyPageViewModel : ViewModel() {
             } catch (e: Exception) {
                 _response.value = "Error: ${e.message}"
             }
+        }
+    }
+
+    private fun fetchUserInfo() {
+        viewModelScope.launch {
+            val userId = localRepository.getUserId()
+            val userName = localRepository.getUserName()
+            val userNickName = localRepository.getUserNickName()
+            val userImageUri = localRepository.getUserProfileImageUrl()
+
+            _userInfo.value = User(userId, userName, userNickName, userImageUri)
         }
     }
 
