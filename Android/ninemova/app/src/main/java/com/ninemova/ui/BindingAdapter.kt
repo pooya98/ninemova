@@ -11,6 +11,7 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
@@ -24,6 +25,7 @@ import com.ninemova.domain.data.UserTag
 import com.ninemova.ui.adapter.CommentListAdapter
 import com.ninemova.ui.adapter.MovieListAdapter
 import com.ninemova.ui.adapter.PieChartLabelListAdapter
+import com.ninemova.ui.adapter.TopMovieListAdapter
 import com.ninemova.ui.adapter.UserTagListAdapter
 import org.eazegraph.lib.charts.PieChart
 import org.eazegraph.lib.models.PieModel
@@ -42,6 +44,13 @@ fun ImageView.bindImageUrl(imageUri: String?) {
 fun RecyclerView.bindMovies(items: List<Movie>) {
     if (this.adapter != null) {
         (this.adapter as MovieListAdapter).submitList(items.toMutableList())
+    }
+}
+
+@BindingAdapter("app:movies")
+fun ViewPager2.bindMovies(items: List<Movie>) {
+    if (this.adapter != null) {
+        (this.adapter as TopMovieListAdapter).submitList(items.toMutableList())
     }
 }
 
