@@ -5,7 +5,10 @@ import androidx.lifecycle.viewModelScope
 import com.ninemova.Network.RepositoryUtils
 import com.ninemova.Network.request.ReplyRequest
 import com.ninemova.domain.data.Comment
+import com.ninemova.ui.util.ErrorMessage
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.update
@@ -17,6 +20,8 @@ class PostViewModel : ViewModel() {
     private val localDataStoreRepository = RepositoryUtils.localDataStoreRepository
     private val _uiState = MutableStateFlow(PostUiState())
     val uiState: StateFlow<PostUiState> = _uiState
+    private val _uiEvent = MutableSharedFlow<PostViewEvent>()
+    val uiEvent: SharedFlow<PostViewEvent> = _uiEvent
 
     fun setComment(comment: Comment) {
         _uiState.update { uiState ->
@@ -49,8 +54,14 @@ class PostViewModel : ViewModel() {
                 ),
             ).collectLatest { reply ->
                 if (reply == null) {
+                    _uiEvent.emit(
+                        PostViewEvent.Error(
+                            errorMessage = ErrorMessage.REGISTER_COMMENT_ERROR_MESSAGE,
+                        ),
+                    )
                 } else {
                     loadReplies()
+                    _uiEvent.emit(PostViewEvent.Success)
                 }
             }
         }
