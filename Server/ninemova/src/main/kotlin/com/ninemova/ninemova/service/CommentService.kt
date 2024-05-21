@@ -12,4 +12,6 @@ interface CommentService {
     fun updateComment(id: Int, comment: Comment): Comment?
 
     fun deleteComment(id: Int): Boolean
+
+    fun getRecent5Comment(): List<CommentResponse>
 }

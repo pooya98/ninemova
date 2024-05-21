@@ -47,4 +47,13 @@ class CommentServiceImpl(private val commentRepository: CommentRepository, priva
         commentRepository.deleteById(id)
         return true
     }
+
+    override fun getRecent5Comment(): List<CommentResponse> {
+        return commentRepository.findTop5ByOrderByIdDesc().map {
+            CommentResponse(
+                comment = it,
+                user = userRepository.findById(it.userId).orElseThrow()
+            )
+        }
+    }
 }
