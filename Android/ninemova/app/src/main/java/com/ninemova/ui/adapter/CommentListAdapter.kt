@@ -9,9 +9,16 @@ import com.ninemova.databinding.ItemCommentBinding
 import com.ninemova.domain.data.Comment
 
 class CommentListAdapter : ListAdapter<Comment, CommentViewHolder>(diffUtil) {
+
+    private var commentClickListener: CommentClickListener? = null
+
+    fun setCommentClickListener(listener: CommentClickListener) {
+        commentClickListener = listener
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommentViewHolder {
         val binding = ItemCommentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return CommentViewHolder(binding)
+        return CommentViewHolder(binding, commentClickListener)
     }
 
     override fun onBindViewHolder(holder: CommentViewHolder, position: Int) {
@@ -37,8 +44,18 @@ class CommentListAdapter : ListAdapter<Comment, CommentViewHolder>(diffUtil) {
     }
 }
 
-class CommentViewHolder(private val binding: ItemCommentBinding) : ViewHolder(binding.root) {
+class CommentViewHolder(
+    private val binding: ItemCommentBinding,
+    private val listener: CommentClickListener?
+) : ViewHolder(binding.root) {
     fun bind(item: Comment) {
         binding.comment = item
+        itemView.setOnClickListener {
+            listener?.onClick(item)
+        }
     }
+}
+
+interface CommentClickListener {
+    fun onClick(item: Comment)
 }

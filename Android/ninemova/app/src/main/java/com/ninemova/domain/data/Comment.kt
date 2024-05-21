@@ -1,5 +1,7 @@
 package com.ninemova.domain.data
 
+import java.io.Serializable
+
 data class Comment(
     val id: Int? = null,
     val movieName: String? = null,
@@ -8,4 +10,4 @@ data class Comment(
     val commentContent: String? = null,
     val userId: Int? = null,
     val writer: String? = null,
-)
+) : Serializable
