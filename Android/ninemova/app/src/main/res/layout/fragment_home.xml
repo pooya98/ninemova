@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="viewModel"
+            type="com.ninemova.ui.home.HomeViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,6 +22,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:movies="@{viewModel.uiState.nowPlayingMovies}"
             tools:listitem="@layout/item_top_movie"/>
 
         <com.tbuonomo.viewpagerdotsindicator.SpringDotsIndicator
@@ -56,15 +59,13 @@
             android:id="@+id/recyclerview_popular_movie_list"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:orientation="horizontal"
             android:layout_margin="10dp"
+            app:movies="@{viewModel.uiState.popularMovies}"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            android:orientation="horizontal"
             tools:listitem="@layout/item_movie" />
-
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
