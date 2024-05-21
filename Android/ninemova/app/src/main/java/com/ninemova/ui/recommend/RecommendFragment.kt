@@ -15,13 +15,13 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
             btnAiRecommend.setOnClickListener {
                 recommendVieModel.fetchAiRecommendMovie()
             }
-            binding.btnNewWorldRecommend.setOnClickListener {
+            btnNewWorldRecommend.setOnClickListener {
                 recommendVieModel.fetchNewWorldRecommendMovie()
             }
-            binding.ivRecommendMovieThumnail.setOnClickListener {
-                recommendVieModel.uiState.value.selectedMovie?.let {
+            ivRecommendMovieThumnail.setOnClickListener {
+                recommendVieModel.uiState.value.selectedMovie?.let {selectedMovie ->
                     findNavController().navigate(
-                        RecommendFragmentDirections.actionRecommendToDetail(recommendVieModel.uiState.value.selectedMovie!!)
+                        RecommendFragmentDirections.actionRecommendToDetail(selectedMovie)
                     )
                 }
             }
