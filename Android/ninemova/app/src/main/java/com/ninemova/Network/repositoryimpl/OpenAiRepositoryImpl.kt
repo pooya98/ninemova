@@ -11,7 +11,7 @@ class OpenAiRepositoryImpl: OpenAiRepository {
 
     override suspend fun getChatResponse(prompt: String, apiKey: String): String? {
         val request = OpenAIRequest(
-            model = "gpt-3.5-turbo",
+            model = "gpt-3.5-turbo-16k",
             messages = listOf(Message(role = "user", content = prompt))
         )
         val response = openAIApi.getChatCompletion("Bearer $apiKey", request)
