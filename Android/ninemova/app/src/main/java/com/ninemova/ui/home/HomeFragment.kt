@@ -17,8 +17,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     private var topMovieListAdapter = TopMovieListAdapter()
     private val popularMovieListAdapter = MovieListAdapter()
     override fun initView() {
-        homeViewModel.searchNowPlayingMovies()
-        homeViewModel.searchPopularMovies()
         setNowPlayingMoviesRecyclerView()
         setPopularMoviesRecyclerView()
         with(binding) {

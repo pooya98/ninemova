@@ -23,7 +23,12 @@ class HomeViewModel : ViewModel() {
 
     private val movieRepository = RepositoryUtils.movieRepository
 
-    fun searchNowPlayingMovies() {
+    init {
+        searchNowPlayingMovies()
+        searchPopularMovies()
+    }
+
+    private fun searchNowPlayingMovies() {
         viewModelScope.launch {
             movieRepository.searchNowPlayingMovies(
                 request = SearchNowPlayingMoviesRequest(),
@@ -41,7 +46,7 @@ class HomeViewModel : ViewModel() {
         }
     }
 
-    fun searchPopularMovies() {
+    private fun searchPopularMovies() {
         viewModelScope.launch {
             movieRepository.searchPopularMovies(
                 request = SearchPopularMoviesRequest(),
