@@ -21,11 +21,13 @@ import com.ninemova.domain.data.Comment
 import com.ninemova.domain.data.Genre
 import com.ninemova.domain.data.Movie
 import com.ninemova.domain.data.PieChartItem
+import com.ninemova.domain.data.Reply
 import com.ninemova.domain.data.UserTag
 import com.ninemova.ui.adapter.CommentListAdapter
 import com.ninemova.ui.adapter.HomeCommentListAdapter
 import com.ninemova.ui.adapter.MovieListAdapter
 import com.ninemova.ui.adapter.PieChartLabelListAdapter
+import com.ninemova.ui.adapter.ReplyListAdapter
 import com.ninemova.ui.adapter.TopMovieListAdapter
 import com.ninemova.ui.adapter.UserTagListAdapter
 import org.eazegraph.lib.charts.PieChart
@@ -171,4 +173,20 @@ fun setCommentText(textView: TextView, userTagText: String) {
     if (userTagText != null) {
         textView.setText("\"${userTagText}\"")
     }
+}
+
+@BindingAdapter("app:replies")
+fun RecyclerView.bindReplies(items: List<Reply>) {
+    if (this.adapter != null) {
+        (this.adapter as ReplyListAdapter).submitList(items.toMutableList())
+    }
+}
+
+@BindingAdapter("app:profileImage")
+fun ImageView.bindProfile(imageUri: String?) {
+    Glide.with(this)
+        .load(imageUri)
+        .circleCrop()
+        .placeholder(R.drawable.image_user)
+        .into(this)
 }
