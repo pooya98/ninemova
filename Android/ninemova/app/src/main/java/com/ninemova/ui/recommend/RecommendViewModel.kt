@@ -32,10 +32,7 @@ class RecommendViewModel : ViewModel() {
     private val _response = MutableLiveData<String>()
     val response: LiveData<String> get() = _response
 
-
     fun fetchAiRecommendMovie() {
-        clearSelectedMovie()
-        clearGenres()
         viewModelScope.launch {
             val movieTitle = getAiRecommendMovieTitle()
 
@@ -59,7 +56,7 @@ class RecommendViewModel : ViewModel() {
         }
     }
 
-    suspend fun getAiRecommendMovieTitle(): String {
+    private suspend fun getAiRecommendMovieTitle(): String {
         try {
             val result = repository.getChatResponse(promptAiMovieRecommends, BuildConfig.OPENAI_API_KEY)
             _response.value = result!!
@@ -78,8 +75,6 @@ class RecommendViewModel : ViewModel() {
     }
 
     fun fetchNewWorldRecommendMovie(){
-        clearSelectedMovie()
-        clearGenres()
         viewModelScope.launch {
             val movieTitle = getNewWorldMovieTitle()
 
@@ -103,7 +98,7 @@ class RecommendViewModel : ViewModel() {
         }
     }
 
-    suspend fun getNewWorldMovieTitle(): String {
+    private suspend fun getNewWorldMovieTitle(): String {
         try {
             val result = repository.getChatResponse(promptAiNewWorldRecommends, BuildConfig.OPENAI_API_KEY)
             _response.value = result!!
@@ -138,23 +133,6 @@ class RecommendViewModel : ViewModel() {
                     }
                 }
             }
-        }
-    }
-
-    fun clearSelectedMovie() {
-        _uiState.update{ state ->
-            state.copy(
-                newWorldRecommendMovie = null,
-                selectedMovie = null
-            )
-        }
-    }
-
-    private fun clearGenres() {
-        _uiState.update{ state ->
-            state.copy(
-                genres = listOf()
-            )
         }
     }
 
