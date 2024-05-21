@@ -23,7 +23,8 @@ class CommunityRepositoryImpl : CommentRepository {
                             Comment(
                                 id = data.comment.id,
                                 movieName = movie.title,
-                                posterPath = movie.posterPath,
+                                posterPath = movie.posterPath ?: movie.backdropPath,
+                                backDropPath = movie.backdropPath ?: movie.posterPath,
                                 commentScore = data.comment.score,
                                 commentContent = data.comment.content,
                                 writer = data.user.nickName,
