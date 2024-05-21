@@ -19,4 +19,5 @@
     <string name="insert_comment_dialog_cancel">취소</string>
     <string name="insert_comment_dialog_register">등록</string>
     <string name="insert_comment_dialog_hint">한줄평을 입력하세요.</string>
+    <string name="reply_comment_hint">댓글을 달아주세요.</string>
 </resources>
