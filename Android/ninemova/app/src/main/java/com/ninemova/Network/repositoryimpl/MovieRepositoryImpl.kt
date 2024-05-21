@@ -67,7 +67,7 @@ class MovieRepositoryImpl : MovieRepository {
                                     ?: movieResponse.posterPath,
                                 releaseDate = movieResponse.releaseDate,
                             )
-                        },
+                        }.subList(0, 5),
                     )
                 }
             }.onFailure {
@@ -97,7 +97,7 @@ class MovieRepositoryImpl : MovieRepository {
                                     ?: movieResponse.posterPath,
                                 releaseDate = movieResponse.releaseDate,
                             )
-                        }.subList(0, 5),
+                        },
                     )
                 }
             }.onFailure {
