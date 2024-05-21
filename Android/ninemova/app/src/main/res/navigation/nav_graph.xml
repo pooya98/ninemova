@@ -9,7 +9,15 @@
         android:id="@+id/communityFragment"
         android:name="com.ninemova.ui.community.CommunityFragment"
         android:label="fragment_community"
-        tools:layout="@layout/fragment_community" />
+        tools:layout="@layout/fragment_community">
+        <action
+            android:id="@+id/action_community_to_post"
+            app:destination="@id/postFragment">
+            <argument
+                android:name="comment"
+                app:argType="com.ninemova.domain.data.Comment" />
+        </action>
+    </fragment>
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.ninemova.ui.home.HomeFragment"
@@ -27,7 +35,7 @@
         android:id="@+id/recommendFragment"
         android:name="com.ninemova.ui.recommend.RecommendFragment"
         android:label="fragment_recommend"
-        tools:layout="@layout/fragment_recommend" >
+        tools:layout="@layout/fragment_recommend">
         <action
             android:id="@+id/action_recommend_to_detail"
             app:destination="@id/detailFragment">
@@ -67,7 +75,7 @@
             app:argType="com.ninemova.domain.data.Movie" />
         <action
             android:id="@+id/action_detail_to_insert_comment"
-            app:destination="@id/insertCommentDialog"/>
+            app:destination="@id/insertCommentDialog" />
     </fragment>
     <dialog
         android:id="@+id/insertCommentDialog"
@@ -80,6 +88,15 @@
 
         <action
             android:id="@+id/action_insert_comment_dialog_to_community"
-            app:destination="@id/communityFragment"/>
+            app:destination="@id/communityFragment" />
     </dialog>
+    <fragment
+        android:id="@+id/postFragment"
+        android:name="com.ninemova.ui.post.PostFragment"
+        android:label="fragment_post"
+        tools:layout="@layout/fragment_post">
+        <argument
+            android:name="comment"
+            app:argType="com.ninemova.domain.data.Comment" />
+    </fragment>
 </navigation>
