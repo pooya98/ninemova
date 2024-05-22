@@ -69,14 +69,10 @@ class HomeViewModel : ViewModel() {
     private fun searchRecentComments() {
         viewModelScope.launch {
             commentRepository.getRecentComments().collectLatest { response ->
-                if (response.isEmpty()) {
-                    _uiEvent.emit(HomeViewEvent.Error(errorMessage = ErrorMessage.NO_SEARCH_RESULT_ERROR_MESSAGE))
-                } else {
-                    _uiState.update { state ->
-                        state.copy(
-                            recentComments = response,
-                        )
-                    }
+                _uiState.update { state ->
+                    state.copy(
+                        recentComments = response,
+                    )
                 }
             }
         }
