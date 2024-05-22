@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -34,17 +35,40 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_view_profile_image"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="10dp"
+                app:cardCornerRadius="40dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <ImageView
+                    android:id="@+id/iv_user_thumbnail"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    app:profileImage="@{comment.profileImageUrl}"
+                    tools:src="@drawable/ic_test_thumbnail" />
+            </com.google.android.material.card.MaterialCardView>
+
+
             <TextView
                 android:id="@+id/tv_writer"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:ellipsize="end"
                 android:fontFamily="@font/pretendard_medium"
                 android:paddingHorizontal="5dp"
+                android:singleLine="true"
                 android:text="@{comment.writer}"
                 android:textColor="@color/white"
                 android:textSize="12sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintBottom_toBottomOf="@id/card_view_profile_image"
+                app:layout_constraintEnd_toStartOf="@id/iv_star"
+                app:layout_constraintStart_toEndOf="@id/card_view_profile_image"
+                app:layout_constraintTop_toTopOf="@id/card_view_profile_image" />
 
             <TextView
                 android:id="@+id/tv_movie_comment"

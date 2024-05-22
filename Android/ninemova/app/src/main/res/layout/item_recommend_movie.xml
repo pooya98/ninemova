@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="movie"
             type="com.ninemova.domain.data.Movie" />
@@ -18,13 +19,13 @@
             android:id="@+id/cardview_recommend_movie_thumnail"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="10dp"
-            android:layout_marginVertical="40dp"
             android:layout_marginHorizontal="70dp"
-            app:strokeColor="@color/black"
+            android:layout_marginVertical="40dp"
+            app:cardCornerRadius="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeColor="@color/black">
 
             <ImageView
                 android:id="@+id/iv_recommend_movie_thumnail"

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.ninemova.ui.recommend.RecommendViewModel" />
@@ -81,12 +82,12 @@
                 android:layout_height="0dp"
                 android:layout_marginHorizontal="50dp"
                 android:layout_marginVertical="15dp"
+                android:backgroundTint="@color/black"
                 app:cardCornerRadius="10dp"
                 app:layout_constraintBottom_toTopOf="@+id/tv_movie_title"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:backgroundTint="@color/black"
                 app:strokeColor="@color/black">
 
                 <ImageView
@@ -127,9 +128,9 @@
                 android:fontFamily="@font/pretendard_medium"
                 android:gravity="center"
                 android:paddingHorizontal="10dp"
+                android:text="@{viewModel.uiState.selectedMovie.releaseDate}"
                 android:textColor="@color/white"
                 android:textSize="14dp"
-                android:text="@{viewModel.uiState.selectedMovie.releaseDate}"
                 app:layout_constraintBottom_toTopOf="@+id/scroll_view_chip_group"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
