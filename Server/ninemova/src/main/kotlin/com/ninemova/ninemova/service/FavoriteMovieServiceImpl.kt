@@ -16,15 +16,18 @@ class FavoriteMovieServiceImpl(private val favoriteMovieRepository: FavoriteMovi
         return favoriteMovieRepository.save(favoriteMovie)
     }
 
-    override fun deleteFavoriteMovie(id: Int): Boolean {
-        if (favoriteMovieRepository.existsById(id).not()) {
-            return false
-        }
-        favoriteMovieRepository.deleteById(id)
+    override fun deleteMovie(userId: Int, movieId: Int): Boolean {
+        val favoriteMovie = favoriteMovieRepository.findByUserIdAndMovieId(userId, movieId) ?: return false
+        favoriteMovieRepository.delete(favoriteMovie)
         return true
     }
 
+
     override fun getLikeMovieNamesByUserId(userId: Int): List<FavoriteMovie> {
         return favoriteMovieRepository.findAllByUserId(userId)
+    }
+
+    override fun findByUserIdAndMovieId(userId: Int, movieId: Int): FavoriteMovie? {
+        return favoriteMovieRepository.findByUserIdAndMovieId(userId, movieId)
     }
 }
