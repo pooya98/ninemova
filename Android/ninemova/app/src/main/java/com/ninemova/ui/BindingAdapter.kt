@@ -9,7 +9,6 @@ import android.widget.ListView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
-import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
@@ -37,7 +36,7 @@ import org.eazegraph.lib.models.PieModel
 @BindingAdapter("app:imageUri")
 fun ImageView.bindImageUrl(imageUri: String?) {
     val url = "https://image.tmdb.org/t/p/original$imageUri"
-    imageUri?.let { uri ->
+    imageUri?.let {
         Glide.with(this)
             .load(url)
             .into(this)
@@ -99,16 +98,12 @@ fun setPieChartLabels(listView: ListView, pieChartItems: List<PieChartItem>?) {
 
 @BindingAdapter("app:setPieChartLabelText")
 fun setPieChartLabelText(textView: TextView, pieChartItem: PieChartItem) {
-    if (pieChartItem != null) {
-        textView.setText("${pieChartItem.name} (${pieChartItem.rate}%)")
-    }
+    textView.setText("${pieChartItem.name} (${pieChartItem.rate}%)")
 }
 
 @BindingAdapter("app:setPieChartLabelColor")
 fun setPieChartLabelColor(view: View, pieChartItem: PieChartItem) {
-    if (pieChartItem != null) {
-        view.setBackgroundColor(Color.parseColor(pieChartItem.color))
-    }
+    view.setBackgroundColor(Color.parseColor(pieChartItem.color))
 }
 
 @BindingAdapter("app:setUserTagItems")
@@ -121,9 +116,7 @@ fun setUserTagItems(listView: ListView, userTagItems: List<UserTag>?) {
 
 @BindingAdapter("app:setUserTagItemText")
 fun setUserTagItemText(textView: TextView, userTagText: String) {
-    if (userTagText != null) {
-        textView.setText("\"${userTagText}\"")
-    }
+    textView.setText("\"${userTagText}\"")
 }
 
 @BindingAdapter("app:enabledColor")
@@ -164,16 +157,12 @@ fun RecyclerView.bindHomeComments(items: List<Comment>) {
 
 @BindingAdapter("app:setReleaseYear")
 fun setReleaseYear(textView: TextView, releaseDate: String) {
-    if (releaseDate != null) {
-        textView.setText("(${releaseDate.substring(0, 4)})")
-    }
+    textView.setText("(${releaseDate.substring(0, 4)})")
 }
 
 @BindingAdapter("app:setCommentText")
 fun setCommentText(textView: TextView, userTagText: String) {
-    if (userTagText != null) {
-        textView.setText("\"${userTagText}\"")
-    }
+    textView.setText("\"${userTagText}\"")
 }
 
 @BindingAdapter("app:replies")
