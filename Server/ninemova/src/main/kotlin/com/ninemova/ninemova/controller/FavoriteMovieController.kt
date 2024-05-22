@@ -3,7 +3,6 @@ package com.ninemova.ninemova.controller
 import com.ninemova.ninemova.dto.FavoriteMovie
 import com.ninemova.ninemova.service.FavoriteMovieService
 import lombok.RequiredArgsConstructor
-import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
@@ -25,12 +24,18 @@ class FavoriteMovieController(private val favoriteMovieService: FavoriteMovieSer
         return ResponseEntity.ok(list)
     }
 
-    @DeleteMapping("/delete/{id}")
-    fun deleteFavorite(@PathVariable id: Int): ResponseEntity<Boolean> {
-        val flag = favoriteMovieService.deleteFavoriteMovie(id)
-        if (flag.not()) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(false)
+    @DeleteMapping("/delete/{userId}/{movieId}")
+    fun deleteFavorite(@PathVariable userId: Int, @PathVariable movieId: Int): ResponseEntity<Boolean> {
+        return ResponseEntity.ok(favoriteMovieService.deleteMovie(userId, movieId))
+    }
+
+    @GetMapping("/find/{userId}/{movieId}")
+    fun getFavorite(@PathVariable userId: Int, @PathVariable movieId: Int): ResponseEntity<Boolean> {
+        val result = favoriteMovieService.findByUserIdAndMovieId(userId, movieId)
+        return if (result == null) {
+            ResponseEntity.ok(false)
+        } else {
+            ResponseEntity.ok(true)
         }
-        return ResponseEntity.ok(true)
     }
 }
