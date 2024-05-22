@@ -9,16 +9,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.ninemova.databinding.DialogLoadingBinding
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
-class LoadingDialog : DialogFragment() {
+class LoadingDialog(private val isLoading: Flow<Boolean>) : DialogFragment() {
 
     private var _binding: DialogLoadingBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog = super.onCreateDialog(savedInstanceState)
-        isCancelable = false
+        isCancelable = true
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         return dialog
     }
@@ -29,7 +35,20 @@ class LoadingDialog : DialogFragment() {
         savedInstanceState: Bundle?,
     ): View {
         _binding = DialogLoadingBinding.inflate(inflater, container, false)
+        observerLoadingState()
         return binding.root
+    }
+
+    private fun observerLoadingState() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                isLoading.collectLatest { flag ->
+                    if (flag.not()) {
+                        dialog?.dismiss()
+                    }
+                }
+            }
+        }
     }
 
     override fun onDismiss(dialog: DialogInterface) {
