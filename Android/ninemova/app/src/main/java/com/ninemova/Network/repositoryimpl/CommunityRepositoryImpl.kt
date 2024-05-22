@@ -60,4 +60,30 @@ class CommunityRepositoryImpl : CommentRepository {
             emit(null)
         }
     }
+
+    override suspend fun getRecentComments(): Flow<List<Comment>>  = flow {
+        runCatching {
+            commentApi.getRecentComments()
+        }.onSuccess { response ->
+            response.body()?.let { body ->
+                val comments = body.mapNotNull { data ->
+                    data.comment.movieId?.let { movieId ->
+                        searchApi.getMovie(moveId = movieId, language = "ko").body()?.let { movie ->
+                            Comment(
+                                id = data.comment.id,
+                                movieName = movie.title,
+                                posterPath = movie.posterPath ?: movie.backdropPath,
+                                backDropPath = movie.backdropPath ?: movie.posterPath,
+                                commentScore = data.comment.score,
+                                commentContent = data.comment.content,
+                                writer = data.user.nickName,
+                                userId = data.user.id,
+                            )
+                        }
+                    }
+                }
+                emit(comments)
+            }
+        }
+    }
 }

@@ -60,6 +60,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
         with(binding.recyclerviewRecentCommentList) {
             recentCommentListAdapter.setHomeCommentClickListener(object : HomeCommentClickListener {
                 override fun onClick(item: Comment) {
+                    findNavController().navigate(
+                        HomeFragmentDirections.actionHomeToPost(item)
+                    )
                     HomeFragmentDirections.actionHomeToPost(item)
                 }
             })

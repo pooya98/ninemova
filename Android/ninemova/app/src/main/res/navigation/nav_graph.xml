@@ -25,14 +25,18 @@
         tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_home_to_detail"
-            app:destination="@id/detailFragment">
+            app:destination="@id/detailFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true">
             <argument
                 android:name="movie"
                 app:argType="com.ninemova.domain.data.Movie" />
         </action>
         <action
             android:id="@+id/action_home_to_post"
-            app:destination="@id/postFragment">
+            app:destination="@id/postFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true">
             <argument
                 android:name="comment"
                 app:argType="com.ninemova.domain.data.Comment" />
@@ -45,7 +49,9 @@
         tools:layout="@layout/fragment_recommend">
         <action
             android:id="@+id/action_recommend_to_detail"
-            app:destination="@id/detailFragment">
+            app:destination="@id/detailFragment"
+            app:popUpTo="@id/recommendFragment"
+            app:popUpToInclusive="true">
             <argument
                 android:name="movie"
                 app:argType="com.ninemova.domain.data.Movie" />

@@ -67,15 +67,14 @@ class HomeViewModel : ViewModel() {
     }
 
     private fun searchRecentComments() {
-        val comments = listOf(
-            Comment(1, "영화1", "/j3Z3XktmWB1VhsS8iXNcrR86PXi.jpg", null, 4.0, "갓성탈출임! 강추!!", 1, "코리안캉"),
-            Comment(2, "영화2", "/j3Z3XktmWB1VhsS8iXNcrR86PXi.jpg", null, 4.0, "내용2", 2, "사용자2"),
-            Comment(3, "영화3", "/j3Z3XktmWB1VhsS8iXNcrR86PXi.jpg", null, 4.0, "내용3", 3, "사용자3"),
-        )
-        _uiState.update { state ->
-            state.copy(
-                recentComments = comments
-            )
+        viewModelScope.launch {
+            commentRepository.getRecentComments().collectLatest { response ->
+                _uiState.update { state ->
+                    state.copy(
+                        recentComments = response,
+                    )
+                }
+            }
         }
     }
 }

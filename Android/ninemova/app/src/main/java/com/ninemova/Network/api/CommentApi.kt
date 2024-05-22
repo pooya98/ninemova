@@ -17,4 +17,7 @@ interface CommentApi {
     suspend fun createComment(
         @Body request: CommentRequest,
     ): Response<CommentResponse>
+
+    @GET("comment/recent5")
+    suspend fun getRecentComments() : Response<List<CommentsResponse>>
 }
