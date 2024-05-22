@@ -25,20 +25,87 @@ class RecommendViewModel : ViewModel() {
 
     private val _uiState = MutableStateFlow(RecommendUiState())
     val uiState: StateFlow<RecommendUiState> = _uiState
-
+    private val _isLoading = MutableStateFlow(true)
+    val isLoading: StateFlow<Boolean> = _isLoading
     private val _uiEvent = MutableSharedFlow<RecommendViewEvent>()
     val uiEvent: SharedFlow<RecommendViewEvent> = _uiEvent
 
     private val _response = MutableLiveData<String>()
     val response: LiveData<String> get() = _response
 
+    init {
+        getRecommendMovieTitle()
+    }
+
+    private fun getRecommendMovieTitle() {
+        viewModelScope.launch {
+            getAiMovieTitle()
+            getNewMovieTitle()
+        }
+    }
+
+    private suspend fun getAiMovieTitle() {
+        repository.getChatResponse(promptAiMovieRecommends, BuildConfig.OPENAI_API_KEY)
+            ?.let { title ->
+                val chatGptResult = Gson().fromJson(title, AnalysisResult::class.java)
+                val aiMovieTitle = chatGptResult.answer.resultElements.first()
+
+                _uiState.update { uiState ->
+                    uiState.copy(
+                        aiRecommendMovieTitle = aiMovieTitle.name,
+                    )
+                }
+                _uiEvent.emit(RecommendViewEvent.SearchSuccess)
+            } ?: run {
+            _uiEvent.emit(RecommendViewEvent.Error(errorMessage = "AI 영화 추천 응답 실패"))
+        }
+    }
+
+    private suspend fun getNewMovieTitle() {
+        repository.getChatResponse(promptAiNewWorldRecommends, BuildConfig.OPENAI_API_KEY)
+            ?.let { title ->
+                val chatGptResult = Gson().fromJson(title, AnalysisResult::class.java)
+                val newMovieTitle = chatGptResult.answer.resultElements.first()
+
+                _uiState.update { uiState ->
+                    uiState.copy(
+                        newWorldMovieTitle = newMovieTitle.name,
+                    )
+                }
+            } ?: run {
+            _uiEvent.emit(RecommendViewEvent.Error(errorMessage = "새로운 영화 추천 응답 실패"))
+        }
+    }
+
+    fun fetchNewWorldRecommendMovie() {
+        viewModelScope.launch {
+            movieRepository.searchMovies(
+                request = SearchMovieRequest(
+                    query = uiState.value.newWorldMovieTitle,
+                ),
+            ).collectLatest { response ->
+                if (response.isEmpty()) {
+                    _uiEvent.emit(RecommendViewEvent.Error(errorMessage = ErrorMessage.NO_SEARCH_RESULT_ERROR_MESSAGE))
+                } else {
+                    _uiState.update { state ->
+                        state.copy(
+                            selectedMovie = response[0],
+                        )
+                    }
+                    _isLoading.update {
+                        false
+                    }
+                }
+            }
+            getGenres()
+        }
+    }
+
     fun fetchAiRecommendMovie() {
         viewModelScope.launch {
-            val movieTitle = getAiRecommendMovieTitle()
-
             movieRepository.searchMovies(
                 request = SearchMovieRequest(
-                    query = movieTitle,
+                    query = uiState.value.aiRecommendMovieTitle,
                 ),
             ).collectLatest { response ->
                 if (response.isEmpty()) {
@@ -46,9 +113,11 @@ class RecommendViewModel : ViewModel() {
                 } else {
                     _uiState.update { state ->
                         state.copy(
-                            aiRecommendMovie = response[0],
-                            selectedMovie = response[0]
+                            selectedMovie = response[0],
                         )
+                    }
+                    _isLoading.update {
+                        false
                     }
                 }
             }
@@ -56,65 +125,6 @@ class RecommendViewModel : ViewModel() {
         }
     }
 
-    private suspend fun getAiRecommendMovieTitle(): String {
-        try {
-            val result = repository.getChatResponse(promptAiMovieRecommends, BuildConfig.OPENAI_API_KEY)
-            _response.value = result!!
-
-            val analysisResult: AnalysisResult =
-                Gson().fromJson(result!!, AnalysisResult::class.java)
-            val movieTitles = mutableListOf<String>()
-            analysisResult.answer.resultElements.forEachIndexed { index, element ->
-                movieTitles.add(element.name)
-            }
-            return movieTitles[0]
-        } catch (e: Exception) {
-            _response.value = "Error: ${e.message}"
-        }
-        return ""
-    }
-
-    fun fetchNewWorldRecommendMovie(){
-        viewModelScope.launch {
-            val movieTitle = getNewWorldMovieTitle()
-
-            movieRepository.searchMovies(
-                request = SearchMovieRequest(
-                    query = movieTitle,
-                ),
-            ).collectLatest { response ->
-                if (response.isEmpty()) {
-                    _uiEvent.emit(RecommendViewEvent.Error(errorMessage = ErrorMessage.NO_SEARCH_RESULT_ERROR_MESSAGE))
-                } else {
-                    _uiState.update { state ->
-                        state.copy(
-                            newWorldRecommendMovie = response[0],
-                            selectedMovie = response[0]
-                        )
-                    }
-                }
-            }
-            getGenres()
-        }
-    }
-
-    private suspend fun getNewWorldMovieTitle(): String {
-        try {
-            val result = repository.getChatResponse(promptAiNewWorldRecommends, BuildConfig.OPENAI_API_KEY)
-            _response.value = result!!
-
-            val analysisResult: AnalysisResult =
-                Gson().fromJson(result!!, AnalysisResult::class.java)
-            val movieTitles = mutableListOf<String>()
-            analysisResult.answer.resultElements.forEachIndexed { index, element ->
-                movieTitles.add(element.name)
-            }
-            return movieTitles[0]
-        } catch (e: Exception) {
-            _response.value = "Error: ${e.message}"
-        }
-        return ""
-    }
 
     private suspend fun getGenres() {
         uiState.value.selectedMovie?.let { movie ->

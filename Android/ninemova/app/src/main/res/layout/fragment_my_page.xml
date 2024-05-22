@@ -106,10 +106,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="15dp"
                 android:layout_marginTop="15dp"
+                android:gravity="center_vertical"
                 android:orientation="horizontal"
                 app:layout_constraintTop_toBottomOf="@+id/layout_btn_group"
-                tools:layout_editor_absoluteX="15dp"
-                android:gravity="center_vertical">
+                tools:layout_editor_absoluteX="15dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -130,7 +130,8 @@
 
             </LinearLayout>
 
-            <LinearLayout
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/layout_user_tag_group"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
@@ -145,9 +146,26 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:setUserTagItems="@{ViewModel.userTags}" />
 
-            </LinearLayout>
+                <com.google.android.material.progressindicator.CircularProgressIndicator
+                    android:id="@+id/progress_bar_user_tags"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:indeterminate="true"
+                    app:indicatorColor="#FF045CFA"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:loading="@{ViewModel.userTags}" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <LinearLayout
                 android:id="@+id/label_user_interest"
@@ -177,8 +195,8 @@
                     android:textSize="26dp" />
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/linearLayout"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_keywords"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
@@ -187,172 +205,251 @@
                 android:orientation="horizontal"
                 app:layout_constraintTop_toBottomOf="@+id/label_user_interest">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
-                    android:layout_marginHorizontal="20dp">
+                <LinearLayout
+                    android:id="@+id/linearLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/black"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-                    <org.eazegraph.lib.charts.PieChart
-                        android:id="@+id/piechart_keyword"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@color/black"
-                        android:paddingHorizontal="15dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:setPieChartItems="@{ViewModel.keywords}" />
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:layout_marginHorizontal="20dp">
 
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="25dp"
-                        android:backgroundTint="@color/black"
-                        app:cardCornerRadius="50dp">
+                        <org.eazegraph.lib.charts.PieChart
+                            android:id="@+id/piechart_keyword"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@color/black"
+                            android:paddingHorizontal="15dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:setPieChartItems="@{ViewModel.keywords}" />
 
-                        <TextView
+                        <androidx.cardview.widget.CardView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:fontFamily="@font/pretendard_semibold"
-                            android:gravity="center"
-                            android:text="키워드"
-                            android:textColor="@color/white"
-                            android:textSize="16sp" />
-                    </androidx.cardview.widget.CardView>
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                            android:layout_margin="25dp"
+                            android:backgroundTint="@color/black"
+                            app:cardCornerRadius="50dp">
 
-                <!-- to display pie chart details -->
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:orientation="vertical">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:fontFamily="@font/pretendard_semibold"
+                                android:gravity="center"
+                                android:text="키워드"
+                                android:textColor="@color/white"
+                                android:textSize="16sp" />
+                        </androidx.cardview.widget.CardView>
 
-                    <ListView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:setPieChartLabels="@{ViewModel.keywords}" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <!-- to display pie chart details -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical">
+
+                        <ListView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:setPieChartLabels="@{ViewModel.keywords}" />
+                    </LinearLayout>
                 </LinearLayout>
-            </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/linearLayout_chart_genre"
+                <com.google.android.material.progressindicator.CircularProgressIndicator
+                    android:id="@+id/progress_bar_keywords"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="120dp"
+                    android:background="@android:color/transparent"
+                    android:indeterminate="true"
+                    app:indicatorColor="#FF045CFA"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:loading="@{ViewModel.keywords}" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_genres"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
                 android:background="@color/black"
-                android:orientation="horizontal"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
-                    android:layout_marginHorizontal="20dp">
-
-                    <org.eazegraph.lib.charts.PieChart
-                        android:id="@+id/piechart_genre"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@color/black"
-                        android:paddingHorizontal="15dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:setPieChartItems="@{ViewModel.genres}" />
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="25dp"
-                        android:backgroundTint="@color/black"
-                        app:cardCornerRadius="50dp">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:fontFamily="@font/pretendard_semibold"
-                            android:gravity="center"
-                            android:text="장르"
-                            android:textColor="@color/white"
-                            android:textSize="16sp" />
-                    </androidx.cardview.widget.CardView>
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                app:layout_constraintTop_toBottomOf="@+id/layout_keywords">
 
                 <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:orientation="vertical">
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/black"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-                    <ListView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:setPieChartLabels="@{ViewModel.genres}" />
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:layout_marginHorizontal="20dp">
 
+                        <org.eazegraph.lib.charts.PieChart
+                            android:id="@+id/piechart_genre"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@color/black"
+                            android:paddingHorizontal="15dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:setPieChartItems="@{ViewModel.genres}" />
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="25dp"
+                            android:backgroundTint="@color/black"
+                            app:cardCornerRadius="50dp">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:fontFamily="@font/pretendard_semibold"
+                                android:gravity="center"
+                                android:text="장르"
+                                android:textColor="@color/white"
+                                android:textSize="16sp" />
+                        </androidx.cardview.widget.CardView>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical">
+
+                        <ListView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:setPieChartLabels="@{ViewModel.genres}" />
+
+                    </LinearLayout>
                 </LinearLayout>
-            </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/linearLayout_chart_actor"
+                <com.google.android.material.progressindicator.CircularProgressIndicator
+                    android:id="@+id/progress_bar_genres"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="120dp"
+                    android:background="@android:color/transparent"
+                    android:indeterminate="true"
+                    app:indicatorColor="#FF045CFA"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:loading="@{ViewModel.genres}" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_actors"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
                 android:background="@color/black"
-                android:orientation="horizontal"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout_chart_genre">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
-                    android:layout_marginHorizontal="20dp">
-
-                    <org.eazegraph.lib.charts.PieChart
-                        android:id="@+id/piechart_actor"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@color/black"
-                        android:paddingHorizontal="15dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:setPieChartItems="@{ViewModel.actors}" />
-
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="25dp"
-                        android:backgroundTint="@color/black"
-                        app:cardCornerRadius="50dp">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:fontFamily="@font/pretendard_semibold"
-                            android:gravity="center"
-                            android:text="배우"
-                            android:textColor="@color/white"
-                            android:textSize="16sp" />
-                    </androidx.cardview.widget.CardView>
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                app:layout_constraintTop_toBottomOf="@+id/layout_genres">
 
                 <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:orientation="vertical">
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/black"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-                    <ListView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:setPieChartLabels="@{ViewModel.actors}" />
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:layout_marginHorizontal="20dp">
+
+                        <org.eazegraph.lib.charts.PieChart
+                            android:id="@+id/piechart_actor"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@color/black"
+                            android:paddingHorizontal="15dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:setPieChartItems="@{ViewModel.actors}" />
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="25dp"
+                            android:backgroundTint="@color/black"
+                            app:cardCornerRadius="50dp">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:fontFamily="@font/pretendard_semibold"
+                                android:gravity="center"
+                                android:text="배우"
+                                android:textColor="@color/white"
+                                android:textSize="16sp" />
+                        </androidx.cardview.widget.CardView>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical">
+
+                        <ListView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:setPieChartLabels="@{ViewModel.actors}" />
+                    </LinearLayout>
                 </LinearLayout>
-            </LinearLayout>
+
+                <com.google.android.material.progressindicator.CircularProgressIndicator
+                    android:id="@+id/progress_bar_actors"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="120dp"
+                    android:background="@android:color/transparent"
+                    android:indeterminate="true"
+                    app:indicatorColor="#FF045CFA"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:loading="@{ViewModel.actors}" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </layout>

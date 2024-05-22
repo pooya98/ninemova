@@ -9,12 +9,12 @@ import android.widget.ListView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
-import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
+import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.android.material.textfield.TextInputLayout
 import com.ninemova.R
 import com.ninemova.domain.data.Comment
@@ -36,7 +36,7 @@ import org.eazegraph.lib.models.PieModel
 @BindingAdapter("app:imageUri")
 fun ImageView.bindImageUrl(imageUri: String?) {
     val url = "https://image.tmdb.org/t/p/original$imageUri"
-    imageUri?.let { uri ->
+    imageUri?.let {
         Glide.with(this)
             .load(url)
             .into(this)
@@ -72,10 +72,10 @@ fun ChipGroup.bindChips(items: List<Genre>) {
 }
 
 @BindingAdapter("app:setPieChartItems")
-fun setPieChartItems(pieChart: PieChart, pieChartItems: LiveData<List<PieChartItem>>) {
-    pieChartItems.value?.let {
+fun setPieChartItems(pieChart: PieChart, pieChartItems: List<PieChartItem>?) {
+    pieChartItems?.let {
         pieChart.clearChart()
-        it.forEachIndexed { index, pieChartItem ->
+        it.forEach { pieChartItem ->
             pieChart.addPieSlice(
                 PieModel(
                     pieChartItem.name,
@@ -89,40 +89,34 @@ fun setPieChartItems(pieChart: PieChart, pieChartItems: LiveData<List<PieChartIt
 }
 
 @BindingAdapter("app:setPieChartLabels")
-fun setPieChartLabels(listView: ListView, pieChartItems: LiveData<List<PieChartItem>>) {
-    if (pieChartItems.value != null) {
-        val adapter = PieChartLabelListAdapter(listView.context, pieChartItems.value!!)
+fun setPieChartLabels(listView: ListView, pieChartItems: List<PieChartItem>?) {
+    if (pieChartItems != null) {
+        val adapter = PieChartLabelListAdapter(listView.context, pieChartItems)
         listView.adapter = adapter
     }
 }
 
 @BindingAdapter("app:setPieChartLabelText")
 fun setPieChartLabelText(textView: TextView, pieChartItem: PieChartItem) {
-    if (pieChartItem != null) {
-        textView.setText("${pieChartItem.name} (${pieChartItem.rate}%)")
-    }
+    textView.setText("${pieChartItem.name} (${pieChartItem.rate}%)")
 }
 
 @BindingAdapter("app:setPieChartLabelColor")
 fun setPieChartLabelColor(view: View, pieChartItem: PieChartItem) {
-    if (pieChartItem != null) {
-        view.setBackgroundColor(Color.parseColor(pieChartItem.color))
-    }
+    view.setBackgroundColor(Color.parseColor(pieChartItem.color))
 }
 
 @BindingAdapter("app:setUserTagItems")
-fun setUserTagItems(listView: ListView, userTagItems: LiveData<List<UserTag>>) {
-    if (userTagItems.value != null) {
-        val adapter = UserTagListAdapter(listView.context, userTagItems.value!!)
+fun setUserTagItems(listView: ListView, userTagItems: List<UserTag>?) {
+    if (userTagItems != null) {
+        val adapter = UserTagListAdapter(listView.context, userTagItems)
         listView.adapter = adapter
     }
 }
 
 @BindingAdapter("app:setUserTagItemText")
 fun setUserTagItemText(textView: TextView, userTagText: String) {
-    if (userTagText != null) {
-        textView.setText("\"${userTagText}\"")
-    }
+    textView.setText("\"${userTagText}\"")
 }
 
 @BindingAdapter("app:enabledColor")
@@ -163,16 +157,12 @@ fun RecyclerView.bindHomeComments(items: List<Comment>) {
 
 @BindingAdapter("app:setReleaseYear")
 fun setReleaseYear(textView: TextView, releaseDate: String) {
-    if (releaseDate != null) {
-        textView.setText("(${releaseDate.substring(0, 4)})")
-    }
+    textView.setText("(${releaseDate.substring(0, 4)})")
 }
 
 @BindingAdapter("app:setCommentText")
 fun setCommentText(textView: TextView, userTagText: String) {
-    if (userTagText != null) {
-        textView.setText("\"${userTagText}\"")
-    }
+    textView.setText("\"${userTagText}\"")
 }
 
 @BindingAdapter("app:replies")
@@ -189,4 +179,13 @@ fun ImageView.bindProfile(imageUri: String?) {
         .circleCrop()
         .placeholder(R.drawable.image_user)
         .into(this)
+}
+
+@BindingAdapter("app:loading")
+fun bindLoading(circularProgressIndicator: CircularProgressIndicator, items: List<Any>?) {
+    if (items == null) {
+        circularProgressIndicator.visibility = View.VISIBLE
+    } else {
+        circularProgressIndicator.visibility = View.GONE
+    }
 }

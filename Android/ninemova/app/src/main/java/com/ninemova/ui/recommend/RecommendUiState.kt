@@ -5,9 +5,8 @@ import com.ninemova.domain.data.Movie
 
 data class RecommendUiState(
     val query: String? = "",
-    val aiRecommendMovie: Movie? = null,
-    val tmdbRecommendMovie: Movie? = null,
-    val newWorldRecommendMovie: Movie? = null,
+    val aiRecommendMovieTitle: String? = "",
+    val newWorldMovieTitle: String? = "",
     val selectedMovie: Movie? = null,
-    val genres: List<Genre> = listOf()
+    val genres: List<Genre> = listOf(),
 )

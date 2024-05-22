@@ -86,7 +86,7 @@
     </fragment>
     <dialog
         android:id="@+id/insertCommentDialog"
-        android:name="com.ninemova.ui.detail.InsertCommentDialog"
+        android:name="com.ninemova.ui.dialog.InsertCommentDialog"
         android:label="dialog_fragment_insert_comment"
         tools:layout="@layout/dialog_insert_comment">
         <argument

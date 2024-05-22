@@ -1,4 +1,4 @@
-package com.ninemova.ui.detail
+package com.ninemova.ui.dialog
 
 import android.app.Dialog
 import android.content.DialogInterface
