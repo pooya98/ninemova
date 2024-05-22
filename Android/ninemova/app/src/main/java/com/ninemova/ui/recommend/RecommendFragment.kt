@@ -42,6 +42,7 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
                 recommendVieModel.uiEvent.collectLatest { event ->
                     when (event) {
                         is RecommendViewEvent.SearchSuccess -> {
+                            recommendVieModel.fetchNewWorldRecommendMovie()
                             recommendVieModel.fetchAiRecommendMovie()
                         }
 

@@ -1,5 +1,6 @@
 package com.ninemova.ui.recommend
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -17,7 +18,9 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlin.math.log
 
+private const val TAG = "RecommendViewModel_싸피"
 class RecommendViewModel : ViewModel() {
     private val repository = RepositoryUtils.openAiRepository
     private val movieRepository = RepositoryUtils.movieRepository
@@ -41,21 +44,20 @@ class RecommendViewModel : ViewModel() {
         viewModelScope.launch {
             getAiMovieTitle()
             getNewMovieTitle()
+            _uiEvent.emit(RecommendViewEvent.SearchSuccess)
         }
     }
 
     private suspend fun getAiMovieTitle() {
         repository.getChatResponse(promptAiMovieRecommends, BuildConfig.OPENAI_API_KEY)
-            ?.let { title ->
-                val chatGptResult = Gson().fromJson(title, AnalysisResult::class.java)
+            ?.let { response ->
+                val chatGptResult = Gson().fromJson(response, AnalysisResult::class.java)
                 val aiMovieTitle = chatGptResult.answer.resultElements.first()
-
                 _uiState.update { uiState ->
                     uiState.copy(
                         aiRecommendMovieTitle = aiMovieTitle.name,
                     )
                 }
-                _uiEvent.emit(RecommendViewEvent.SearchSuccess)
             } ?: run {
             _uiEvent.emit(RecommendViewEvent.Error(errorMessage = "AI 영화 추천 응답 실패"))
         }
@@ -63,8 +65,8 @@ class RecommendViewModel : ViewModel() {
 
     private suspend fun getNewMovieTitle() {
         repository.getChatResponse(promptAiNewWorldRecommends, BuildConfig.OPENAI_API_KEY)
-            ?.let { title ->
-                val chatGptResult = Gson().fromJson(title, AnalysisResult::class.java)
+            ?.let { response ->
+                val chatGptResult = Gson().fromJson(response, AnalysisResult::class.java)
                 val newMovieTitle = chatGptResult.answer.resultElements.first()
 
                 _uiState.update { uiState ->
@@ -150,25 +152,25 @@ class RecommendViewModel : ViewModel() {
         val movieListString = "악인전, 내부자들, 범죄도시, 베테랑, 범죄와의 전쟁, 히트맨, 조작된 도시, 부산행, 스파이더웹"
 
         val promptAiMovieRecommends = """
-            Please provide the information in the following JSON format:
-            
+            Question: TMDB에 있는 영화 중에서 다음의 리스트에 있는 영화들과 비슷한 주제의 영화 1개의 제목을 반환해주세요. 영화 리스트 : [${movieListString}]
+        
+            다음의 JSON 형식에 맞춰서 응답해주세요.
             {
               "question": "Your question here",
-              "answer": {"resultElements": [{"name": "", "rate": 0.0}]}
+              "answer": {"resultElements": [JSON 형식({"name": 영화 이름, "rate": 관련 지수(0.0~100.0)})]}
             }
-            
-            Question: TMDB에 있는 영화 중에서 다음의 리스트에 있는 영화들과 비슷한 주제의 영화 1개의 제목을 "name"부분에 담아서 반환해주세요. 영화 리스트 : [${movieListString}]
         """.trimIndent()
 
         val promptAiNewWorldRecommends = """
-            Please provide the information in the following JSON format:
-            
+            Question: TMDB에 있는 영화 중에서 다음의 리스트에 있는 영화들과는 다른 주제의 영화 1개의 제목을 반환해주세요. 영화 리스트 : [${movieListString}]
+        
+            다음의 JSON 형식에 맞춰서 응답해주세요.
             {
               "question": "Your question here",
-              "answer": {"resultElements": [{"name": "", "rate": 0.0}]}
+              "answer": {"resultElements": [JSON 형식({"name": 영화 이름, "rate": 관련 지수(0.0~100.0)})]}
             }
-            
-            Question: TMDB에 있는 영화 중에서 다음의 리스트에 있는 영화들과는 다른 주제의 영화 1개의 제목을 "name"부분에 담아서 반환해주세요. 영화 리스트 : [${movieListString}]
         """.trimIndent()
     }
+
+
 }

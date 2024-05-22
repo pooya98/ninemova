@@ -51,7 +51,6 @@ class MyPageViewModel : ViewModel() {
             favoriteRepository.getUserFavoriteMovies(localDataStoreRepository.getUserId())
                 .collectLatest { movieNames ->
                     movieNames?.let { list ->
-                        //PromptMessage.movieNames = list.joinToString(separator = ", ")
                         favoriteMovies.value = list.joinToString(separator = ", ")
                         fetchUserInfo()
                         fetchUserTagResponse()
@@ -124,7 +123,7 @@ class MyPageViewModel : ViewModel() {
                         favoriteMovies.value ?: ""
                     ), BuildConfig.OPENAI_API_KEY
                 )
-                _response.value = result!!.substring(8, result!!.length - 4)
+                _response.value = result!!
 
                 Log.d("jaehan","actor response : ${result!!}")
                 val analysisResult: AnalysisResult =
