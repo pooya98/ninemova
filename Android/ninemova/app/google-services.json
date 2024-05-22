@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "368990433964",
+    "project_id": "ninemova",
+    "storage_bucket": "ninemova.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:368990433964:android:aa2e14928b41fc14afe509",
+        "android_client_info": {
+          "package_name": "com.ninemova"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBc8ozNwqoK0xGppmGEk94HeKeqlQ5q8rw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -119,4 +119,7 @@ dependencies {
 
     // rating bar
     implementation("com.github.ome450901:SimpleRatingBar:1.5.1")
+
+    // FireBase
+    implementation(platform("com.google.firebase:firebase-bom:33.0.0"))
 }
