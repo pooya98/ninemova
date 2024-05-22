@@ -31,4 +31,25 @@ class UserRepositoryImpl : UserRepository {
             emit(null)
         }
     }
+
+    override suspend fun findUser(userId: Int): Flow<User?> = flow {
+        runCatching {
+            userApi.findUser(userId)
+        }.onSuccess { response ->
+            response.body()?.let { body ->
+                emit(
+                    User(
+                        body.id,
+                        body.userName,
+                        body.nickName,
+                        body.profileImageUrl,
+                    ),
+                )
+            } ?: run {
+                emit(null)
+            }
+        }.onFailure {
+            emit(null)
+        }
+    }
 }

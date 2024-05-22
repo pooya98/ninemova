@@ -11,4 +11,5 @@ data class Comment(
     val commentContent: String? = null,
     val userId: Int? = null,
     val writer: String? = null,
+    val profileImageUrl: String? = null,
 ) : Serializable

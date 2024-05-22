@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="comment"
-            type="com.ninemova.domain.data.Comment" />
+            name="viewModel"
+            type="com.ninemova.ui.post.PostViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -52,7 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:fontFamily="@font/pretendard_medium"
-            android:text="@{comment.writer}"
+            android:text="@{viewModel.uiState.comment.writer}"
             android:textColor="@color/white"
             android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="@id/iv_user_thumbnail"
@@ -76,7 +76,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                app:imageUri="@{comment.backDropPath}"
+                app:imageUri="@{viewModel.uiState.comment.backDropPath}"
                 tools:src="@drawable/image_movie_poster" />
         </com.google.android.material.card.MaterialCardView>
 
@@ -87,7 +87,7 @@
             android:fontFamily="@font/pretendard_semibold"
             android:gravity="center|left"
             android:paddingHorizontal="10dp"
-            android:text="@{comment.commentContent}"
+            android:text="@{viewModel.uiState.comment.commentContent}"
             android:textColor="@color/white"
             android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="@id/iv_book_cover"
@@ -109,7 +109,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/pretendard_medium"
-            android:text="@{String.valueOf(comment.commentScore)}"
+            android:text="@{String.valueOf(viewModel.uiState.comment.commentScore)}"
             android:textColor="@color/white"
             android:textSize="17sp"
             app:layout_constraintBottom_toBottomOf="@id/iv_star"
@@ -126,6 +126,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/iv_book_cover"
+            app:replies="@{viewModel.uiState.replies}"
             tools:listitem="@layout/item_reply" />
 
 
@@ -145,7 +146,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/reply_comment_hint"
-                android:inputType="text" />
+                android:inputType="text"
+                android:onTextChanged="@{viewModel.onTextChanged}" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <ImageView
@@ -154,6 +156,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
             android:background="@drawable/ic_send"
+            android:onClick="@{()->viewModel.registerReply()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/text_input_layout_reply" />

@@ -7,4 +7,6 @@ import kotlinx.coroutines.flow.Flow
 interface UserRepository {
 
     suspend fun signUp(request: SignUpRequest): Flow<User?>
+
+    suspend fun findUser(userId: Int): Flow<User?>
 }
