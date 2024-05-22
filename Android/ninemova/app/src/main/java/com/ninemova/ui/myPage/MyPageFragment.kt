@@ -4,6 +4,7 @@ import androidx.fragment.app.viewModels
 import com.ninemova.R
 import com.ninemova.databinding.FragmentMyPageBinding
 import com.ninemova.ui.base.BaseFragment
+import com.ninemova.ui.util.ErrorMessage
 
 class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_page) {
 
@@ -19,7 +20,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
     private fun observerFavoriteMovies() {
         myPageViewModel.favoriteMovies.observe(viewLifecycleOwner) { favoriteMovies ->
             if (favoriteMovies.isBlank()) {
-                showMessage(getString(R.string.favorite_movies_empty_message))
+                showMessage(ErrorMessage.EMPTY_FAVORITE_MOVIES_MESSAGe)
             } else {
                 with(myPageViewModel) {
                     fetchActorResponse()
@@ -27,6 +28,11 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
                     fetchUserTagResponse()
                     fetchKeywordResponse()
                 }
+            }
+        }
+        myPageViewModel.errorMessage.observe(viewLifecycleOwner) { errorMessage ->
+            if (errorMessage != null) {
+                showMessage(errorMessage)
             }
         }
     }

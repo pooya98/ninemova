@@ -1,6 +1,5 @@
 package com.ninemova.ui.myPage
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,6 +11,7 @@ import com.ninemova.Network.response.openai.AnalysisResult
 import com.ninemova.domain.data.PieChartItem
 import com.ninemova.domain.data.User
 import com.ninemova.domain.data.UserTag
+import com.ninemova.ui.util.ErrorMessage
 import com.ninemova.ui.util.PromptMessage
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -43,6 +43,9 @@ class MyPageViewModel : ViewModel() {
     private val _favoriteMovies = MutableLiveData<String>()
     val favoriteMovies: LiveData<String> = _favoriteMovies
 
+    private val _errorMessage = MutableLiveData<String>()
+    val errorMessage: LiveData<String> = _errorMessage
+
     init {
         fetchUserFavoriteMovies()
         fetchUserInfo()
@@ -65,18 +68,17 @@ class MyPageViewModel : ViewModel() {
                 val result = repository.getChatResponse(
                     PromptMessage.promptUserTag(_favoriteMovies.value ?: ""),
                     BuildConfig.OPENAI_API_KEY,
-                )
-                _response.value = result!!
-                Log.d("jaehan", "userTag response : ${result!!}")
+                ) ?: ""
+                _response.value = result
                 val analysisResult: AnalysisResult =
-                    Gson().fromJson(result!!, AnalysisResult::class.java)
+                    Gson().fromJson(result, AnalysisResult::class.java)
                 val userTagItems = mutableListOf<UserTag>()
-                analysisResult.answer.resultElements.forEachIndexed { index, element ->
+                analysisResult.answer.resultElements.forEach { element ->
                     userTagItems.add(UserTag(element.name))
                 }
                 _userTags.value = userTagItems
             } catch (e: Exception) {
-                _response.value = "Error: ${e.message}"
+                _errorMessage.value = ErrorMessage.CHATGPT_ERROR_MESSAGe
             }
         }
     }
@@ -89,11 +91,10 @@ class MyPageViewModel : ViewModel() {
                         _favoriteMovies.value ?: "",
                     ),
                     BuildConfig.OPENAI_API_KEY,
-                )
-                _response.value = result!!
-                Log.d("jaehan", "keyword response : ${result!!}")
+                ) ?: ""
+                _response.value = result
                 val analysisResult: AnalysisResult =
-                    Gson().fromJson(result!!, AnalysisResult::class.java)
+                    Gson().fromJson(result, AnalysisResult::class.java)
                 val pieChartItems = mutableListOf<PieChartItem>()
                 analysisResult.answer.resultElements.forEachIndexed { index, element ->
                     pieChartItems.add(
@@ -106,7 +107,7 @@ class MyPageViewModel : ViewModel() {
                 }
                 _keywords.value = pieChartItems
             } catch (e: Exception) {
-                _response.value = "Error: ${e.message}"
+                _errorMessage.value = ErrorMessage.CHATGPT_ERROR_MESSAGe
             }
         }
     }
@@ -119,10 +120,8 @@ class MyPageViewModel : ViewModel() {
                         _favoriteMovies.value ?: "",
                     ),
                     BuildConfig.OPENAI_API_KEY,
-                )
-                _response.value = result!!
-
-                Log.d("jaehan", "actor response : ${result!!}")
+                ) ?: ""
+                _response.value = result
                 val analysisResult: AnalysisResult =
                     Gson().fromJson(response.value, AnalysisResult::class.java)
                 val pieChartItems = mutableListOf<PieChartItem>()
@@ -137,7 +136,7 @@ class MyPageViewModel : ViewModel() {
                 }
                 _actors.value = pieChartItems
             } catch (e: Exception) {
-                _response.value = "Error: ${e.message}"
+                _errorMessage.value = ErrorMessage.CHATGPT_ERROR_MESSAGe
             }
         }
     }
@@ -150,11 +149,10 @@ class MyPageViewModel : ViewModel() {
                         _favoriteMovies.value ?: "",
                     ),
                     BuildConfig.OPENAI_API_KEY,
-                )
-                _response.value = result!!
-                Log.d("jaehan", "genre response : ${result!!}")
+                ) ?: ""
+                _response.value = result
                 val analysisResult: AnalysisResult =
-                    Gson().fromJson(result!!, AnalysisResult::class.java)
+                    Gson().fromJson(result, AnalysisResult::class.java)
                 val pieChartItems = mutableListOf<PieChartItem>()
                 analysisResult.answer.resultElements.forEachIndexed { index, element ->
                     pieChartItems.add(
@@ -167,7 +165,7 @@ class MyPageViewModel : ViewModel() {
                 }
                 _genres.value = pieChartItems
             } catch (e: Exception) {
-                _response.value = "Error: ${e.message}"
+                _errorMessage.value = ErrorMessage.CHATGPT_ERROR_MESSAGe
             }
         }
     }
