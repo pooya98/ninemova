@@ -1,4 +1,4 @@
-package com.ninemova.Network.request
+package com.ninemova.Network.request.server
 
 data class SignUpRequest(
     val userName: String? = "",

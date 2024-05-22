@@ -1,6 +1,6 @@
 package com.ninemova.Network.repository
 
-import com.ninemova.Network.request.ReplyRequest
+import com.ninemova.Network.request.server.ReplyRequest
 import com.ninemova.domain.data.Reply
 import kotlinx.coroutines.flow.Flow
 

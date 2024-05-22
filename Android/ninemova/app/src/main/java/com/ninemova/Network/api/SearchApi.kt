@@ -1,8 +1,7 @@
 package com.ninemova.Network.api
 
-import com.ninemova.Network.response.MovieResult
-import com.ninemova.Network.response.MoviesResponse
-import com.ninemova.domain.data.Movie
+import com.ninemova.Network.response.youtube.MovieResult
+import com.ninemova.Network.response.youtube.MoviesResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path

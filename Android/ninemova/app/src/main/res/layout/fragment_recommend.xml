@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
             android:fontFamily="@font/pretendard_bold"
-            android:text="추천 컨텐츠"
+            android:text="@string/recommend_title"
             android:textColor="@color/white"
             android:textSize="30sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -50,7 +50,7 @@
                 android:button="@null"
                 android:checked="true"
                 android:fontFamily="@font/pretendard_semibold"
-                android:text="취향 저격"
+                android:text="@string/recommend_movie_ai"
                 android:textAlignment="center"
                 android:textColor="@drawable/selector_radio_text" />
 
@@ -63,7 +63,7 @@
                 android:background="@drawable/selector_radio_button"
                 android:button="@null"
                 android:fontFamily="@font/pretendard_semibold"
-                android:text="새로운 시도"
+                android:text="@string/recommend_new_movie"
                 android:textAlignment="center"
                 android:textColor="@drawable/selector_radio_text" />
         </RadioGroup>

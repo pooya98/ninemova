@@ -12,7 +12,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.NavHostFragment
-import com.ninemova.Network.RepositoryUtils
+import com.ninemova.Network.utils.RepositoryUtils
 import com.ninemova.Network.repositoryimpl.LocalDataStoreRepositoryImpl
 import com.ninemova.R
 import com.ninemova.core.dataStore

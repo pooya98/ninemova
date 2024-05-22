@@ -1,6 +1,6 @@
 package com.ninemova.Network.api
 
-import com.ninemova.Network.response.GetGenresResponse
+import com.ninemova.Network.response.tmdb.GetGenresResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query

@@ -1,8 +1,8 @@
 package com.ninemova.Network.repository
 
-import com.ninemova.Network.request.SearchMovieRequest
-import com.ninemova.Network.request.SearchNowPlayingMoviesRequest
-import com.ninemova.Network.request.SearchPopularMoviesRequest
+import com.ninemova.Network.request.tmdb.SearchMovieRequest
+import com.ninemova.Network.request.tmdb.SearchNowPlayingMoviesRequest
+import com.ninemova.Network.request.tmdb.SearchPopularMoviesRequest
 import com.ninemova.domain.data.Movie
 import kotlinx.coroutines.flow.Flow
 

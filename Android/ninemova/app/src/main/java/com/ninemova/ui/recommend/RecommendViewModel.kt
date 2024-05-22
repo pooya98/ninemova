@@ -1,14 +1,13 @@
 package com.ninemova.ui.recommend
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
 import com.ninemova.BuildConfig
-import com.ninemova.Network.RepositoryUtils
-import com.ninemova.Network.request.SearchMovieRequest
+import com.ninemova.Network.utils.RepositoryUtils
+import com.ninemova.Network.request.tmdb.SearchMovieRequest
 import com.ninemova.Network.response.openai.AnalysisResult
 import com.ninemova.ui.util.ErrorMessage
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -18,7 +17,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlin.math.log
 
 private const val TAG = "RecommendViewModel_싸피"
 class RecommendViewModel : ViewModel() {

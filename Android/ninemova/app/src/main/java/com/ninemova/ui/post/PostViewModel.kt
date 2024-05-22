@@ -2,8 +2,8 @@ package com.ninemova.ui.post
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ninemova.Network.RepositoryUtils
-import com.ninemova.Network.request.ReplyRequest
+import com.ninemova.Network.utils.RepositoryUtils
+import com.ninemova.Network.request.server.ReplyRequest
 import com.ninemova.domain.data.Comment
 import com.ninemova.ui.util.ErrorMessage
 import com.ninemova.ui.util.runTickerFlow

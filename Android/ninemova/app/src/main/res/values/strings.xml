@@ -21,4 +21,16 @@
     <string name="insert_comment_dialog_hint">한줄평을 입력하세요.</string>
     <string name="reply_comment_hint">댓글을 달아주세요.</string>
     <string name="loading_message">데이터가 로딩중이에요...\n잠시만 기다려주세요🙏</string>
+    <string name="community_info_message">커뮤니티</string>
+    <string name="home_popular_movie">인기 컨텐츠</string>
+    <string name="home_recent_feed">최근 피드</string>
+    <string name="mypage_user_score">평론가 점수</string>
+    <string name="mypage_user_tag_title">님의 영화 태그</string>
+    <string name="mypage_user_preference">님의 선호 분석</string>
+    <string name="mypage_keyword">키워드</string>
+    <string name="mypage_genre">장르</string>
+    <string name="mypage_actor">배우</string>
+    <string name="recommend_title">추천 컨텐츠</string>
+    <string name="recommend_movie_ai">취향 저격</string>
+    <string name="recommend_new_movie">새로운 시도</string>
 </resources>

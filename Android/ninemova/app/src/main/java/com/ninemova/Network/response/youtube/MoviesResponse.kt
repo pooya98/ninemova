@@ -1,4 +1,4 @@
-package com.ninemova.Network.response
+package com.ninemova.Network.response.youtube
 
 data class MoviesResponse(
     val page: Int? = null,

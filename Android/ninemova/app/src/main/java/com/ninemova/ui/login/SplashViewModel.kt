@@ -2,7 +2,7 @@ package com.ninemova.ui.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ninemova.Network.RepositoryUtils
+import com.ninemova.Network.utils.RepositoryUtils
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.launch

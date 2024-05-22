@@ -1,8 +1,8 @@
 package com.ninemova.Network.repositoryimpl
 
-import com.ninemova.Network.RetrofitUtils
+import com.ninemova.Network.utils.RetrofitUtils
 import com.ninemova.Network.repository.UserRepository
-import com.ninemova.Network.request.SignUpRequest
+import com.ninemova.Network.request.server.SignUpRequest
 import com.ninemova.domain.data.User
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

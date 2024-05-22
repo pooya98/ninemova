@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
-        android:name="com.ninemova.ui.login.signup.SignUpFragment"
+        android:name="com.ninemova.ui.signup.SignUpFragment"
         android:label="fragment_signup"
         tools:layout="@layout/fragment_sign_up"/>
 </navigation>

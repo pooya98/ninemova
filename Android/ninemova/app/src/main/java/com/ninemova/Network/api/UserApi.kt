@@ -1,7 +1,7 @@
 package com.ninemova.Network.api
 
-import com.ninemova.Network.request.SignUpRequest
-import com.ninemova.Network.response.UserResponse
+import com.ninemova.Network.request.server.SignUpRequest
+import com.ninemova.Network.response.server.UserResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET

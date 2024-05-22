@@ -1,7 +1,6 @@
 package com.ninemova.Network.repositoryimpl
 
-import android.util.Log
-import com.ninemova.Network.RetrofitUtils
+import com.ninemova.Network.utils.RetrofitUtils
 import com.ninemova.Network.repository.OpenAiRepository
 import com.ninemova.Network.request.openai.OpenAIRequest
 import com.ninemova.Network.response.openai.Message

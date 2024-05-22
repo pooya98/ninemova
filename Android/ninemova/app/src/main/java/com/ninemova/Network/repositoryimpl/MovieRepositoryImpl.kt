@@ -1,10 +1,10 @@
 package com.ninemova.Network.repositoryimpl
 
-import com.ninemova.Network.RetrofitUtils
+import com.ninemova.Network.utils.RetrofitUtils
 import com.ninemova.Network.repository.MovieRepository
-import com.ninemova.Network.request.SearchMovieRequest
-import com.ninemova.Network.request.SearchNowPlayingMoviesRequest
-import com.ninemova.Network.request.SearchPopularMoviesRequest
+import com.ninemova.Network.request.tmdb.SearchMovieRequest
+import com.ninemova.Network.request.tmdb.SearchNowPlayingMoviesRequest
+import com.ninemova.Network.request.tmdb.SearchPopularMoviesRequest
 import com.ninemova.domain.data.Movie
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

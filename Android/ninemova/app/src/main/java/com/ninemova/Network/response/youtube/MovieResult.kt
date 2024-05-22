@@ -1,4 +1,4 @@
-package com.ninemova.Network.response
+package com.ninemova.Network.response.youtube
 
 import com.google.gson.annotations.SerializedName
 

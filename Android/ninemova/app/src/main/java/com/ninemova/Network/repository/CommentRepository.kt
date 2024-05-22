@@ -1,6 +1,6 @@
 package com.ninemova.Network.repository
 
-import com.ninemova.Network.request.CommentRequest
+import com.ninemova.Network.request.server.CommentRequest
 import com.ninemova.domain.data.Comment
 import kotlinx.coroutines.flow.Flow
 

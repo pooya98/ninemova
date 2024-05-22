@@ -1,4 +1,4 @@
-package com.ninemova.ui.login.signup
+package com.ninemova.ui.signup
 
 data class SignUpUiState(
     val id: String? = "",

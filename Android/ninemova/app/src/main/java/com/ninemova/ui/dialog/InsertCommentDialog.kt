@@ -12,8 +12,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.snackbar.Snackbar
-import com.ninemova.Network.RepositoryUtils
-import com.ninemova.Network.request.CommentRequest
+import com.ninemova.Network.utils.RepositoryUtils
+import com.ninemova.Network.request.server.CommentRequest
 import com.ninemova.R
 import com.ninemova.databinding.DialogInsertCommentBinding
 import com.ninemova.ui.util.ErrorMessage

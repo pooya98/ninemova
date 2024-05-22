@@ -1,4 +1,4 @@
-package com.ninemova.Network
+package com.ninemova.Network.utils
 
 import com.ninemova.Network.api.CommentApi
 import com.ninemova.Network.api.FavoriteApi
@@ -14,8 +14,8 @@ import retrofit2.create
 class RetrofitUtils {
 
     companion object {
-        val searchApi: SearchApi = NineMovaApplication.retrofit.create()
-        val genreApi: GenreApi = NineMovaApplication.retrofit.create()
+        val searchApi: SearchApi = NineMovaApplication.tmdbRetrofit.create()
+        val genreApi: GenreApi = NineMovaApplication.tmdbRetrofit.create()
         val youtubeApi: YoutubeApi = NineMovaApplication.youtubeRetrofit.create()
         val openAiAPI: OpenAiApi = NineMovaApplication.openAiRetrofit.create()
         val userApi: UserApi = NineMovaApplication.serverRetrofit.create()

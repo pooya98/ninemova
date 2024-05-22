@@ -1,8 +1,8 @@
 package com.ninemova.Network.api
 
-import com.ninemova.Network.request.CommentRequest
-import com.ninemova.Network.response.CommentResponse
-import com.ninemova.Network.response.CommentsResponse
+import com.ninemova.Network.request.server.CommentRequest
+import com.ninemova.Network.response.server.CommentResponse
+import com.ninemova.Network.response.server.CommentsResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET

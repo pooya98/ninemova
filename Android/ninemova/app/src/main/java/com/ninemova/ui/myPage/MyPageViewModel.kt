@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
 import com.ninemova.BuildConfig
-import com.ninemova.Network.RepositoryUtils
+import com.ninemova.Network.utils.RepositoryUtils
 import com.ninemova.Network.response.openai.AnalysisResult
 import com.ninemova.domain.data.PieChartItem
 import com.ninemova.domain.data.User

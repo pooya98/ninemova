@@ -2,10 +2,9 @@ package com.ninemova.ui.search
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ninemova.Network.RepositoryUtils
-import com.ninemova.Network.request.SearchMovieRequest
-import com.ninemova.Network.request.SearchNowPlayingMoviesRequest
-import com.ninemova.Network.request.SearchPopularMoviesRequest
+import com.ninemova.Network.utils.RepositoryUtils
+import com.ninemova.Network.request.tmdb.SearchMovieRequest
+import com.ninemova.Network.request.tmdb.SearchPopularMoviesRequest
 import com.ninemova.ui.util.ErrorMessage
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow

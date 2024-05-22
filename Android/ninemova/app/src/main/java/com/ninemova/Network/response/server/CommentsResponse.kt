@@ -1,4 +1,4 @@
-package com.ninemova.Network.response
+package com.ninemova.Network.response.server
 
 data class CommentsResponse(
     val comment: CommentResponse,

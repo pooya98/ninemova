@@ -2,9 +2,9 @@ package com.ninemova.ui.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ninemova.Network.RepositoryUtils
-import com.ninemova.Network.request.SearchNowPlayingMoviesRequest
-import com.ninemova.Network.request.SearchPopularMoviesRequest
+import com.ninemova.Network.utils.RepositoryUtils
+import com.ninemova.Network.request.tmdb.SearchNowPlayingMoviesRequest
+import com.ninemova.Network.request.tmdb.SearchPopularMoviesRequest
 import com.ninemova.ui.util.ErrorMessage
 import com.ninemova.ui.util.runTickerFlow
 import kotlinx.coroutines.CoroutineScope

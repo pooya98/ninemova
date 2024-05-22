@@ -1,9 +1,9 @@
-package com.ninemova.ui.login.signup
+package com.ninemova.ui.signup
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ninemova.Network.RepositoryUtils
-import com.ninemova.Network.request.SignUpRequest
+import com.ninemova.Network.utils.RepositoryUtils
+import com.ninemova.Network.request.server.SignUpRequest
 import com.ninemova.ui.login.LoginViewEvent
 import com.ninemova.ui.util.ErrorMessage
 import kotlinx.coroutines.flow.MutableSharedFlow

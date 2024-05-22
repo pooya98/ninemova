@@ -1,4 +1,4 @@
-package com.ninemova.Network
+package com.ninemova.Network.utils
 
 import com.ninemova.Network.repository.CommentRepository
 import com.ninemova.Network.repository.FavoriteRepository

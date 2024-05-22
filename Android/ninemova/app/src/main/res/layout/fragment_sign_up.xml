@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.ninemova.ui.login.signup.SignUpViewModel" />
+            type="com.ninemova.ui.signup.SignUpViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,7 +15,7 @@
         android:layout_height="match_parent"
         android:background="@color/black"
         android:paddingHorizontal="15dp"
-        tools:context=".ui.login.signup.SignUpFragment">
+        tools:context=".ui.signup.SignUpFragment">
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/gl_top"

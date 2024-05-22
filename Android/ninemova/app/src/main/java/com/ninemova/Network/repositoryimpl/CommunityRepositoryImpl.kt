@@ -1,8 +1,8 @@
 package com.ninemova.Network.repositoryimpl
 
-import com.ninemova.Network.RetrofitUtils
+import com.ninemova.Network.utils.RetrofitUtils
 import com.ninemova.Network.repository.CommentRepository
-import com.ninemova.Network.request.CommentRequest
+import com.ninemova.Network.request.server.CommentRequest
 import com.ninemova.domain.data.Comment
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

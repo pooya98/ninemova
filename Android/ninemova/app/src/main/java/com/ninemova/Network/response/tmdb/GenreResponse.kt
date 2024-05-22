@@ -1,4 +1,4 @@
-package com.ninemova.Network.response
+package com.ninemova.Network.response.tmdb
 
 data class GenreResponse(
     val id: Int? = null,

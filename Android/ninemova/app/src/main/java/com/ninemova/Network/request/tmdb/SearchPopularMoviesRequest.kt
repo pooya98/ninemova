@@ -1,4 +1,4 @@
-package com.ninemova.Network.request
+package com.ninemova.Network.request.tmdb
 
 data class SearchPopularMoviesRequest(
     val language: String? = "ko",

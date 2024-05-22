@@ -52,56 +52,11 @@
                 android:text="@{ViewModel.userInfo.nickName}"
                 android:textColor="@color/white"
                 android:textSize="26sp"
+                app:layout_constraintBottom_toBottomOf="@id/cardView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/cardView"
                 app:layout_constraintTop_toTopOf="@+id/cardView"
                 tools:text="username" />
-
-            <TextView
-                android:id="@+id/label_user_point"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/pretendard_medium"
-                android:text="평론가 점수"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="@+id/tv_user_name"
-                app:layout_constraintTop_toBottomOf="@+id/tv_user_name" />
-
-            <TextView
-                android:id="@+id/tv_user_point"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:fontFamily="@font/pretendard_semibold"
-                android:text="2930"
-                android:textColor="#FFB952"
-                android:textSize="16sp"
-                app:layout_constraintStart_toEndOf="@+id/label_user_point"
-                app:layout_constraintTop_toBottomOf="@+id/tv_user_name"
-                tools:text="2930"
-                tools:textColor="#FFB952" />
-
-            <LinearLayout
-                android:id="@+id/layout_btn_group"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="10dp"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal"
-                app:layout_constraintTop_toBottomOf="@+id/cardView"
-                tools:layout_editor_absoluteX="10dp">
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:backgroundTint="@color/ninemova_navy"
-                    android:fontFamily="@font/pretendard_bold"
-                    android:text="프로필 설정"
-                    android:textColor="@color/white"
-                    android:textSize="14sp" />
-            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/linearLayout2"
@@ -111,7 +66,7 @@
                 android:layout_marginTop="15dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                app:layout_constraintTop_toBottomOf="@+id/layout_btn_group"
+                app:layout_constraintTop_toBottomOf="@+id/cardView"
                 tools:layout_editor_absoluteX="15dp">
 
                 <TextView
@@ -131,7 +86,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:fontFamily="@font/pretendard_semibold"
-                    android:text=" 님의 영화태그"
+                    android:text="@string/mypage_user_tag_title"
                     android:textColor="@color/white"
                     android:textSize="26dp" />
 
@@ -201,7 +156,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:fontFamily="@font/pretendard_semibold"
-                    android:text=" 님의 선호 분석"
+                    android:text="@string/mypage_user_preference"
                     android:textColor="@color/white"
                     android:textSize="26dp" />
             </LinearLayout>
@@ -255,7 +210,7 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="@font/pretendard_semibold"
                                 android:gravity="center"
-                                android:text="키워드"
+                                android:text="@string/mypage_keyword"
                                 android:textColor="@color/white"
                                 android:textSize="16sp" />
                         </androidx.cardview.widget.CardView>
@@ -340,7 +295,7 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="@font/pretendard_semibold"
                                 android:gravity="center"
-                                android:text="장르"
+                                android:text="@string/mypage_genre"
                                 android:textColor="@color/white"
                                 android:textSize="16sp" />
                         </androidx.cardview.widget.CardView>
@@ -425,7 +380,7 @@
                                 android:layout_height="match_parent"
                                 android:fontFamily="@font/pretendard_semibold"
                                 android:gravity="center"
-                                android:text="배우"
+                                android:text="@string/mypage_actor"
                                 android:textColor="@color/white"
                                 android:textSize="16sp" />
                         </androidx.cardview.widget.CardView>

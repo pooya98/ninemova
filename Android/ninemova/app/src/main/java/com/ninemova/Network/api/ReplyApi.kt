@@ -1,7 +1,7 @@
 package com.ninemova.Network.api
 
-import com.ninemova.Network.request.ReplyRequest
-import com.ninemova.Network.response.ReplyResponse
+import com.ninemova.Network.request.server.ReplyRequest
+import com.ninemova.Network.response.server.ReplyResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET

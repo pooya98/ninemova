@@ -2,8 +2,8 @@ package com.ninemova.ui.detail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ninemova.Network.RepositoryUtils
-import com.ninemova.Network.request.FavoriteRequest
+import com.ninemova.Network.utils.RepositoryUtils
+import com.ninemova.Network.request.server.FavoriteRequest
 import com.ninemova.domain.data.Movie
 import com.ninemova.ui.util.ErrorMessage
 import kotlinx.coroutines.flow.MutableSharedFlow

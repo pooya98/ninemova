@@ -1,4 +1,4 @@
-package com.ninemova.ui.login.signup
+package com.ninemova.ui.signup
 
 import android.content.Intent
 import androidx.fragment.app.viewModels

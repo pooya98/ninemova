@@ -46,7 +46,7 @@ class NineMovaApplication : Application() {
             .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
             .build()
 
-        retrofit = Retrofit.Builder()
+        tmdbRetrofit = Retrofit.Builder()
             .baseUrl(BuildConfig.TMDB_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .client(tmdbOkHttpClient)
@@ -64,16 +64,15 @@ class NineMovaApplication : Application() {
             .client(openAiOkHttpClient)
             .build()
 
-        val apiKey = "http://192.168.0.115:8080/"
         serverRetrofit = Retrofit.Builder()
-            .baseUrl(apiKey)
+            .baseUrl(BuildConfig.BASE_SERVER_URL)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .client(serverOkHttpClient)
             .build()
     }
 
     companion object {
-        lateinit var retrofit: Retrofit
+        lateinit var tmdbRetrofit: Retrofit
         lateinit var youtubeRetrofit: Retrofit
         lateinit var openAiRetrofit: Retrofit
         lateinit var serverRetrofit: Retrofit

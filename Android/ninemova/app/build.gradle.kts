@@ -23,6 +23,7 @@ android {
     val youtubeBaseUrl = properties["YOUTUBE_BASE_URL"]
     val openAIApiKey = properties["OPENAI_API_KEY"] ?: ""
     val openAIBaseUrl = properties["OPENAI_BASE_URL"] ?: ""
+    val baseServerUrl = properties["NINEMOVA_SERVER_URL"] ?: ""
 
     defaultConfig {
         applicationId = "com.ninemova"
@@ -40,6 +41,7 @@ android {
         buildConfigField("String", "YOUTUBE_BASE_URL", "$youtubeBaseUrl")
         buildConfigField("String", "OPENAI_API_KEY", "$openAIApiKey")
         buildConfigField("String", "OPENAI_BASE_URL", "$openAIBaseUrl")
+        buildConfigField("String", "BASE_SERVER_URL", "$baseServerUrl")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -92,10 +94,6 @@ dependencies {
     // gilde
     implementation("com.github.bumptech.glide:glide:4.12.0")
     annotationProcessor("com.github.bumptech.glide:compiler:4.12.0")
-
-    // tedPermission
-    implementation("io.github.ParkSangGwon:tedpermission-normal:3.3.0")
-    implementation("io.github.ParkSangGwon:tedpermission-coroutine:3.3.0")
 
     // DataStore
     implementation("androidx.datastore:datastore-preferences:1.0.0")
