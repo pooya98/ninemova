@@ -2,9 +2,9 @@ package com.ninemova.ui.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ninemova.Network.utils.RepositoryUtils
 import com.ninemova.Network.request.tmdb.SearchNowPlayingMoviesRequest
 import com.ninemova.Network.request.tmdb.SearchPopularMoviesRequest
+import com.ninemova.Network.utils.RepositoryUtils
 import com.ninemova.ui.util.ErrorMessage
 import com.ninemova.ui.util.runTickerFlow
 import kotlinx.coroutines.CoroutineScope
@@ -31,7 +31,7 @@ class HomeViewModel : ViewModel() {
         runTickerFlow(
             interval = 1000L,
             scope = viewModelScope,
-            action = { searchRecentComments(viewModelScope) }
+            action = { searchRecentComments(viewModelScope) },
         )
     }
 

@@ -1,8 +1,8 @@
 package com.ninemova.Network.repositoryimpl
 
-import com.ninemova.Network.utils.RetrofitUtils
 import com.ninemova.Network.repository.CommentRepository
 import com.ninemova.Network.request.server.CommentRequest
+import com.ninemova.Network.utils.RetrofitUtils
 import com.ninemova.domain.data.Comment
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -61,7 +61,7 @@ class CommunityRepositoryImpl : CommentRepository {
         }
     }
 
-    override suspend fun getRecentComments(): Flow<List<Comment>>  = flow {
+    override suspend fun getRecentComments(): Flow<List<Comment>> = flow {
         runCatching {
             commentApi.getRecentComments()
         }.onSuccess { response ->

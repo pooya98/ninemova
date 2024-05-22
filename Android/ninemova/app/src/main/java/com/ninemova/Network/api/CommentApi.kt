@@ -19,5 +19,5 @@ interface CommentApi {
     ): Response<CommentResponse>
 
     @GET("comment/recent5")
-    suspend fun getRecentComments() : Response<List<CommentsResponse>>
+    suspend fun getRecentComments(): Response<List<CommentsResponse>>
 }

@@ -6,9 +6,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
 import com.ninemova.BuildConfig
-import com.ninemova.Network.utils.RepositoryUtils
 import com.ninemova.Network.request.tmdb.SearchMovieRequest
 import com.ninemova.Network.response.openai.AnalysisResult
+import com.ninemova.Network.utils.RepositoryUtils
 import com.ninemova.ui.util.ErrorMessage
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,6 +19,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 private const val TAG = "RecommendViewModel_싸피"
+
 class RecommendViewModel : ViewModel() {
     private val repository = RepositoryUtils.openAiRepository
     private val movieRepository = RepositoryUtils.movieRepository
@@ -125,7 +126,6 @@ class RecommendViewModel : ViewModel() {
         }
     }
 
-
     private suspend fun getGenres() {
         uiState.value.selectedMovie?.let { movie ->
             genreRepository.getGenres(movie.genreIds).collectLatest { genres ->
@@ -150,7 +150,7 @@ class RecommendViewModel : ViewModel() {
         val movieListString = "악인전, 내부자들, 범죄도시, 베테랑, 범죄와의 전쟁, 히트맨, 조작된 도시, 부산행, 스파이더웹"
 
         val promptAiMovieRecommends = """
-            Question: TMDB에 있는 영화 중에서 다음의 리스트에 있는 영화들과 비슷한 주제의 영화 1개의 제목을 반환해주세요. 영화 리스트 : [${movieListString}]
+            Question: TMDB에 있는 영화 중에서 다음의 리스트에 있는 영화들과 비슷한 주제의 영화 1개의 제목을 반환해주세요. 영화 리스트 : [$movieListString]
         
             다음의 JSON 형식에 맞춰서 응답해주세요.
             {
@@ -160,7 +160,7 @@ class RecommendViewModel : ViewModel() {
         """.trimIndent()
 
         val promptAiNewWorldRecommends = """
-            Question: TMDB에 있는 영화 중에서 다음의 리스트에 있는 영화들과는 다른 주제의 영화 1개의 제목을 반환해주세요. 영화 리스트 : [${movieListString}]
+            Question: TMDB에 있는 영화 중에서 다음의 리스트에 있는 영화들과는 다른 주제의 영화 1개의 제목을 반환해주세요. 영화 리스트 : [$movieListString]
         
             다음의 JSON 형식에 맞춰서 응답해주세요.
             {
@@ -169,6 +169,4 @@ class RecommendViewModel : ViewModel() {
             }
         """.trimIndent()
     }
-
-
 }

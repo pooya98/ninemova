@@ -2,9 +2,9 @@ package com.ninemova.ui.search
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ninemova.Network.utils.RepositoryUtils
 import com.ninemova.Network.request.tmdb.SearchMovieRequest
 import com.ninemova.Network.request.tmdb.SearchPopularMoviesRequest
+import com.ninemova.Network.utils.RepositoryUtils
 import com.ninemova.ui.util.ErrorMessage
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -23,9 +23,10 @@ class SearchViewModel : ViewModel() {
 
     private val movieRepository = RepositoryUtils.movieRepository
 
-    init{
+    init {
         getInitMovies()
     }
+
     fun searchMovies() {
         viewModelScope.launch {
             movieRepository.searchMovies(
@@ -46,7 +47,7 @@ class SearchViewModel : ViewModel() {
         }
     }
 
-    private fun getInitMovies(){
+    private fun getInitMovies() {
         viewModelScope.launch {
             movieRepository.searchPopularMovies(
                 request = SearchPopularMoviesRequest(),

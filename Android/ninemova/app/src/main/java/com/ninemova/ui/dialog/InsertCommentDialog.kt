@@ -12,8 +12,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.snackbar.Snackbar
-import com.ninemova.Network.utils.RepositoryUtils
 import com.ninemova.Network.request.server.CommentRequest
+import com.ninemova.Network.utils.RepositoryUtils
 import com.ninemova.R
 import com.ninemova.databinding.DialogInsertCommentBinding
 import com.ninemova.ui.util.ErrorMessage
@@ -69,7 +69,7 @@ class InsertCommentDialog : DialogFragment() {
             ).collectLatest { comment ->
                 if (comment == null) {
                     Snackbar.make(requireView(), ErrorMessage.REGISTER_COMMENT_ERROR_MESSAGE, Snackbar.LENGTH_LONG).show()
-                } else{
+                } else {
                     findNavController().navigate(R.id.action_insert_comment_dialog_to_community)
                 }
             }

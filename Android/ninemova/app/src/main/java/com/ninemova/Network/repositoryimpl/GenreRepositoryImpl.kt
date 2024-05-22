@@ -1,7 +1,7 @@
 package com.ninemova.Network.repositoryimpl
 
-import com.ninemova.Network.utils.RetrofitUtils
 import com.ninemova.Network.repository.GenreRepository
+import com.ninemova.Network.utils.RetrofitUtils
 import com.ninemova.domain.data.Genre
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

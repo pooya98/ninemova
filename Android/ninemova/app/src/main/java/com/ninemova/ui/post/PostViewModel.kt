@@ -2,8 +2,8 @@ package com.ninemova.ui.post
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ninemova.Network.utils.RepositoryUtils
 import com.ninemova.Network.request.server.ReplyRequest
+import com.ninemova.Network.utils.RepositoryUtils
 import com.ninemova.domain.data.Comment
 import com.ninemova.ui.util.ErrorMessage
 import com.ninemova.ui.util.runTickerFlow
@@ -34,7 +34,7 @@ class PostViewModel : ViewModel() {
         runTickerFlow(
             interval = 1000L,
             scope = viewModelScope,
-            action = { loadReplies(viewModelScope) }
+            action = { loadReplies(viewModelScope) },
         )
     }
 

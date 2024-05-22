@@ -13,7 +13,7 @@ interface FavoriteApi {
 
     @POST("favoriteMovie/create")
     suspend fun createFavorite(
-        @Body request: FavoriteRequest
+        @Body request: FavoriteRequest,
     ): Response<FavoriteResponse>
 
     @DELETE("favoriteMovie/delete/{userId}/{movieId}")
