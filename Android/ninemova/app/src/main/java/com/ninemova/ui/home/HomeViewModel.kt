@@ -5,8 +5,9 @@ import androidx.lifecycle.viewModelScope
 import com.ninemova.Network.RepositoryUtils
 import com.ninemova.Network.request.SearchNowPlayingMoviesRequest
 import com.ninemova.Network.request.SearchPopularMoviesRequest
-import com.ninemova.domain.data.Comment
 import com.ninemova.ui.util.ErrorMessage
+import com.ninemova.ui.util.runTickerFlow
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -27,7 +28,11 @@ class HomeViewModel : ViewModel() {
     init {
         searchNowPlayingMovies()
         searchPopularMovies()
-        searchRecentComments()
+        runTickerFlow(
+            interval = 1000L,
+            scope = viewModelScope,
+            action = { searchRecentComments(viewModelScope) }
+        )
     }
 
     private fun searchNowPlayingMovies() {
@@ -66,8 +71,8 @@ class HomeViewModel : ViewModel() {
         }
     }
 
-    private fun searchRecentComments() {
-        viewModelScope.launch {
+    private fun searchRecentComments(scope: CoroutineScope) {
+        scope.launch {
             commentRepository.getRecentComments().collectLatest { response ->
                 _uiState.update { state ->
                     state.copy(
