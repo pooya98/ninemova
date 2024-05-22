@@ -15,6 +15,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
+import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.android.material.textfield.TextInputLayout
 import com.ninemova.R
 import com.ninemova.domain.data.Comment
@@ -72,10 +73,10 @@ fun ChipGroup.bindChips(items: List<Genre>) {
 }
 
 @BindingAdapter("app:setPieChartItems")
-fun setPieChartItems(pieChart: PieChart, pieChartItems: LiveData<List<PieChartItem>>) {
-    pieChartItems.value?.let {
+fun setPieChartItems(pieChart: PieChart, pieChartItems: List<PieChartItem>?) {
+    pieChartItems?.let {
         pieChart.clearChart()
-        it.forEachIndexed { index, pieChartItem ->
+        it.forEach { pieChartItem ->
             pieChart.addPieSlice(
                 PieModel(
                     pieChartItem.name,
@@ -89,9 +90,9 @@ fun setPieChartItems(pieChart: PieChart, pieChartItems: LiveData<List<PieChartIt
 }
 
 @BindingAdapter("app:setPieChartLabels")
-fun setPieChartLabels(listView: ListView, pieChartItems: LiveData<List<PieChartItem>>) {
-    if (pieChartItems.value != null) {
-        val adapter = PieChartLabelListAdapter(listView.context, pieChartItems.value!!)
+fun setPieChartLabels(listView: ListView, pieChartItems: List<PieChartItem>?) {
+    if (pieChartItems != null) {
+        val adapter = PieChartLabelListAdapter(listView.context, pieChartItems)
         listView.adapter = adapter
     }
 }
@@ -111,9 +112,9 @@ fun setPieChartLabelColor(view: View, pieChartItem: PieChartItem) {
 }
 
 @BindingAdapter("app:setUserTagItems")
-fun setUserTagItems(listView: ListView, userTagItems: LiveData<List<UserTag>>) {
-    if (userTagItems.value != null) {
-        val adapter = UserTagListAdapter(listView.context, userTagItems.value!!)
+fun setUserTagItems(listView: ListView, userTagItems: List<UserTag>?) {
+    if (userTagItems != null) {
+        val adapter = UserTagListAdapter(listView.context, userTagItems)
         listView.adapter = adapter
     }
 }
@@ -189,4 +190,13 @@ fun ImageView.bindProfile(imageUri: String?) {
         .circleCrop()
         .placeholder(R.drawable.image_user)
         .into(this)
+}
+
+@BindingAdapter("app:loading")
+fun bindLoading(circularProgressIndicator: CircularProgressIndicator, items: List<Any>?) {
+    if (items == null) {
+        circularProgressIndicator.visibility = View.VISIBLE
+    } else {
+        circularProgressIndicator.visibility = View.GONE
+    }
 }
