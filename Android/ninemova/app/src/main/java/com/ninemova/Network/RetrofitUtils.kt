@@ -1,6 +1,7 @@
 package com.ninemova.Network
 
 import com.ninemova.Network.api.CommentApi
+import com.ninemova.Network.api.FavoriteApi
 import com.ninemova.Network.api.GenreApi
 import com.ninemova.Network.api.OpenAiApi
 import com.ninemova.Network.api.ReplyApi
@@ -20,5 +21,6 @@ class RetrofitUtils {
         val userApi: UserApi = NineMovaApplication.serverRetrofit.create()
         val commentApi: CommentApi = NineMovaApplication.serverRetrofit.create()
         val replyApi: ReplyApi = NineMovaApplication.serverRetrofit.create()
+        val favoriteApi: FavoriteApi = NineMovaApplication.serverRetrofit.create()
     }
 }

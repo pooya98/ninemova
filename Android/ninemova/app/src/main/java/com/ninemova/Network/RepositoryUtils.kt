@@ -1,6 +1,7 @@
 package com.ninemova.Network
 
 import com.ninemova.Network.repository.CommentRepository
+import com.ninemova.Network.repository.FavoriteRepository
 import com.ninemova.Network.repository.GenreRepository
 import com.ninemova.Network.repository.LocalDataStoreRepository
 import com.ninemova.Network.repository.MovieRepository
@@ -9,6 +10,7 @@ import com.ninemova.Network.repository.ReplyRepository
 import com.ninemova.Network.repository.UserRepository
 import com.ninemova.Network.repository.YoutubeRepository
 import com.ninemova.Network.repositoryimpl.CommunityRepositoryImpl
+import com.ninemova.Network.repositoryimpl.FavoriteRepositoryImpl
 import com.ninemova.Network.repositoryimpl.GenreRepositoryImpl
 import com.ninemova.Network.repositoryimpl.MovieRepositoryImpl
 import com.ninemova.Network.repositoryimpl.OpenAiRepositoryImpl
@@ -27,5 +29,6 @@ class RepositoryUtils {
         lateinit var localDataStoreRepository: LocalDataStoreRepository
         val commentRepository: CommentRepository = CommunityRepositoryImpl()
         val replyRepository: ReplyRepository = ReplyRepositoryImpl()
+        val favoriteRepository: FavoriteRepository = FavoriteRepositoryImpl()
     }
 }

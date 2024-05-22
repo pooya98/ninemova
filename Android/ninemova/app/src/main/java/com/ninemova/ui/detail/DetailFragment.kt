@@ -30,11 +30,13 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
             viewModel = detailViewModel
             lifecycle.addObserver(videoTrailer)
             btnRegisterComment.setOnClickListener {
-                detailViewModel.uiState.value.movie?.let { movie ->
-                    findNavController().navigate(
-                        DetailFragmentDirections.actionDetailToInsertComment(movie),
-                    )
-                }
+                findNavController().navigate(
+                    DetailFragmentDirections.actionDetailToInsertComment(detailViewModel.uiState.value.movie)
+                )
+            }
+            ivVideoFavorite.setOnClickListener {
+                detailViewModel.setIsLiked()
+                detailViewModel.handleFavorite()
             }
         }
         collectFlow()
