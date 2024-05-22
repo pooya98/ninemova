@@ -12,7 +12,9 @@
         tools:layout="@layout/fragment_community">
         <action
             android:id="@+id/action_community_to_post"
-            app:destination="@id/postFragment">
+            app:destination="@id/postFragment"
+            app:popUpTo="@id/communityFragment"
+            app:popUpToInclusive="true">
             <argument
                 android:name="comment"
                 app:argType="com.ninemova.domain.data.Comment" />
@@ -27,7 +29,7 @@
             android:id="@+id/action_home_to_detail"
             app:destination="@id/detailFragment"
             app:popUpTo="@id/homeFragment"
-            app:popUpToInclusive="true">
+            app:popUpToInclusive="false">
             <argument
                 android:name="movie"
                 app:argType="com.ninemova.domain.data.Movie" />
@@ -36,7 +38,7 @@
             android:id="@+id/action_home_to_post"
             app:destination="@id/postFragment"
             app:popUpTo="@id/homeFragment"
-            app:popUpToInclusive="true">
+            app:popUpToInclusive="false">
             <argument
                 android:name="comment"
                 app:argType="com.ninemova.domain.data.Comment" />
@@ -88,7 +90,9 @@
             app:argType="com.ninemova.domain.data.Movie" />
         <action
             android:id="@+id/action_detail_to_insert_comment"
-            app:destination="@id/insertCommentDialog" />
+            app:destination="@id/insertCommentDialog"
+            app:popUpTo="@id/detailFragment"
+            app:popUpToInclusive="true"/>
     </fragment>
     <dialog
         android:id="@+id/insertCommentDialog"
