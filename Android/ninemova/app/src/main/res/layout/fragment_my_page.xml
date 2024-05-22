@@ -35,7 +35,7 @@
                     android:id="@+id/iv_user_image"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:src="@drawable/image_user"
+                    app:profileImage="@{ViewModel.userInfo.profileImageUrl}"
                     tools:src="@drawable/image_user" />
 
             </androidx.cardview.widget.CardView>
