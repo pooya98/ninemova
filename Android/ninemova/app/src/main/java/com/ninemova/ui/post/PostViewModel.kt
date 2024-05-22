@@ -6,6 +6,8 @@ import com.ninemova.Network.RepositoryUtils
 import com.ninemova.Network.request.ReplyRequest
 import com.ninemova.domain.data.Comment
 import com.ninemova.ui.util.ErrorMessage
+import com.ninemova.ui.util.runTickerFlow
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -29,11 +31,15 @@ class PostViewModel : ViewModel() {
                 comment = comment,
             )
         }
-        loadReplies()
+        runTickerFlow(
+            interval = 1000L,
+            scope = viewModelScope,
+            action = { loadReplies(viewModelScope) }
+        )
     }
 
-    private fun loadReplies() {
-        viewModelScope.launch {
+    private fun loadReplies(scope: CoroutineScope) {
+        scope.launch {
             replyRepository.getReplies(uiState.value.comment.id ?: -1).collectLatest { replies ->
                 _uiState.update { uiState ->
                     uiState.copy(
@@ -60,7 +66,6 @@ class PostViewModel : ViewModel() {
                         ),
                     )
                 } else {
-                    loadReplies()
                     _uiEvent.emit(PostViewEvent.Success)
                 }
             }
