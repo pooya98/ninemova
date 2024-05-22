@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="comment"
             type="com.ninemova.domain.data.Comment" />
@@ -44,7 +45,7 @@
                         android:id="@+id/iv_user_image"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
-                        android:src="@drawable/image_user"
+                        app:profileImage="@{comment.profileImageUrl}"
                         tools:src="@drawable/image_user" />
                 </com.google.android.material.card.MaterialCardView>
 
