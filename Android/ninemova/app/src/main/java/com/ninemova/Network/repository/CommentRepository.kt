@@ -8,4 +8,6 @@ interface CommentRepository {
     suspend fun getComments(): Flow<List<Comment>>
 
     suspend fun createComment(request: CommentRequest): Flow<Comment?>
+
+    suspend fun getRecentComments(): Flow<List<Comment>>
 }
