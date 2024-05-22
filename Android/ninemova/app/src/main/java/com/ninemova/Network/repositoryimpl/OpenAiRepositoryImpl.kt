@@ -5,7 +5,7 @@ import com.ninemova.Network.repository.OpenAiRepository
 import com.ninemova.Network.request.openai.OpenAIRequest
 import com.ninemova.Network.response.openai.Message
 
-class OpenAiRepositoryImpl: OpenAiRepository {
+class OpenAiRepositoryImpl : OpenAiRepository {
 
     private val openAIApi = RetrofitUtils.openAiAPI
 
@@ -15,6 +15,6 @@ class OpenAiRepositoryImpl: OpenAiRepository {
             messages = listOf(Message(role = "user", content = prompt))
         )
         val response = openAIApi.getChatCompletion("Bearer $apiKey", request)
-        return response.choices.firstOrNull()?.message?.content ?: "No response"
+        return response.choices.firstOrNull()?.message?.content
     }
 }
