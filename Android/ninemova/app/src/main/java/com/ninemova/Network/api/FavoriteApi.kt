@@ -27,4 +27,9 @@ interface FavoriteApi {
         @Path("userId") userId: Int,
         @Path("movieId") movieId: Int,
     ): Response<Boolean>
+
+    @GET("favoriteMovie/getList/{userId}")
+    suspend fun getUserFavoriteMovies(
+        @Path("userId") userId: Int,
+    ): Response<List<String>>
 }
