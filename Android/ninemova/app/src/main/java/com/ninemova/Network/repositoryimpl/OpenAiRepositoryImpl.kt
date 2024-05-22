@@ -1,5 +1,6 @@
 package com.ninemova.Network.repositoryimpl
 
+import android.util.Log
 import com.ninemova.Network.RetrofitUtils
 import com.ninemova.Network.repository.OpenAiRepository
 import com.ninemova.Network.request.openai.OpenAIRequest
@@ -11,7 +12,7 @@ class OpenAiRepositoryImpl : OpenAiRepository {
 
     override suspend fun getChatResponse(prompt: String, apiKey: String): String? {
         val request = OpenAIRequest(
-            model = "gpt-3.5-turbo-16k",
+            model = "gpt-4o",
             messages = listOf(Message(role = "user", content = prompt))
         )
         val response = openAIApi.getChatCompletion("Bearer $apiKey", request)

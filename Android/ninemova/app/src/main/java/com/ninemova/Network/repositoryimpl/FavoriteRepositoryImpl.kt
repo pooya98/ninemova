@@ -25,9 +25,9 @@ class FavoriteRepositoryImpl : FavoriteRepository {
         }
     }
 
-    override suspend fun deleteFavorite(userId: Int, movieId:Int): Flow<Boolean> = flow {
+    override suspend fun deleteFavorite(userId: Int, movieId: Int): Flow<Boolean> = flow {
         runCatching {
-            favoriteApi.deleteFavorite(userId,movieId)
+            favoriteApi.deleteFavorite(userId, movieId)
         }.onSuccess { response ->
             response.body()?.let { result ->
                 emit(result)
@@ -48,6 +48,20 @@ class FavoriteRepositoryImpl : FavoriteRepository {
             }
         }.onFailure {
             emit(false)
+        }
+    }
+
+    override suspend fun getUserFavoriteMovies(userId: Int): Flow<List<String>?> = flow {
+        runCatching {
+            favoriteApi.getUserFavoriteMovies(userId)
+        }.onSuccess { response ->
+            response.body()?.let { movieNames ->
+                emit(movieNames)
+            } ?: run {
+                emit(emptyList())
+            }
+        }.onFailure {
+            emit(null)
         }
     }
 }

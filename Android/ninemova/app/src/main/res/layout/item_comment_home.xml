@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="comment"
             type="com.ninemova.domain.data.Comment" />
@@ -50,26 +51,32 @@
 
                 <TextView
                     android:id="@+id/textView3"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
+                    android:ellipsize="end"
                     android:fontFamily="@font/pretendard_regular"
+                    android:singleLine="true"
                     android:text="@{comment.writer}"
                     android:textColor="@color/white"
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="@+id/cardView2"
+                    app:layout_constraintEnd_toStartOf="@id/imageView"
                     app:layout_constraintStart_toEndOf="@+id/cardView2"
                     app:layout_constraintTop_toTopOf="@+id/cardView2"
-                    tools:text="username" />
+                    tools:text="userName" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
+                    android:ellipsize="end"
                     android:fontFamily="@font/pretendard_semibold"
+                    android:singleLine="true"
                     android:textColor="@color/white"
                     android:textSize="20dp"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/imageView"
                     app:layout_constraintStart_toStartOf="@+id/cardView2"
                     app:layout_constraintTop_toTopOf="@+id/textView3"
                     app:setCommentText="@{comment.commentContent}"

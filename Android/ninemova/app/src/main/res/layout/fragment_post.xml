@@ -35,16 +35,25 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/iv_user_thumbnail"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_view_profile_image"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginStart="10dp"
+            android:layout_marginTop="7dp"
             android:layout_marginEnd="10dp"
-            android:scaleType="fitXY"
+            app:cardCornerRadius="40dp"
             app:layout_constraintStart_toStartOf="@id/card_view_movie_thumbnail"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/ic_test_thumbnail" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/iv_user_thumbnail"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:profileImage="@{viewModel.uiState.comment.profileImageUrl}"
+                tools:src="@drawable/ic_test_thumbnail" />
+        </com.google.android.material.card.MaterialCardView>
+
 
         <TextView
             android:id="@+id/tv_user_nick_name"
@@ -55,8 +64,8 @@
             android:text="@{viewModel.uiState.comment.writer}"
             android:textColor="@color/white"
             android:textSize="15sp"
-            app:layout_constraintBottom_toBottomOf="@id/iv_user_thumbnail"
-            app:layout_constraintStart_toEndOf="@id/iv_user_thumbnail"
+            app:layout_constraintBottom_toBottomOf="@id/card_view_profile_image"
+            app:layout_constraintStart_toEndOf="@id/card_view_profile_image"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.card.MaterialCardView
@@ -68,7 +77,7 @@
             app:layout_constraintEnd_toEndOf="parent "
             app:layout_constraintHeight_percent="0.23"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/iv_user_thumbnail"
+            app:layout_constraintTop_toBottomOf="@id/card_view_profile_image"
             app:strokeWidth="0dp">
 
             <ImageView

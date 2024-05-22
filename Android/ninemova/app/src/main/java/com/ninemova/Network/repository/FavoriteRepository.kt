@@ -9,4 +9,6 @@ interface FavoriteRepository {
     suspend fun createFavorite(request: FavoriteRequest): Flow<FavoriteResponse?>
     suspend fun deleteFavorite(userId: Int, movieId: Int): Flow<Boolean>
     suspend fun getFavorite(userId: Int, movieId: Int): Flow<Boolean>
+
+    suspend fun getUserFavoriteMovies(userId: Int): Flow<List<String>?>
 }

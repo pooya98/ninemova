@@ -21,22 +21,32 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/iv_user_thumbnail"
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card_view_profile_image"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:scaleType="fitXY"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                app:cardCornerRadius="40dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:profileImage="@{reply.userProfileImageUrl}" />
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/iv_user_thumbnail"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:profileImage="@{reply.userProfileImageUrl}" />
+            </com.google.android.material.card.MaterialCardView>
 
             <TextView
                 android:id="@+id/tv_user_name"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
+                android:ellipsize="end"
                 android:fontFamily="@font/pretendard_medium"
                 android:text="@{reply.userNickName}"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/iv_user_thumbnail"
                 app:layout_constraintTop_toTopOf="parent" />
 

@@ -11,11 +11,16 @@ import com.ninemova.Network.response.openai.AnalysisResult
 import com.ninemova.domain.data.PieChartItem
 import com.ninemova.domain.data.User
 import com.ninemova.domain.data.UserTag
+import com.ninemova.ui.util.ErrorMessage
+import com.ninemova.ui.util.PromptMessage
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class MyPageViewModel : ViewModel() {
+
     private val repository = RepositoryUtils.openAiRepository
-    private val localRepository = RepositoryUtils.localDataStoreRepository
+    private val localDataStoreRepository = RepositoryUtils.localDataStoreRepository
+    private val favoriteRepository = RepositoryUtils.favoriteRepository
 
     private val _response = MutableLiveData<String>()
     val response: LiveData<String> get() = _response
@@ -35,169 +40,147 @@ class MyPageViewModel : ViewModel() {
     private val _userInfo = MutableLiveData<User>()
     val userInfo: LiveData<User> get() = _userInfo
 
+    private val _favoriteMovies = MutableLiveData<String>()
+    val favoriteMovies: LiveData<String> = _favoriteMovies
+
+    private val _errorMessage = MutableLiveData<String>()
+    val errorMessage: LiveData<String> = _errorMessage
+
     init {
+        fetchUserFavoriteMovies()
         fetchUserInfo()
-        fetchUserTagResponse()
-        fetchKeywordResponse()
-        fetchGenreResponse()
-        fetchActorResponse()
     }
 
-    private fun fetchUserTagResponse() {
+    private fun fetchUserFavoriteMovies() {
+        viewModelScope.launch {
+            favoriteRepository.getUserFavoriteMovies(localDataStoreRepository.getUserId())
+                .collectLatest { movieNames ->
+                    movieNames?.let { list ->
+                        _favoriteMovies.value = list.joinToString(separator = ", ")
+                    }
+                }
+        }
+    }
+
+    fun fetchUserTagResponse() {
         viewModelScope.launch {
             try {
-                val result = repository.getChatResponse(prompt_userTag, BuildConfig.OPENAI_API_KEY)
-                _response.value = result!!
-
+                val result = repository.getChatResponse(
+                    PromptMessage.promptUserTag(_favoriteMovies.value ?: ""),
+                    BuildConfig.OPENAI_API_KEY,
+                ) ?: ""
+                _response.value = result
                 val analysisResult: AnalysisResult =
-                    Gson().fromJson(result!!, AnalysisResult::class.java)
+                    Gson().fromJson(result, AnalysisResult::class.java)
                 val userTagItems = mutableListOf<UserTag>()
-                analysisResult.answer.resultElements.forEachIndexed { index, element ->
+                analysisResult.answer.resultElements.forEach { element ->
                     userTagItems.add(UserTag(element.name))
                 }
                 _userTags.value = userTagItems
-
             } catch (e: Exception) {
-                _response.value = "Error: ${e.message}"
+                _errorMessage.value = ErrorMessage.CHATGPT_ERROR_MESSAGe
             }
         }
     }
 
-    private fun fetchKeywordResponse() {
+    fun fetchKeywordResponse() {
         viewModelScope.launch {
             try {
-                val result = repository.getChatResponse(prompt_keyword, BuildConfig.OPENAI_API_KEY)
-                _response.value = result!!
-
+                val result = repository.getChatResponse(
+                    PromptMessage.promptKeyWords(
+                        _favoriteMovies.value ?: "",
+                    ),
+                    BuildConfig.OPENAI_API_KEY,
+                ) ?: ""
+                _response.value = result
                 val analysisResult: AnalysisResult =
-                    Gson().fromJson(result!!, AnalysisResult::class.java)
+                    Gson().fromJson(result, AnalysisResult::class.java)
                 val pieChartItems = mutableListOf<PieChartItem>()
                 analysisResult.answer.resultElements.forEachIndexed { index, element ->
                     pieChartItems.add(
                         PieChartItem(
                             element.name,
                             element.rate,
-                            piechartColors[index]
-                        )
+                            piechartColors[index],
+                        ),
                     )
                 }
                 _keywords.value = pieChartItems
-
             } catch (e: Exception) {
-                _response.value = "Error: ${e.message}"
+                _errorMessage.value = ErrorMessage.CHATGPT_ERROR_MESSAGe
             }
         }
     }
 
-    private fun fetchActorResponse() {
+    fun fetchActorResponse() {
         viewModelScope.launch {
             try {
-                val result = repository.getChatResponse(prompt_actor, BuildConfig.OPENAI_API_KEY)
-                _response.value = result!!
-
+                val result = repository.getChatResponse(
+                    PromptMessage.promptActor(
+                        _favoriteMovies.value ?: "",
+                    ),
+                    BuildConfig.OPENAI_API_KEY,
+                ) ?: ""
+                _response.value = result
                 val analysisResult: AnalysisResult =
-                    Gson().fromJson(result!!, AnalysisResult::class.java)
+                    Gson().fromJson(response.value, AnalysisResult::class.java)
                 val pieChartItems = mutableListOf<PieChartItem>()
                 analysisResult.answer.resultElements.forEachIndexed { index, element ->
                     pieChartItems.add(
                         PieChartItem(
                             element.name,
                             element.rate,
-                            piechartColors[index]
-                        )
+                            piechartColors[index],
+                        ),
                     )
                 }
                 _actors.value = pieChartItems
-
             } catch (e: Exception) {
-                _response.value = "Error: ${e.message}"
+                _errorMessage.value = ErrorMessage.CHATGPT_ERROR_MESSAGe
             }
         }
     }
 
-    private fun fetchGenreResponse() {
+    fun fetchGenreResponse() {
         viewModelScope.launch {
             try {
-                val result = repository.getChatResponse(prompt_genre, BuildConfig.OPENAI_API_KEY)
-                _response.value = result!!
-
+                val result = repository.getChatResponse(
+                    PromptMessage.promptGenres(
+                        _favoriteMovies.value ?: "",
+                    ),
+                    BuildConfig.OPENAI_API_KEY,
+                ) ?: ""
+                _response.value = result
                 val analysisResult: AnalysisResult =
-                    Gson().fromJson(result!!, AnalysisResult::class.java)
+                    Gson().fromJson(result, AnalysisResult::class.java)
                 val pieChartItems = mutableListOf<PieChartItem>()
                 analysisResult.answer.resultElements.forEachIndexed { index, element ->
                     pieChartItems.add(
                         PieChartItem(
                             element.name,
                             element.rate,
-                            piechartColors[index]
-                        )
+                            piechartColors[index],
+                        ),
                     )
                 }
                 _genres.value = pieChartItems
-
             } catch (e: Exception) {
-                _response.value = "Error: ${e.message}"
+                _errorMessage.value = ErrorMessage.CHATGPT_ERROR_MESSAGe
             }
         }
     }
 
     private fun fetchUserInfo() {
         viewModelScope.launch {
-            val userId = localRepository.getUserId()
-            val userName = localRepository.getUserName()
-            val userNickName = localRepository.getUserNickName()
-            val userImageUri = localRepository.getUserProfileImageUrl()
-
+            val userId = localDataStoreRepository.getUserId()
+            val userName = localDataStoreRepository.getUserName()
+            val userNickName = localDataStoreRepository.getUserNickName()
+            val userImageUri = localDataStoreRepository.getUserProfileImageUrl()
             _userInfo.value = User(userId, userName, userNickName, userImageUri)
         }
     }
 
     companion object {
         val piechartColors = listOf<String>("#14A104", "#0569B8", "#BF0E01")
-        val movieListString = "악인전, 내부자들, 범죄도시, 베테랑, 범죄와의 전쟁, 히트맨, 조작된 도시, 부산행, 스파이더웹"
-
-        val prompt_userTag = """
-            Please provide the information in the following JSON format:
-            
-            {
-              "question": "Your question here",
-              "answer": {"resultElements": [JSON 형식({"name": 칭호이름, "rate": 0.0})으로 칭호 3개]}
-            }
-            
-            Question: [${movieListString}] 이 영화들을 모두 본 사용자에게 붙여줄 수 있는 칭호 3가지를 지어서 알려주세요.
-        """.trimIndent()
-
-        val prompt_actor = """
-            Please provide the information in the following JSON format:
-            
-            {
-              "question": "Your question here",
-              "answer": {"resultElements": [JSON 형식({"name": 배우이름, "rate": 연관성지수(%)})으로 배우 3명]}
-            }
-            
-            Question: [${movieListString}] 이 영화들과 공통적으로 관련있는 배우 3명을 알려주세요.
-        """.trimIndent()
-
-        val prompt_keyword = """
-            Please provide the information in the following JSON format:
-            
-            {
-              "question": "Your question here",
-              "answer": {"resultElements": [JSON 형식({"name": 키워드이름, "rate": 연관성지수(%)})으로 키워드(또는 주제) 3개]}
-            }
-            
-            Question: [${movieListString}] 이 영화들에서 뽑아낼 수 있는 키워드(또는 주제) 3개를 알려주세요.
-        """.trimIndent()
-
-        val prompt_genre = """
-            Please provide the information in the following JSON format:
-            
-            {
-              "question": "Your question here",
-              "answer": {"resultElements": [JSON 형식({"name": 장르이름, "rate": 연관성지수(%)})으로 장르 3개]}
-            }
-            
-            Question: [${movieListString}] 이 영화들과 공통적으로 관련있는 장르 3개를 알려주세요.
-        """.trimIndent()
     }
 }

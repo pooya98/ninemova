@@ -12,142 +12,145 @@
             type="com.ninemova.ui.detail.DetailViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/black"
-        tools:context=".ui.detail.DetailFragment">
+        android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/iv_main_image"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:imageUri="@{viewModel.uiState.movie.posterPath}"
-            app:layout_constraintEnd_toEndOf="@id/gl_right"
-            app:layout_constraintHeight_percent="0.26"
-            app:layout_constraintStart_toStartOf="@id/gl_left"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/test_thumbnail" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/gl_left"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_begin="15dp" />
+            android:background="@color/black"
+            tools:context=".ui.detail.DetailFragment">
 
+            <ImageView
+                android:id="@+id/iv_main_image"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30dp"
+                app:imageUri="@{viewModel.uiState.movie.posterPath}"
+                app:layout_constraintEnd_toEndOf="@id/gl_right"
+                app:layout_constraintStart_toStartOf="@id/gl_left"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/test_thumbnail" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/gl_right"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_end="15dp" />
-
-        <ImageView
-            android:id="@+id/iv_video_favorite"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:src="@drawable/ic_favorite"
-            app:isLiked="@{viewModel.uiState.isLiked}"
-            app:layout_constraintBottom_toBottomOf="@id/tv_video_name"
-            app:layout_constraintStart_toStartOf="@id/gl_left"
-            app:layout_constraintTop_toTopOf="@id/tv_video_name" />
-
-
-        <TextView
-            android:id="@+id/tv_release_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/pretendard_semibold"
-            android:text="@{viewModel.uiState.movie.releaseDate}"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="@id/tv_video_name"
-            app:layout_constraintEnd_toEndOf="@id/gl_right"
-            app:layout_constraintTop_toTopOf="@id/tv_video_name"
-            tools:text="2024-05-17" />
-
-        <TextView
-            android:id="@+id/tv_video_name"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="10dp"
-            android:fontFamily="@font/pretendard_extrabold"
-            android:maxLines="2"
-            android:text="@{viewModel.uiState.movie.title}"
-            android:textColor="@color/white"
-            android:textSize="25sp"
-            app:layout_constraintEnd_toStartOf="@id/tv_release_date"
-            app:layout_constraintStart_toEndOf="@id/iv_video_favorite"
-            app:layout_constraintTop_toBottomOf="@id/iv_main_image"
-            tools:text="혹성 탈출" />
-
-
-        <HorizontalScrollView
-            android:id="@+id/scroll_view_chip_group"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="@id/gl_right"
-            app:layout_constraintStart_toStartOf="@id/gl_left"
-            app:layout_constraintTop_toBottomOf="@id/tv_video_name">
-
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/chip_group_genres"
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_left"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:maxWidth="0dp"
-                app:chips="@{viewModel.uiState.genres}"
-                app:singleLine="true" />
-        </HorizontalScrollView>
-
-        <Button
-            android:id="@+id/btn_register_comment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/btn_register_comment"
-            app:icon="@drawable/ic_edit"
-            app:layout_constraintEnd_toEndOf="@id/gl_right"
-            app:layout_constraintTop_toBottomOf="@id/scroll_view_chip_group" />
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="15dp" />
 
 
-        <ImageView
-            android:id="@+id/iv_back_drop"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="7dp"
-            android:alpha="0.7"
-            android:scaleType="fitXY"
-            app:imageUri="@{viewModel.uiState.movie.backdropPath}"
-            app:layout_constraintEnd_toEndOf="@id/gl_right"
-            app:layout_constraintHeight_percent="0.25"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@id/gl_left"
-            app:layout_constraintTop_toBottomOf="@id/btn_register_comment"
-            tools:src="@drawable/test_thumbnail" />
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/gl_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="15dp" />
 
-        <TextView
-            android:id="@+id/tv_video_over_view"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:fontFamily="@font/pretendard_medium"
-            android:gravity="bottom"
-            android:maxLines="4"
-            android:padding="15dp"
-            android:text="@{viewModel.uiState.movie.overView}"
-            android:textColor="@color/gray"
-            app:layout_constraintBottom_toBottomOf="@id/iv_back_drop"
-            app:layout_constraintEnd_toEndOf="@id/gl_right"
-            app:layout_constraintStart_toStartOf="@id/gl_left" />
+            <ImageView
+                android:id="@+id/iv_video_favorite"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/ic_favorite"
+                app:isLiked="@{viewModel.uiState.isLiked}"
+                app:layout_constraintBottom_toBottomOf="@id/tv_video_name"
+                app:layout_constraintStart_toStartOf="@id/gl_left"
+                app:layout_constraintTop_toTopOf="@id/tv_video_name" />
 
-        <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
-            android:id="@+id/video_trailer"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/gl_right"
-            app:layout_constraintStart_toStartOf="@id/gl_left"
-            app:layout_constraintTop_toBottomOf="@id/iv_back_drop" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/tv_release_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/pretendard_semibold"
+                android:text="@{viewModel.uiState.movie.releaseDate}"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="@id/tv_video_name"
+                app:layout_constraintEnd_toEndOf="@id/gl_right"
+                app:layout_constraintTop_toTopOf="@id/tv_video_name"
+                tools:text="2024-05-17" />
+
+            <TextView
+                android:id="@+id/tv_video_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/pretendard_extrabold"
+                android:maxLines="2"
+                android:text="@{viewModel.uiState.movie.title}"
+                android:textColor="@color/white"
+                android:textSize="25sp"
+                app:layout_constraintEnd_toStartOf="@id/tv_release_date"
+                app:layout_constraintStart_toEndOf="@id/iv_video_favorite"
+                app:layout_constraintTop_toBottomOf="@id/iv_main_image"
+                tools:text="혹성 탈출" />
+
+
+            <HorizontalScrollView
+                android:id="@+id/scroll_view_chip_group"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="@id/gl_right"
+                app:layout_constraintStart_toStartOf="@id/gl_left"
+                app:layout_constraintTop_toBottomOf="@id/tv_video_name">
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chip_group_genres"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:maxWidth="0dp"
+                    app:chips="@{viewModel.uiState.genres}"
+                    app:singleLine="true" />
+            </HorizontalScrollView>
+
+            <Button
+                android:id="@+id/btn_register_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/btn_register_comment"
+                app:icon="@drawable/ic_edit"
+                app:layout_constraintEnd_toEndOf="@id/gl_right"
+                app:layout_constraintTop_toBottomOf="@id/scroll_view_chip_group" />
+
+
+            <ImageView
+                android:id="@+id/iv_back_drop"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:alpha="0.7"
+                android:scaleType="fitXY"
+                app:imageUri="@{viewModel.uiState.movie.backdropPath}"
+                app:layout_constraintEnd_toEndOf="@id/gl_right"
+                app:layout_constraintStart_toStartOf="@id/gl_left"
+                app:layout_constraintTop_toBottomOf="@id/btn_register_comment"
+                tools:src="@drawable/test_thumbnail" />
+
+            <TextView
+                android:id="@+id/tv_video_over_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:fontFamily="@font/pretendard_medium"
+                android:gravity="bottom"
+                android:maxLines="4"
+                android:padding="15dp"
+                android:text="@{viewModel.uiState.movie.overView}"
+                android:textColor="@color/gray"
+                app:layout_constraintBottom_toBottomOf="@id/iv_back_drop"
+                app:layout_constraintEnd_toEndOf="@id/gl_right"
+                app:layout_constraintStart_toStartOf="@id/gl_left" />
+
+            <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+                android:id="@+id/video_trailer"
+                android:layout_width="0dp"
+                android:layout_height="300dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/gl_right"
+                app:layout_constraintStart_toStartOf="@id/gl_left"
+                app:layout_constraintTop_toBottomOf="@id/iv_back_drop" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </layout>

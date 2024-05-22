@@ -9,7 +9,7 @@
 
     <style name="Theme.Ninemova.Splash" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground" tools:targetApi="S">@color/black</item>
-        <item name="windowSplashScreenAnimatedIcon" tools:targetApi="S">@drawable/image_logo</item>
+        <item name="windowSplashScreenAnimatedIcon" tools:targetApi="S">@mipmap/ic_app_logo_round</item>
         <item name="windowSplashScreenIconBackgroundColor" tools:targetApi="S">@color/black</item>
         <item name="postSplashScreenTheme">@style/Theme.Ninemova</item>
     </style>
