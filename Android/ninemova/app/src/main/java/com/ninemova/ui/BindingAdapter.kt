@@ -2,6 +2,7 @@ package com.ninemova.ui
 
 import android.content.res.ColorStateList
 import android.graphics.Color
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
@@ -188,4 +189,14 @@ fun bindLoading(circularProgressIndicator: CircularProgressIndicator, items: Lis
     } else {
         circularProgressIndicator.visibility = View.GONE
     }
+}
+
+@BindingAdapter("app:isLiked")
+fun ImageView.bindLiked(isLiked: Boolean) {
+    val drawableID = if (isLiked) {
+        R.drawable.ic_favorite
+    } else {
+        R.drawable.ic_unfavorite
+    }
+    setImageResource(drawableID)
 }
