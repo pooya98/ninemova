@@ -40,10 +40,12 @@ class MyPageViewModel : ViewModel() {
     private val _userInfo = MutableLiveData<User>()
     val userInfo: LiveData<User> get() = _userInfo
 
-    private val favoriteMovies = MutableLiveData<String>()
+    private val _favoriteMovies = MutableLiveData<String>()
+    val favoriteMovies: LiveData<String> = _favoriteMovies
 
     init {
         fetchUserFavoriteMovies()
+        fetchUserInfo()
     }
 
     private fun fetchUserFavoriteMovies() {
@@ -51,26 +53,21 @@ class MyPageViewModel : ViewModel() {
             favoriteRepository.getUserFavoriteMovies(localDataStoreRepository.getUserId())
                 .collectLatest { movieNames ->
                     movieNames?.let { list ->
-                        favoriteMovies.value = list.joinToString(separator = ", ")
-                        fetchUserInfo()
-                        fetchUserTagResponse()
-                        fetchKeywordResponse()
-                        fetchGenreResponse()
-                        fetchActorResponse()
+                        _favoriteMovies.value = list.joinToString(separator = ", ")
                     }
                 }
         }
     }
 
-    private fun fetchUserTagResponse() {
+    fun fetchUserTagResponse() {
         viewModelScope.launch {
             try {
                 val result = repository.getChatResponse(
-                    PromptMessage.promptUserTag(favoriteMovies.value ?: ""),
-                    BuildConfig.OPENAI_API_KEY
+                    PromptMessage.promptUserTag(_favoriteMovies.value ?: ""),
+                    BuildConfig.OPENAI_API_KEY,
                 )
                 _response.value = result!!
-                Log.d("jaehan","userTag response : ${result!!}")
+                Log.d("jaehan", "userTag response : ${result!!}")
                 val analysisResult: AnalysisResult =
                     Gson().fromJson(result!!, AnalysisResult::class.java)
                 val userTagItems = mutableListOf<UserTag>()
@@ -78,23 +75,23 @@ class MyPageViewModel : ViewModel() {
                     userTagItems.add(UserTag(element.name))
                 }
                 _userTags.value = userTagItems
-
             } catch (e: Exception) {
                 _response.value = "Error: ${e.message}"
             }
         }
     }
 
-    private fun fetchKeywordResponse() {
+    fun fetchKeywordResponse() {
         viewModelScope.launch {
             try {
                 val result = repository.getChatResponse(
                     PromptMessage.promptKeyWords(
-                        favoriteMovies.value ?: ""
-                    ), BuildConfig.OPENAI_API_KEY
+                        _favoriteMovies.value ?: "",
+                    ),
+                    BuildConfig.OPENAI_API_KEY,
                 )
                 _response.value = result!!
-                Log.d("jaehan","keyword response : ${result!!}")
+                Log.d("jaehan", "keyword response : ${result!!}")
                 val analysisResult: AnalysisResult =
                     Gson().fromJson(result!!, AnalysisResult::class.java)
                 val pieChartItems = mutableListOf<PieChartItem>()
@@ -103,29 +100,29 @@ class MyPageViewModel : ViewModel() {
                         PieChartItem(
                             element.name,
                             element.rate,
-                            piechartColors[index]
-                        )
+                            piechartColors[index],
+                        ),
                     )
                 }
                 _keywords.value = pieChartItems
-
             } catch (e: Exception) {
                 _response.value = "Error: ${e.message}"
             }
         }
     }
 
-    private fun fetchActorResponse() {
+    fun fetchActorResponse() {
         viewModelScope.launch {
             try {
                 val result = repository.getChatResponse(
                     PromptMessage.promptActor(
-                        favoriteMovies.value ?: ""
-                    ), BuildConfig.OPENAI_API_KEY
+                        _favoriteMovies.value ?: "",
+                    ),
+                    BuildConfig.OPENAI_API_KEY,
                 )
                 _response.value = result!!
 
-                Log.d("jaehan","actor response : ${result!!}")
+                Log.d("jaehan", "actor response : ${result!!}")
                 val analysisResult: AnalysisResult =
                     Gson().fromJson(response.value, AnalysisResult::class.java)
                 val pieChartItems = mutableListOf<PieChartItem>()
@@ -134,28 +131,28 @@ class MyPageViewModel : ViewModel() {
                         PieChartItem(
                             element.name,
                             element.rate,
-                            piechartColors[index]
-                        )
+                            piechartColors[index],
+                        ),
                     )
                 }
                 _actors.value = pieChartItems
-
             } catch (e: Exception) {
                 _response.value = "Error: ${e.message}"
             }
         }
     }
 
-    private fun fetchGenreResponse() {
+    fun fetchGenreResponse() {
         viewModelScope.launch {
             try {
                 val result = repository.getChatResponse(
                     PromptMessage.promptGenres(
-                        favoriteMovies.value ?: ""
-                    ), BuildConfig.OPENAI_API_KEY
+                        _favoriteMovies.value ?: "",
+                    ),
+                    BuildConfig.OPENAI_API_KEY,
                 )
                 _response.value = result!!
-                Log.d("jaehan","genre response : ${result!!}")
+                Log.d("jaehan", "genre response : ${result!!}")
                 val analysisResult: AnalysisResult =
                     Gson().fromJson(result!!, AnalysisResult::class.java)
                 val pieChartItems = mutableListOf<PieChartItem>()
@@ -164,12 +161,11 @@ class MyPageViewModel : ViewModel() {
                         PieChartItem(
                             element.name,
                             element.rate,
-                            piechartColors[index]
-                        )
+                            piechartColors[index],
+                        ),
                     )
                 }
                 _genres.value = pieChartItems
-
             } catch (e: Exception) {
                 _response.value = "Error: ${e.message}"
             }

@@ -21,4 +21,5 @@
     <string name="insert_comment_dialog_hint">한줄평을 입력하세요.</string>
     <string name="reply_comment_hint">댓글을 달아주세요.</string>
     <string name="loading_message">데이터가 로딩중이에요...\n잠시만 기다려주세요🙏</string>
+    <string name="favorite_movies_empty_message">현재 즐겨찾기 한 영화가 없어서 데이터를 찾을 수 없어요!</string>
 </resources>
