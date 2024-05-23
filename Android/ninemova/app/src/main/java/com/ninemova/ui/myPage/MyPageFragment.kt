@@ -14,6 +14,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
         with(binding) {
             viewModel = myPageViewModel
         }
+        myPageViewModel.fetchUserFavoriteMovies()
         observerFavoriteMovies()
     }
 
@@ -22,11 +23,14 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
             if (favoriteMovies.isBlank()) {
                 showMessage(ErrorMessage.EMPTY_FAVORITE_MOVIES_MESSAGe)
             } else {
-                with(myPageViewModel) {
-                    fetchActorResponse()
-                    fetchGenreResponse()
-                    fetchUserTagResponse()
-                    fetchKeywordResponse()
+                if (favoriteMovies != myPageViewModel.initFavoriteMovies.value) {
+                    with(myPageViewModel) {
+                        fetchActorResponse()
+                        fetchGenreResponse()
+                        fetchUserTagResponse()
+                        fetchKeywordResponse()
+                    }
+                    myPageViewModel.setFavoriteMovies()
                 }
             }
         }
