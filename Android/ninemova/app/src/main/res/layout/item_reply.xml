@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -9,56 +10,55 @@
             type="com.ninemova.domain.data.Reply" />
     </data>
 
-    <com.google.android.material.card.MaterialCardView
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:backgroundTint="@color/gray"
-        app:contentPadding="7dp"
-        app:strokeWidth="0dp">
+        android:background="@color/black">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_view_profile_image"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="10dp"
+            app:cardCornerRadius="40dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/card_view_profile_image"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                app:cardCornerRadius="40dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+            <ImageView
+                android:id="@+id/iv_user_thumbnail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:profileImage="@{reply.userProfileImageUrl}" />
+        </com.google.android.material.card.MaterialCardView>
 
-                <ImageView
-                    android:id="@+id/iv_user_thumbnail"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:profileImage="@{reply.userProfileImageUrl}" />
-            </com.google.android.material.card.MaterialCardView>
+        <TextView
+            android:id="@+id/tv_user_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginStart="5dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/pretendard_medium"
+            android:text="@{reply.userNickName}"
+            android:textColor="@color/gray"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/card_view_profile_image"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="1123" />
 
-            <TextView
-                android:id="@+id/tv_user_name"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="10dp"
-                android:ellipsize="end"
-                android:fontFamily="@font/pretendard_medium"
-                android:text="@{reply.userNickName}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/iv_user_thumbnail"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/tv_reply_content"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="10dp"
-                android:text="@{reply.content}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/iv_user_thumbnail" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.card.MaterialCardView>
+        <TextView
+            android:id="@+id/tv_reply_content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:text="@{reply.content}"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tv_user_name"
+            app:layout_constraintTop_toBottomOf="@id/card_view_profile_image"
+            tools:text="12321" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

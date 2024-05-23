@@ -19,10 +19,10 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
         with(binding) {
             viewModel = recommendVieModel
             btnAiRecommend.setOnClickListener {
-                recommendVieModel.fetchAiRecommendMovie()
+                recommendVieModel.selectTab(1)
             }
             btnNewWorldRecommend.setOnClickListener {
-                recommendVieModel.fetchNewWorldRecommendMovie()
+                recommendVieModel.selectTab(2)
             }
             ivRecommendMovieThumnail.setOnClickListener {
                 recommendVieModel.uiState.value.selectedMovie?.let { selectedMovie ->
@@ -31,9 +31,15 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
                     )
                 }
             }
+            btnRefresh.setOnClickListener {
+                showLoadingDialog()
+                recommendVieModel.setLoadingOn()
+                recommendVieModel.loadData()
+            }
         }
         collectUiEvent()
         showLoadingDialog()
+        recommendVieModel.selectTab(1)
     }
 
     private fun collectUiEvent() {
@@ -41,14 +47,46 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 recommendVieModel.uiEvent.collectLatest { event ->
                     when (event) {
-                        is RecommendViewEvent.SearchSuccess -> {
-                            recommendVieModel.fetchNewWorldRecommendMovie()
-                            recommendVieModel.fetchAiRecommendMovie()
+                        is RecommendViewEvent.ChatGptSuccess -> {
+                            if (event.flagCode == 1) {
+                                recommendVieModel.fetchAiRecommendMovie()
+                            } else {
+                                recommendVieModel.fetchNewWorldRecommendMovie()
+                            }
+                        }
+
+                        is RecommendViewEvent.ChatGptError -> {
+                            if (event.errorCode == 1) {
+                                recommendVieModel.getAiMovieTitle()
+                            } else {
+                                recommendVieModel.getNewMovieTitle()
+                            }
+                        }
+
+                        is RecommendViewEvent.TmdbApiSuccess -> {
+                            if (event.flagCode == 1) {
+                                if (recommendVieModel.uiState.value.newWorldMovie != null) {
+                                    recommendVieModel.setLoadingOff()
+                                }
+                            } else {
+                                if (recommendVieModel.uiState.value.aiRecommendMovie != null) {
+                                    recommendVieModel.setLoadingOff()
+                                }
+                            }
+                        }
+
+                        is RecommendViewEvent.TmdbApiError -> {
+                            if (event.errorCode == 1) {
+                                recommendVieModel.getAiMovieTitle()
+                            } else {
+                                recommendVieModel.getNewMovieTitle()
+                            }
                         }
 
                         is RecommendViewEvent.Error -> {
                             showMessage(event.errorMessage)
                         }
+
                     }
                 }
             }
@@ -59,4 +97,5 @@ class RecommendFragment : BaseFragment<FragmentRecommendBinding>(R.layout.fragme
         val dialog = LoadingDialog(recommendVieModel.isLoading)
         dialog.show(requireActivity().supportFragmentManager, "loadingDialog")
     }
+
 }

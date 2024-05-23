@@ -9,7 +9,7 @@ import com.ninemova.BuildConfig
 import com.ninemova.Network.request.tmdb.SearchMovieRequest
 import com.ninemova.Network.response.openai.AnalysisResult
 import com.ninemova.Network.utils.RepositoryUtils
-import com.ninemova.ui.util.ErrorMessage
+import com.ninemova.ui.util.PromptMessage
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -18,12 +18,12 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-private const val TAG = "RecommendViewModel_싸피"
-
 class RecommendViewModel : ViewModel() {
+
     private val repository = RepositoryUtils.openAiRepository
     private val movieRepository = RepositoryUtils.movieRepository
-    private val genreRepository = RepositoryUtils.genreRepository
+    private val favoriteRepository = RepositoryUtils.favoriteRepository
+    private val localDataStoreRepository = RepositoryUtils.localDataStoreRepository
 
     private val _uiState = MutableStateFlow(RecommendUiState())
     val uiState: StateFlow<RecommendUiState> = _uiState
@@ -36,69 +36,96 @@ class RecommendViewModel : ViewModel() {
     val response: LiveData<String> get() = _response
 
     init {
-        getRecommendMovieTitle()
+        loadData()
     }
 
-    private fun getRecommendMovieTitle() {
+    fun loadData() {
         viewModelScope.launch {
-            getAiMovieTitle()
-            getNewMovieTitle()
-            _uiEvent.emit(RecommendViewEvent.SearchSuccess)
+            getFavoriteMovies()
+            getRecommendMovieTitle()
         }
     }
 
-    private suspend fun getAiMovieTitle() {
-        repository.getChatResponse(promptAiMovieRecommends, BuildConfig.OPENAI_API_KEY)
-            ?.let { response ->
-                val chatGptResult = Gson().fromJson(response, AnalysisResult::class.java)
-                val aiMovieTitle = chatGptResult.answer.resultElements.first()
-                _uiState.update { uiState ->
-                    uiState.copy(
-                        aiRecommendMovieTitle = aiMovieTitle.name,
-                    )
-                }
-            } ?: run {
-            _uiEvent.emit(RecommendViewEvent.Error(errorMessage = "AI 영화 추천 응답 실패"))
-        }
-    }
-
-    private suspend fun getNewMovieTitle() {
-        repository.getChatResponse(promptAiNewWorldRecommends, BuildConfig.OPENAI_API_KEY)
-            ?.let { response ->
-                val chatGptResult = Gson().fromJson(response, AnalysisResult::class.java)
-                val newMovieTitle = chatGptResult.answer.resultElements.first()
-
-                _uiState.update { uiState ->
-                    uiState.copy(
-                        newWorldMovieTitle = newMovieTitle.name,
-                    )
-                }
-            } ?: run {
-            _uiEvent.emit(RecommendViewEvent.Error(errorMessage = "새로운 영화 추천 응답 실패"))
-        }
-    }
-
-    fun fetchNewWorldRecommendMovie() {
-        viewModelScope.launch {
-            movieRepository.searchMovies(
-                request = SearchMovieRequest(
-                    query = uiState.value.newWorldMovieTitle,
-                ),
-            ).collectLatest { response ->
-                if (response.isEmpty()) {
-                    _uiEvent.emit(RecommendViewEvent.Error(errorMessage = ErrorMessage.NO_SEARCH_RESULT_ERROR_MESSAGE))
+    private suspend fun getFavoriteMovies() {
+        favoriteRepository.getUserFavoriteMovies(localDataStoreRepository.getUserId())
+            .collectLatest { movieNames ->
+                val favoriteMovieNames = if (movieNames.isNullOrEmpty()) {
+                    "악인전, 내부자들, 범죄도시, 베테랑, 범죄와의 전쟁, 히트맨, 조작된 도시, 부산행, 스파이더웹"
                 } else {
-                    _uiState.update { state ->
-                        state.copy(
-                            selectedMovie = response[0],
-                        )
-                    }
-                    _isLoading.update {
-                        false
-                    }
+                    movieNames.joinToString(separator = ", ")
+                }
+                _uiState.update { uiState ->
+                    uiState.copy(
+                        favoriteMovies = favoriteMovieNames
+                    )
                 }
             }
-            getGenres()
+    }
+
+    private suspend fun getRecommendMovieTitle() {
+        getAiMovieTitle()
+        getNewMovieTitle()
+    }
+
+    suspend fun getAiMovieTitle() {
+        repository.getChatResponse(
+            PromptMessage.promptAiMovieRecommends(uiState.value.favoriteMovies),
+            BuildConfig.OPENAI_API_KEY
+        )
+            ?.let { response ->
+                try {
+                    val chatGptResult = Gson().fromJson(response, AnalysisResult::class.java)
+                    val aiMovieTitle = chatGptResult.answer.resultElements.first()
+                    _uiState.update { uiState ->
+                        uiState.copy(
+                            aiRecommendMovieTitle = aiMovieTitle.name,
+                        )
+                    }
+                    _uiEvent.emit(RecommendViewEvent.ChatGptSuccess(flagCode = 1))
+                } catch (e: Exception) {
+                    _uiEvent.emit(
+                        RecommendViewEvent.ChatGptError(
+                            errorCode = 1
+                        )
+                    )
+                }
+            } ?: run {
+            _uiEvent.emit(
+                RecommendViewEvent.ChatGptError(
+                    errorCode = 1
+                )
+            )
+        }
+    }
+
+    suspend fun getNewMovieTitle() {
+        repository.getChatResponse(
+            PromptMessage.promptNewMovieRecommends(uiState.value.favoriteMovies),
+            BuildConfig.OPENAI_API_KEY
+        )
+            ?.let { response ->
+                try {
+                    val chatGptResult = Gson().fromJson(response, AnalysisResult::class.java)
+                    val newMovieTitle = chatGptResult.answer.resultElements.first()
+                    _uiState.update { uiState ->
+                        uiState.copy(
+                            newWorldMovieTitle = newMovieTitle.name,
+                        )
+                    }
+                    _uiEvent.emit(RecommendViewEvent.ChatGptSuccess(flagCode = 2))
+                } catch (e: Exception) {
+                    _uiEvent.emit(
+                        RecommendViewEvent.ChatGptError(
+                            errorCode = 2
+                        )
+                    )
+                }
+            } ?: run {
+            _uiEvent.emit(
+                RecommendViewEvent.ChatGptError(
+                    errorCode = 2
+                )
+            )
         }
     }
 
@@ -110,63 +137,92 @@ class RecommendViewModel : ViewModel() {
                 ),
             ).collectLatest { response ->
                 if (response.isEmpty()) {
-                    _uiEvent.emit(RecommendViewEvent.Error(errorMessage = ErrorMessage.NO_SEARCH_RESULT_ERROR_MESSAGE))
-                } else {
-                    _uiState.update { state ->
-                        state.copy(
-                            selectedMovie = response[0],
+                    _uiEvent.emit(
+                        RecommendViewEvent.TmdbApiError(
+                            errorCode = 1
                         )
-                    }
-                    _isLoading.update {
-                        false
+                    )
+                } else {
+
+                    _uiState.update { state ->
+                        if (state.selectedTab == 1) {
+                            state.copy(
+                                selectedMovie = response[0],
+                                aiRecommendMovie = response[0],
+                            )
+                        } else {
+                            state.copy(
+                                aiRecommendMovie = response[0],
+                            )
+                        }
                     }
                 }
             }
-            getGenres()
+            _uiEvent.emit(RecommendViewEvent.TmdbApiSuccess(flagCode = 1))
         }
     }
 
-    private suspend fun getGenres() {
-        uiState.value.selectedMovie?.let { movie ->
-            genreRepository.getGenres(movie.genreIds).collectLatest { genres ->
-                if (genres.isEmpty()) {
+    fun fetchNewWorldRecommendMovie() {
+        viewModelScope.launch {
+            movieRepository.searchMovies(
+                request = SearchMovieRequest(
+                    query = uiState.value.newWorldMovieTitle,
+                ),
+            ).collectLatest { response ->
+                if (response.isEmpty()) {
                     _uiEvent.emit(
-                        RecommendViewEvent.Error(
-                            errorMessage = ErrorMessage.GET_GENRES_ERROR_MESSAGE,
-                        ),
+                        RecommendViewEvent.TmdbApiError(
+                            errorCode = 1
+                        )
                     )
                 } else {
                     _uiState.update { state ->
-                        state.copy(
-                            genres = genres,
-                        )
+                        if (state.selectedTab == 2) {
+                            state.copy(
+                                selectedMovie = response[0],
+                                newWorldMovie = response[0],
+                            )
+                        } else {
+                            state.copy(
+                                newWorldMovie = response[0],
+                            )
+                        }
                     }
+                }
+            }
+            _uiEvent.emit(RecommendViewEvent.TmdbApiSuccess(flagCode = 2))
+        }
+    }
+
+    fun selectTab(tabID: Int) {
+        if (uiState.value.selectedTab != tabID) {
+            if (tabID == 1) {
+                _uiState.update { state ->
+                    state.copy(
+                        selectedTab = tabID,
+                        selectedMovie = uiState.value.aiRecommendMovie,
+                    )
+                }
+            } else {
+                _uiState.update { state ->
+                    state.copy(
+                        selectedTab = tabID,
+                        selectedMovie = uiState.value.newWorldMovie,
+                    )
                 }
             }
         }
     }
 
-    companion object {
-        val movieListString = "악인전, 내부자들, 범죄도시, 베테랑, 범죄와의 전쟁, 히트맨, 조작된 도시, 부산행, 스파이더웹"
+    fun setLoadingOn() {
+        _isLoading.update {
+            true
+        }
+    }
 
-        val promptAiMovieRecommends = """
-            Question: TMDB에 있는 영화 중에서 다음의 리스트에 있는 영화들과 비슷한 주제의 영화 1개의 제목을 반환해주세요. 영화 리스트 : [$movieListString]
-        
-            다음의 JSON 형식에 맞춰서 응답해주세요.
-            {
-              "question": "Your question here",
-              "answer": {"resultElements": [JSON 형식({"name": 영화 이름, "rate": 관련 지수(0.0~100.0)})]}
-            }
-        """.trimIndent()
-
-        val promptAiNewWorldRecommends = """
-            Question: TMDB에 있는 영화 중에서 다음의 리스트에 있는 영화들과는 다른 주제의 영화 1개의 제목을 반환해주세요. 영화 리스트 : [$movieListString]
-        
-            다음의 JSON 형식에 맞춰서 응답해주세요.
-            {
-              "question": "Your question here",
-              "answer": {"resultElements": [JSON 형식({"name": 영화 이름, "rate": 관련 지수(0.0~100.0)})]}
-            }
-        """.trimIndent()
+    fun setLoadingOff() {
+        _isLoading.update {
+            false
+        }
     }
 }

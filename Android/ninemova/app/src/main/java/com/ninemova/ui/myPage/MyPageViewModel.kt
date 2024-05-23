@@ -43,6 +43,9 @@ class MyPageViewModel : ViewModel() {
     private val _favoriteMovies = MutableLiveData<String>()
     val favoriteMovies: LiveData<String> = _favoriteMovies
 
+    private val _initFavoriteMovies = MutableLiveData<String>()
+    val initFavoriteMovies: LiveData<String> = _initFavoriteMovies
+
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> = _errorMessage
 
@@ -51,7 +54,11 @@ class MyPageViewModel : ViewModel() {
         fetchUserInfo()
     }
 
-    private fun fetchUserFavoriteMovies() {
+    fun setFavoriteMovies() {
+        _initFavoriteMovies.value = _favoriteMovies.value
+    }
+
+    fun fetchUserFavoriteMovies() {
         viewModelScope.launch {
             favoriteRepository.getUserFavoriteMovies(localDataStoreRepository.getUserId())
                 .collectLatest { movieNames ->

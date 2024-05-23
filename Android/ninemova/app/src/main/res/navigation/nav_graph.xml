@@ -14,7 +14,7 @@
             android:id="@+id/action_community_to_post"
             app:destination="@id/postFragment"
             app:popUpTo="@id/communityFragment"
-            app:popUpToInclusive="true">
+            app:popUpToInclusive="false">
             <argument
                 android:name="comment"
                 app:argType="com.ninemova.domain.data.Comment" />
@@ -53,7 +53,7 @@
             android:id="@+id/action_recommend_to_detail"
             app:destination="@id/detailFragment"
             app:popUpTo="@id/recommendFragment"
-            app:popUpToInclusive="true">
+            app:popUpToInclusive="false">
             <argument
                 android:name="movie"
                 app:argType="com.ninemova.domain.data.Movie" />
@@ -68,7 +68,7 @@
             android:id="@+id/action_search_to_detail"
             app:destination="@id/detailFragment"
             app:popUpTo="@id/searchFragment"
-            app:popUpToInclusive="true">
+            app:popUpToInclusive="false">
             <argument
                 android:name="movie"
                 app:argType="com.ninemova.domain.data.Movie" />
