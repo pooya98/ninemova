@@ -1,6 +1,7 @@
 package com.ninemova.ui.home
 
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.ninemova.R
 import com.ninemova.databinding.FragmentHomeBinding
@@ -13,6 +14,7 @@ import com.ninemova.ui.adapter.MovieListAdapter
 import com.ninemova.ui.adapter.TopMovieClickListener
 import com.ninemova.ui.adapter.TopMovieListAdapter
 import com.ninemova.ui.base.BaseFragment
+import com.ninemova.ui.util.runTickerFlow
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
@@ -21,12 +23,21 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
     private val popularMovieListAdapter = MovieListAdapter()
     private val recentCommentListAdapter = HomeCommentListAdapter()
     override fun initView() {
+        loadData()
         setNowPlayingMoviesRecyclerView()
         setPopularMoviesRecyclerView()
         setRecentCommentRecyclerView()
         with(binding) {
             viewModel = homeViewModel
         }
+    }
+
+    private fun loadData() {
+        runTickerFlow(
+            interval = 1000L,
+            scope = lifecycleScope,
+            action = { homeViewModel.searchRecentComments(lifecycleScope) },
+        )
     }
 
     private fun setNowPlayingMoviesRecyclerView() {
@@ -61,7 +72,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home) {
             recentCommentListAdapter.setHomeCommentClickListener(object : HomeCommentClickListener {
                 override fun onClick(item: Comment) {
                     findNavController().navigate(
-                        HomeFragmentDirections.actionHomeToPost(item)
+                        HomeFragmentDirections.actionHomeToPost(item),
                     )
                     HomeFragmentDirections.actionHomeToPost(item)
                 }

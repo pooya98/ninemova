@@ -6,7 +6,6 @@ import com.ninemova.Network.request.tmdb.SearchNowPlayingMoviesRequest
 import com.ninemova.Network.request.tmdb.SearchPopularMoviesRequest
 import com.ninemova.Network.utils.RepositoryUtils
 import com.ninemova.ui.util.ErrorMessage
-import com.ninemova.ui.util.runTickerFlow
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -28,11 +27,6 @@ class HomeViewModel : ViewModel() {
     init {
         searchNowPlayingMovies()
         searchPopularMovies()
-        runTickerFlow(
-            interval = 1000L,
-            scope = viewModelScope,
-            action = { searchRecentComments(viewModelScope) },
-        )
     }
 
     private fun searchNowPlayingMovies() {
@@ -71,7 +65,7 @@ class HomeViewModel : ViewModel() {
         }
     }
 
-    private fun searchRecentComments(scope: CoroutineScope) {
+    fun searchRecentComments(scope: CoroutineScope) {
         scope.launch {
             commentRepository.getRecentComments().collectLatest { response ->
                 _uiState.update { state ->

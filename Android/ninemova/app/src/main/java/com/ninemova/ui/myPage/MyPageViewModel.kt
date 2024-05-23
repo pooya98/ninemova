@@ -6,8 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
 import com.ninemova.BuildConfig
-import com.ninemova.Network.utils.RepositoryUtils
 import com.ninemova.Network.response.openai.AnalysisResult
+import com.ninemova.Network.utils.RepositoryUtils
 import com.ninemova.domain.data.PieChartItem
 import com.ninemova.domain.data.User
 import com.ninemova.domain.data.UserTag
@@ -63,7 +63,8 @@ class MyPageViewModel : ViewModel() {
             favoriteRepository.getUserFavoriteMovies(localDataStoreRepository.getUserId())
                 .collectLatest { movieNames ->
                     movieNames?.let { list ->
-                        _favoriteMovies.value = list.joinToString(separator = ", ")
+                        _favoriteMovies.value =
+                            list.joinToString(separator = ", ")
                     }
                 }
         }

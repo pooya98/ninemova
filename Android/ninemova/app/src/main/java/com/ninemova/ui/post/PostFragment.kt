@@ -9,6 +9,7 @@ import com.ninemova.R
 import com.ninemova.databinding.FragmentPostBinding
 import com.ninemova.ui.adapter.ReplyListAdapter
 import com.ninemova.ui.base.BaseFragment
+import com.ninemova.ui.util.runTickerFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -25,6 +26,15 @@ class PostFragment : BaseFragment<FragmentPostBinding>(R.layout.fragment_post) {
         }
         setRecyclerView()
         collectUiEvent()
+        loadData()
+    }
+
+    private fun loadData() {
+        runTickerFlow(
+            interval = 1000L,
+            scope = lifecycleScope,
+            action = { postViewModel.loadReplies(lifecycleScope) },
+        )
     }
 
     private fun setRecyclerView() {
