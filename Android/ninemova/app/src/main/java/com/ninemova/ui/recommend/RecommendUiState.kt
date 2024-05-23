@@ -8,5 +8,8 @@ data class RecommendUiState(
     val aiRecommendMovieTitle: String? = "",
     val newWorldMovieTitle: String? = "",
     val selectedMovie: Movie? = null,
-    val genres: List<Genre> = listOf(),
+    val selectedTab: Int = 1,
+    val aiRecommendMovie: Movie? = null,
+    val newWorldMovie: Movie? = null,
+    val favoriteMovies: String = "",
 )

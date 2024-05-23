@@ -131,29 +131,24 @@
                 android:text="@{viewModel.uiState.selectedMovie.releaseDate}"
                 android:textColor="@color/white"
                 android:textSize="14dp"
-                app:layout_constraintBottom_toTopOf="@+id/scroll_view_chip_group"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 tools:text="(2024)" />
 
-            <LinearLayout
-                android:id="@+id/scroll_view_chip_group"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
 
-                <com.google.android.material.chip.ChipGroup
-                    android:id="@+id/chip_group_genres"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:maxWidth="0dp"
-                    app:chips="@{viewModel.uiState.genres}"
-                    app:singleLine="true" />
-            </LinearLayout>
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/btn_refresh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="10dp"
+                android:backgroundTint="@color/main_color_1"
+                android:foreground="@drawable/quantum_ic_refresh_white_24"
+                android:foregroundGravity="center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
